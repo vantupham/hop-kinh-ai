@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Các chatbot viết được cả bài văn, nhưng bí mật cốt lõi lại rất đơn giản: đoán chữ tiếp theo, nối vào, rồi đoán tiếp. Ở đây em sẽ tự tay xây một &quot;mô hình ngôn…">
+<meta name="keywords" content="Token, Mô hình ngôn ngữ, Nhiệt độ &amp; lấy mẫu, Ảo giác của AI, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Đoán chữ tiếp theo · Dự án AI 16 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Các chatbot viết được cả bài văn, nhưng bí mật cốt lõi lại rất đơn giản: đoán chữ tiếp theo, nối vào, rồi đoán tiếp. Ở đây em sẽ tự tay xây một &quot;mô hình ngôn…">
+<meta property="og:image" content="../../assets/og/16.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Đoán chữ tiếp theo · Dự án AI 16 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Đoán chữ tiếp theo · Dự án AI 16 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Các chatbot viết được cả bài văn, nhưng bí mật cốt lõi lại rất đơn giản: đoán chữ tiếp theo, nối vào, rồi đoán tiếp. Ở đây em sẽ tự tay xây một &quot;mô hình ngôn…">
+<meta name="twitter:image" content="../../assets/og/16.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 16: Đoán chữ tiếp theo", "description": "Các chatbot viết được cả bài văn, nhưng bí mật cốt lõi lại rất đơn giản: đoán chữ tiếp theo, nối vào, rồi đoán tiếp. Ở đây em sẽ tự tay xây một \"mô hình ngôn…", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Token", "Mô hình ngôn ngữ", "Nhiệt độ & lấy mẫu", "Ảo giác của AI"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/16.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Đoán chữ tiếp theo · Dự án AI 16 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 4</a> / DỰ ÁN 16</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div><h1>Đoán <span class="hl-word">chữ tiếp theo</span></h1><p class="lead">Các chatbot viết được cả bài văn, nhưng bí mật cốt lõi lại rất đơn giản: đoán chữ tiếp theo, nối vào, rồi đoán tiếp. Ở đây em sẽ tự tay xây một "mô hình ngôn ngữ" tí hon học từ ca dao, tục ngữ và những câu chuyện ở trường, xem nó tung xúc xắc chọn chữ, và bắt quả tang nó bịa chuyện.</p></div>
+  
+  <style>.gen-box{min-height:92px;padding:14px 16px;border-radius:14px;background:var(--surface-solid);border:1px solid var(--line-strong);font-size:1.15rem;line-height:2;margin-bottom:12px}
+  .tk{display:inline-block;padding:0 6px;margin:0 2px 4px 0;border-radius:6px;line-height:1.6}.tk.pr{background:color-mix(in srgb,var(--violet) 18%,transparent)}.tk.hi{background:color-mix(in srgb,var(--mint) 30%,transparent)}.tk.md{background:color-mix(in srgb,var(--amber) 32%,transparent)}.tk.lo{background:color-mix(in srgb,var(--coral) 34%,transparent)}
+  .lab .tk.pr{background:rgba(124,140,255,.3);color:#fff}.caret{display:inline-block;width:10px;height:1.1em;background:var(--violet);vertical-align:middle;animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
+  .prompt-row{display:flex;gap:8px;margin-bottom:10px}.prompt-row input,.teach textarea{flex:1;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid var(--line-strong);background:var(--surface-solid);color:var(--text);font:inherit}.teach textarea{width:100%;min-height:90px;resize:vertical}</style>
+  <div class="playground">
+    <div class="stage-col">
+      <div class="prompt-row"><input id="promptIn" aria-label="Câu mở đầu" placeholder="Gõ vài chữ mở đầu rồi bấm Enter"><button class="btn small accent" id="btnAuto"><i data-i="play"></i>Tự viết</button><button class="btn small ghost" id="btnStep"><i data-i="skip"></i>1 chữ</button></div>
+      <div class="gen-box" id="textOut" aria-live="polite"></div>
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Cây xác suất các chữ tiếp theo"></canvas><div class="stage-tag"><span class="live-dot"></span><span>MÔ HÌNH NGÔN NGỮ</span></div></div>
+      <div class="toolbar"><div class="btn-row" id="promptBtns"></div></div>
+      <div class="toolbar"><button class="btn small ghost" id="btnClear"><i data-i="reset"></i>Viết lại</button><button class="btn small" id="btnLie"><i data-i="alert"></i>Xem AI bịa</button></div>
+      <div class="note" id="lieBox" hidden><i data-i="alert"></i><span>Kho dữ liệu <b>chưa từng có câu nào về nước Lào</b>. Máy không biết, nhưng nó không biết là mình không biết: nó vẫn ghép tiếp chữ hay đi sau "là", tạo ra một câu trôi chảy, tự tin và <b>sai</b>. Đây là hiện tượng <b>ảo giác</b> của AI.</span></div>
+      <p class="small muted" style="margin:8px 0 0"><i data-i="bulb"></i> Màu của từng chữ: xanh là máy rất chắc, vàng là phân vân, cam là chữ hiếm được bốc trúng.</p>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="lbl">NGỮ CẢNH ĐANG NHÌN</div><div id="bCtx" style="margin:6px 0 4px;line-height:2"></div>
+      <div class="small" id="bNote" style="color:#c3c7f0;min-height:40px"></div>
+      <div class="metric-row" style="margin-top:10px"><div class="metric"><span>SỐ ỨNG VIÊN</span><b id="bCand">—</b></div><div class="metric"><span>XÁC SUẤT CHỮ VỪA CHỌN</span><b id="bConf">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>ĐOẠN CHÉP NGUYÊN VĂN</span><b id="bCopy">—</b></div><div class="metric"><span>TỪ ĐIỂN</span><b id="bVocab">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>SỐ TOKEN ĐÃ HỌC</span><b id="bTok">—</b></div><div class="metric"><span>CÁCH HỌC</span><b style="font-size:.9rem">đếm n-gram</b></div></div>
+    </aside>
+  </div>
+</div></section>
+
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Xây một mô hình ngôn ngữ tí hon và nhìn nó "nghĩ"</h2></div>
+  <div class="grid g2">
+    <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Máy không hiểu câu chữ. Vậy làm sao nó viết được câu nghe như thật?"</b></p><p class="muted">Em sẽ thấy câu bị cắt thành <b>token</b>, xem máy <b>đếm</b> trong dữ liệu để ra <b>xác suất</b>, chỉnh <b>nhiệt độ</b> để máy bớt hoặc thêm "liều", quay <b>vòng bốc thăm</b>, và hiểu vì sao AI có thể <b>bịa</b> một cách rất tự tin.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div></div>
+    <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist"><li data-k="write"><span class="box"><i data-i="check"></i></span>Cho máy viết ít nhất một câu</li><li data-k="pick"><span class="box"><i data-i="check"></i></span>Tự chọn chữ trên cây xác suất</li><li data-k="soi"><span class="box"><i data-i="check"></i></span>Soi tới bước Nhiệt độ</li><li data-k="lie"><span class="box"><i data-i="check"></i></span>Xem AI bịa</li><li data-k="teach"><span class="box"><i data-i="check"></i></span>Dạy máy thêm câu của em</li><li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm máy viết hỏng ít nhất 1 lần</li><li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li></ul></div>
+  </div>
+</div></section>
+
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Viết một chữ tiếp theo: 6 bước</h2><p class="muted">Hình bên dưới dùng đúng câu đang viết ở phần Mồi. Bấm "1 chữ" ở trên để xem từng bước thay đổi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain"><span class="chip" id="soiChip">BƯỚC 1/6</span><h3 id="soiTitle" style="margin-top:12px"></h3><div id="soiText"></div><div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div></div>
+  </div>
+</div></section>
+
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #61</span><span class="chip mint">Ngôn ngữ</span></div>
+      <h3>Token</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g font-size="13" class="f-ink"><rect x="14" y="40" width="52" height="34" rx="8" class="f-soft"/><text x="26" y="62">trời</text><rect x="72" y="40" width="52" height="34" rx="8" class="f-soft"/><text x="84" y="62">hôm</text><rect x="130" y="40" width="44" height="34" rx="8" class="f-soft"/><text x="140" y="62">nay</text><rect x="180" y="40" width="58" height="34" rx="8" class="f-mint"/><text x="190" y="62" fill="#1b1f4a">nắng</text></g><text x="20" y="100" font-size="10" class="t-mono f-muted">#412 #198 #233 #57</text></svg><p>Máy không đọc chữ như em mà cắt văn bản thành các mẩu gọi là <b>token</b>, rồi đổi mỗi token thành một con số. Ở đây mỗi âm tiết tiếng Việt là một token.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Các mô hình lớn cắt token theo cách thông minh hơn: từ hay gặp là một token, từ hiếm bị cắt thành nhiều mảnh. Tiếng Việt có dấu thường tốn nhiều token hơn tiếng Anh cho cùng một câu.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #62</span><span class="chip amber">Xác suất</span></div>
+      <h3>Mô hình ngôn ngữ</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="14" y="44" width="88" height="34" rx="8" class="f-violet"/><text x="24" y="66" font-size="12" fill="#fff">trời hôm nay</text><g class="s-line" stroke-width="2"><path d="M104 60 150 30M104 60 150 60M104 60 150 90"/></g><g font-size="12" class="f-ink"><text x="156" y="34">nắng 50%</text><text x="156" y="64">mưa 25%</text><text x="156" y="94">có 25%</text></g></svg><p><b>Mô hình ngôn ngữ</b> cho biết: với những token đã có, token tiếp theo có thể là gì và với <b>xác suất</b> bao nhiêu. Mô hình ở đây học bằng cách đếm; chatbot lớn dùng mạng nơ-ron khổng lồ, nhưng vẫn làm đúng việc này.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Mô hình chỉ nhìn vài token cuối được gọi là <b>n-gram</b>. Mạng nơ-ron hiện đại (Transformer) nhìn được hàng nghìn tới hàng triệu token phía trước, và tự học token nào quan trọng.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #63</span><span class="chip coral">Thuật toán</span></div>
+      <h3>Nhiệt độ & lấy mẫu</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g><rect x="20" y="70" width="20" height="30" class="f-violet"/><rect x="44" y="50" width="20" height="50" class="f-violet"/><rect x="68" y="85" width="20" height="15" class="f-violet"/></g><text x="22" y="118" font-size="10" class="t-mono f-muted">thấp: chắc</text><g><rect x="160" y="62" width="20" height="38" class="f-amber"/><rect x="184" y="58" width="20" height="42" class="f-amber"/><rect x="208" y="66" width="20" height="34" class="f-amber"/></g><text x="160" y="118" font-size="10" class="t-mono f-muted">cao: liều</text></svg><p>Máy không luôn chọn token mạnh nhất mà <b>bốc thăm</b> theo xác suất. <b>Nhiệt độ</b> quyết định bốc thăm "liều" tới đâu: thấp thì an toàn, lặp lại; cao thì bất ngờ, dễ lộn xộn.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Ngoài nhiệt độ, người ta còn dùng <b>top-k</b>: chỉ bốc trong k token mạnh nhất, để loại các lựa chọn quá vô lý. Em có thể thử cả hai ở Bàn thí nghiệm.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #64</span><span class="chip mint">Đạo đức</span></div>
+      <h3>Ảo giác của AI</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="20" y="30" width="220" height="60" rx="12" class="f-soft"/><text x="34" y="66" font-size="13" class="f-ink">thủ đô của lào là băng cốc.</text><path d="M30 100l200 0" class="s-coral" stroke-width="3" stroke-dasharray="6 5"/><text x="176" y="118" font-size="10" class="t-mono f-coral">trôi chảy ≠ đúng</text></svg><p>Mô hình chỉ học chữ nào hay đi với chữ nào, <b>không</b> có cách kiểm tra điều nó viết có đúng không. Khi thiếu hiểu biết, nó vẫn viết trôi chảy và tự tin: đó là <b>ảo giác</b> (bịa).</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Chatbot lớn cũng bịa: sự kiện, con số, cả tên sách và đường link không tồn tại. Vì vậy em luôn cần <b>kiểm tra lại với nguồn tin cậy</b>. Dự án 20 sẽ giới thiệu một cách giảm bịa: bắt AI trả lời dựa trên tài liệu.</p></details></article></div>
+</div></section>
+
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: chỉnh bộ não ngôn ngữ và dạy nó câu mới</h2><p class="muted">Mỗi thay đổi có hiệu lực ngay với chữ tiếp theo ở phần Mồi. Biểu đồ cho thấy xác suất của từng chữ mà máy đã chọn.</p></div>
+  
+  <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Độ chắc chắn của từng chữ máy vừa viết</b></div><canvas id="chart" width="1100" height="230"></canvas></div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Cách đoán</h3>
+      <label class="ctl"><span>Nhiệt độ</span><b id="TV"></b><input type="range" id="T" min="0" max="3" step="0.1"></label>
+      <label class="ctl"><span>Độ dài ngữ cảnh</span><b id="nV"></b><input type="range" id="n" min="1" max="4" step="1"></label>
+      <label class="ctl"><span>Chỉ bốc trong top-k</span><b id="topKV"></b><input type="range" id="topK" min="0" max="10" step="1"></label>
+      <label class="tog" style="display:block;margin:6px 0 12px"><input type="checkbox" id="backoff"><span>Trộn với ngữ cảnh ngắn hơn (và lùi khi chưa gặp)</span></label>
+      <h3 class="h-ic"><span class="ico-box sm amber"><i data-i="layers"></i></span>Bảng đếm cho ngữ cảnh hiện tại</h3>
+      <div class="lab" id="countTbl"></div>
+    </div>
+    <div class="card teach">
+      <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="book"></i></span>Dạy máy thêm câu của em</h3>
+      <p class="small muted">Mỗi dòng một câu, ví dụ ca dao em thích hoặc câu kể về lớp em. Máy học lại ngay bằng cách đếm.</p>
+      <textarea id="teachIn" aria-label="Câu dạy thêm" placeholder="lớp em có bể cá rất đẹp.&#10;bể cá có ba con cá vàng."></textarea>
+      <div style="margin-top:8px"><button class="btn small accent" id="btnTeach"><i data-i="upload"></i>Dạy máy</button></div>
+      <p class="small muted" id="teachInfo"></p>
+      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật</h3><pre class="code" id="genCode"></pre>
+    </div>
+  </div>
+</div></section>
+
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm mô hình ngôn ngữ viết hỏng!</h2><p class="muted"></p></div>
+  <div class="grid g3">
+    <div class="card break"><div class="ico-box coral"><i data-i="sun"></i></div><span class="chip coral">SỰ CỐ 1</span><h3>Sốt cao</h3><p>Nhiệt độ vọt lên <b>3</b>, và máy chỉ nhìn <b>1 token</b> cuối.</p>
+      <button class="btn small coral" data-break="hot"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Xác suất bị san gần như đều nhau, nên những chữ rất hiếm cũng dễ được bốc. Câu thành một mớ chữ lộn xộn (nhiều chữ màu cam). Hạ nhiệt độ về khoảng 0,7–1 và tăng ngữ cảnh lên 2.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="repeat"></i></div><span class="chip coral">SỰ CỐ 2</span><h3>Lạnh cứng</h3><p>Nhiệt độ <b>0</b>: máy luôn chọn chữ mạnh nhất, chỉ nhìn 1 token.</p>
+      <button class="btn small coral" data-break="cold"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Cùng một chữ luôn dẫn tới cùng một chữ tiếp theo, nên máy dễ quay vòng một cụm từ tới khi hết lượt. Tăng nhiệt độ lên một chút để có sự đa dạng, hoặc tăng ngữ cảnh.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="book"></i></div><span class="chip coral">SỰ CỐ 3</span><h3>Học vẹt</h3><p>Ngữ cảnh dài tới <b>4 token</b>, tắt việc trộn với ngữ cảnh ngắn, trong khi kho dữ liệu chỉ có hơn trăm câu.</p>
+      <button class="btn small coral" data-break="parrot"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Mỗi ngữ cảnh 4 token gần như chỉ xuất hiện một lần, nên máy chép <b>nguyên văn</b> câu trong dữ liệu (xem ô Đoạn chép nguyên văn). Máy không sáng tạo, chỉ nhớ. Ngữ cảnh dài chỉ có ích khi có rất nhiều dữ liệu. Giảm ngữ cảnh xuống 2 và bật lại việc trộn.</p></details></div></div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Mô hình ngôn ngữ đang được dùng ở đâu?</h2></div>
+  <div class="grid g3"><div class="card"><div class="ico-box "><i data-i="msg"></i></div><h3>Gợi ý chữ trên bàn phím</h3><p class="muted">Bàn phím điện thoại gợi ý chữ tiếp theo khi em nhắn tin: đó là một mô hình ngôn ngữ nhỏ chạy ngay trên máy.</p></div><div class="card"><div class="ico-box mint"><i data-i="robot"></i></div><h3>Chatbot</h3><p class="muted">Các chatbot viết thư, giải thích bài, viết code đều đoán từng token một, với mạng nơ-ron rất lớn.</p></div><div class="card"><div class="ico-box amber"><i data-i="globe"></i></div><h3>Dịch máy</h3><p class="muted">Dịch một câu cũng là đoán lần lượt các token của câu ở ngôn ngữ đích.</p></div></div>
+  <div class="card ethics" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3><ul><li>Một bạn dùng chatbot làm bài văn rồi nộp. Bài viết đó thể hiện điều gì về bạn ấy? Thầy cô nên phản ứng thế nào?</li><li>Chatbot nói một thông tin sai rất tự tin. Em sẽ kiểm tra bằng cách nào trước khi tin hay chia sẻ?</li><li>Mô hình học từ văn bản trên mạng, trong đó có cả định kiến. Điều gì xảy ra với câu văn nó viết ra?</li></ul></div>
+</div></section>
+
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden><svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg><div><h3>Huy hiệu "Thợ Dệt Chữ"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Token · Mô hình ngôn ngữ · Nhiệt độ & lấy mẫu · Ảo giác của AI.</p></div></div>
+</div></section>
+
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ đoán chữ tiếp theo đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf"><div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div><h3>Máy làm ca dao</h3><p><b>Gợi ý:</b> Dạy máy 50–100 câu ca dao (dân gian, không có bản quyền) rồi cho nó viết câu mới. Thêm nút đếm số chữ để kiểm tra nhịp 6–8.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> cả lớp bình chọn được 3 câu máy viết nghe giống ca dao nhất.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div><h3>Máy viết thơ lục bát</h3><p><b>Gợi ý:</b> Ràng buộc máy theo luật lục bát: câu 6 chữ rồi câu 8 chữ, chữ thứ 6 câu 8 vần với chữ thứ 6 câu 6. Chỉ bốc những chữ thỏa luật.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> máy viết được 4 câu đúng số chữ và đúng vần.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div><h3>Phát hiện văn bản do AI viết</h3><p><b>Gợi ý:</b> So sánh độ "bất ngờ" (xác suất trung bình của từng chữ) giữa bài văn học sinh tự viết và bài do chatbot viết, trên một mô hình ngôn ngữ chung.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> tỉ lệ phân biệt đúng, và đặc biệt tỉ lệ nghi oan bài học sinh tự viết.</span></p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13"><rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">16 · Đoán chữ</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text><rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">17 · Cảm xúc câu nói</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">biến chữ thành vector</text><rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">20 · Trợ lý hỏi đáp SGK</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">giảm bịa bằng tài liệu</text><rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">11 · Chữ số</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">mạng nơ-ron bên trong mô hình lớn</text></g>
+      </svg></div>
+    <div class="card khkt"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3><dl><dt>Vấn đề</dt><dd>Khó phân biệt bài văn học sinh tự viết với bài do AI viết.</dd><dt>Câu hỏi nghiên cứu</dt><dd>Độ bất ngờ của từng chữ có giúp phân biệt hai loại văn bản không?</dd><dt>Giả thuyết</dt><dd>Văn bản AI có độ bất ngờ thấp và đều hơn văn bản học sinh.</dd><dt>Lưu ý đạo đức</dt><dd>Không dùng kết quả để buộc tội bạn nào; công cụ có thể nghi oan.</dd></dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p></div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../15-thu-ngu/index.html"><i data-i="arrowL"></i>Dự án 15</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../17-cam-xuc/index.html">Dự án 17<i data-i="arrowR"></i></a></p>
+</div></section><footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 16 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="corpus.js"></script>
+<script src="lm.js"></script>
+</body>
+</html>

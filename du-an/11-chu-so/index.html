@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Vẽ một chữ số bằng chuột hoặc ngón tay, và xem bộ não nhân tạo đọc nó: 256 ô ảnh chảy qua các nơ-ron, từng nơ-ron sáng lên, rồi 10 đầu ra &quot;bỏ phiếu&quot;. Lần đầu…">
+<meta name="keywords" content="Nơ-ron nhân tạo, Hàm kích hoạt, Đặc trưng tự học, Lan truyền ngược, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Đọc chữ số viết tay · Dự án AI 11 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Vẽ một chữ số bằng chuột hoặc ngón tay, và xem bộ não nhân tạo đọc nó: 256 ô ảnh chảy qua các nơ-ron, từng nơ-ron sáng lên, rồi 10 đầu ra &quot;bỏ phiếu&quot;. Lần đầu…">
+<meta property="og:image" content="../../assets/og/11.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Đọc chữ số viết tay · Dự án AI 11 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Đọc chữ số viết tay · Dự án AI 11 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Vẽ một chữ số bằng chuột hoặc ngón tay, và xem bộ não nhân tạo đọc nó: 256 ô ảnh chảy qua các nơ-ron, từng nơ-ron sáng lên, rồi 10 đầu ra &quot;bỏ phiếu&quot;. Lần đầu…">
+<meta name="twitter:image" content="../../assets/og/11.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 11: Đọc chữ số viết tay", "description": "Vẽ một chữ số bằng chuột hoặc ngón tay, và xem bộ não nhân tạo đọc nó: 256 ô ảnh chảy qua các nơ-ron, từng nơ-ron sáng lên, rồi 10 đầu ra \"bỏ phiếu\". Lần đầu…", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Nơ-ron nhân tạo", "Hàm kích hoạt", "Đặc trưng tự học", "Lan truyền ngược"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/11.jpg", "datePublished": "2026-11-12", "timeRequired": "PT75M"}]}</script>
+<!--seo:end-->
+<title>Đọc chữ số viết tay · Dự án AI 11 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 3</a> / DỰ ÁN 11</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div><h1>Đọc <span class="hl-word">chữ số viết tay</span></h1><p class="lead">Vẽ một chữ số bằng chuột hoặc ngón tay, và xem bộ não nhân tạo đọc nó: 256 ô ảnh chảy qua các nơ-ron, từng nơ-ron sáng lên, rồi 10 đầu ra "bỏ phiếu". Lần đầu tiên, em mở hẳn một mạng nơ-ron ra để xem bên trong!</p></div>
+  
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Bảng vẽ chữ số và sơ đồ mạng nơ-ron"></canvas><div class="stage-tag"><span class="live-dot"></span><span>MẠNG NƠ-RON</span></div></div>
+      <div class="toolbar">
+        <div class="seg"><button class="btn small ghost" id="btnClear"><i data-i="reset"></i>Xóa bảng</button><button class="btn small" id="btnDemo" aria-pressed="true"><i data-i="play"></i>Máy tự viết mẫu</button></div>
+        <span class="muted small"><i data-i="bulb"></i> Bấm vào chấm tròn ở cột giữa để chọn nơ-ron</span>
+      </div>
+      <div class="game"><span class="small muted">Dạy thêm: chữ em vừa vẽ là số</span><div class="btn-row" id="labelBtns"></div></div>
+      <p class="small muted" id="ownInfo" style="margin:8px 0 0"></p>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result" id="bResult"><small>AI ĐỌC ĐƯỢC</small>—</div>
+      <div class="lbl" style="margin-top:12px">XÁC SUẤT 10 ĐẦU RA</div>
+      <div class="bars" id="bProbs"></div>
+      <div class="metric-row"><div class="metric"><span>ĐỘ CHÍNH XÁC KIỂM TRA</span><b id="bTest">—</b></div><div class="metric"><span>SỐ TRỌNG SỐ</span><b id="nParams">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">TRẠNG THÁI</div><div id="trainStatus" style="color:#fff"></div>
+    </aside>
+  </div>
+</div></section>
+
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Mở một mạng nơ-ron ra và xem nó tự học cách đọc chữ</h2></div>
+  <div class="grid g2">
+    <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Không ai viết luật "số 8 có hai vòng tròn". Vậy làm sao mạng nơ-ron biết?"</b></p><p class="muted">Em sẽ xem từng <b>nơ-ron</b> tính toán, hiểu vì sao cần <b>hàm kích hoạt</b>, và thấy các nơ-ron ẩn <b>tự học</b> ra những nét đặc trưng. Cuối cùng là <b>lan truyền ngược</b>: cách cả mạng học từ sai lầm của mình.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>60–75 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div></div>
+    <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist"><li data-k="draw"><span class="box"><i data-i="check"></i></span>Tự vẽ ít nhất 3 chữ số và xem AI đọc</li><li data-k="neuron"><span class="box"><i data-i="check"></i></span>Xem bên trong một nơ-ron</li><li data-k="train"><span class="box"><i data-i="check"></i></span>Huấn luyện lại mạng với số nơ-ron khác</li><li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm mạng đọc sai ít nhất 1 lần</li><li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li></ul></div>
+  </div>
+</div></section>
+
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Từ nét vẽ tới con số: 6 bước bên trong mạng nơ-ron</h2><p class="muted">Hình bên dưới dùng đúng chữ số đang có trên bảng vẽ ở phần Mồi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain"><span class="chip" id="soiChip">BƯỚC 1/6</span><h3 id="soiTitle" style="margin-top:12px"></h3><div id="soiText"></div><div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div></div>
+  </div>
+</div></section>
+
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #41</span><span class="chip mint">Mạng nơ-ron</span></div>
+      <h3>Nơ-ron nhân tạo</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g class="f-mint"><circle cx="30" cy="30" r="8"/><circle cx="30" cy="60" r="8"/><circle cx="30" cy="90" r="8"/></g><g class="s-line" stroke-width="2"><path d="M38 30 118 60M38 60 118 60M38 90 118 60"/></g><text x="64" y="34" font-size="10" class="t-mono f-coral">w₁</text><text x="64" y="56" font-size="10" class="t-mono f-coral">w₂</text><text x="64" y="86" font-size="10" class="t-mono f-coral">w₃</text><circle cx="134" cy="60" r="18" class="f-violet"/><text x="134" y="65" text-anchor="middle" font-size="14" fill="#fff">Σ</text><path d="M152 60h30" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><text x="190" y="64" font-size="11" class="t-mono f-ink">f(Σ)</text></svg><p>Một nơ-ron nhận nhiều số đầu vào, nhân mỗi số với một <b>trọng số</b> (độ quan trọng), cộng lại, rồi cho qua một hàm. Đơn giản vậy thôi! Sức mạnh đến từ việc ghép <b>rất nhiều</b> nơ-ron lại với nhau.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Ý tưởng này lấy cảm hứng từ tế bào thần kinh, nhưng nơ-ron nhân tạo đơn giản hơn rất nhiều. Mạng trong dự án này có vài nghìn trọng số; các mô hình ngôn ngữ lớn có tới hàng trăm tỉ.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #42</span><span class="chip mint">Toán + AI</span></div>
+      <h3>Hàm kích hoạt</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><path d="M20 90H240M130 20v90" class="s-line" stroke-width="1"/><path d="M20 90 130 90 230 24" fill="none" class="s-violet" stroke-width="3"/><text x="150" y="104" font-size="11" class="t-mono f-violet">ReLU(z) = max(0, z)</text><text x="24" y="80" font-size="10" class="t-mono f-muted">âm → tắt</text><text x="180" y="60" font-size="10" class="t-mono f-muted">dương → sáng</text></svg><p>Sau khi cộng, nơ-ron quyết định có "sáng" hay không. <b>ReLU</b> giữ số dương và biến số âm thành 0. Nếu bỏ bước này, nhiều lớp nơ-ron ghép lại cũng chỉ bằng một phép tính thẳng, không học được điều phức tạp.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Sigmoid (hình chữ S) từng rất phổ biến nhưng học chậm khi mạng sâu. ReLU đơn giản hơn và giúp mạng sâu học tốt, nên trở thành lựa chọn mặc định. Em có thể đổi hàm kích hoạt trong Bàn thí nghiệm để so sánh.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #43</span><span class="chip coral">Học máy</span></div>
+      <h3>Đặc trưng tự học</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g><rect x="20" y="30" width="56" height="56" rx="6" class="f-soft"/><path d="M36 46a12 12 0 1 0 24 0a12 12 0 1 0-24 0" fill="none" stroke="#ff7d5f" stroke-width="5"/></g><g><rect x="100" y="30" width="56" height="56" rx="6" class="f-soft"/><path d="M140 36v44" stroke="#ff7d5f" stroke-width="5"/></g><g><rect x="180" y="30" width="56" height="56" rx="6" class="f-soft"/><path d="M188 76h40" stroke="#ff7d5f" stroke-width="5"/></g><text x="22" y="106" font-size="10" class="t-mono f-muted">vòng trên · nét dọc · nét ngang</text></svg><p>Ở Dự án 2 và 6, <b>con người</b> chọn đặc trưng. Ở đây, mỗi nơ-ron ẩn <b>tự học</b> ra một mẫu nét có ích, như vòng tròn phía trên hay nét dọc bên phải. Lớp sau ghép các nét đó lại để nhận ra chữ số.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Mạng càng nhiều lớp thì đặc trưng càng trừu tượng: lớp đầu thấy nét, lớp sau thấy hình, lớp sau nữa thấy vật. Đây là lý do có tên "học sâu" (deep learning).</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #44</span><span class="chip amber">Thuật toán</span></div>
+      <h3>Lan truyền ngược</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g class="f-violet"><circle cx="40" cy="60" r="12"/><circle cx="130" cy="40" r="12"/><circle cx="130" cy="80" r="12"/><circle cx="220" cy="60" r="12"/></g><g class="s-line" stroke-width="1.5"><path d="M52 60 118 40M52 60 118 80M142 40 208 60M142 80 208 60"/></g><path d="M208 72 150 92" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><path d="M118 92 58 74" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><text x="150" y="112" font-size="10" class="t-mono f-coral">sai số chảy ngược</text></svg><p>Khi mạng đoán sai, ta đo <b>sai số</b> ở đầu ra rồi truyền nó <b>ngược</b> về từng lớp để biết mỗi trọng số đã góp bao nhiêu vào cái sai. Mỗi trọng số được chỉnh một chút theo hướng làm sai số nhỏ đi.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Toán học đằng sau là <b>quy tắc đạo hàm của hàm hợp</b> (chain rule). Lan truyền ngược cộng với gradient descent (Dự án 7) là cách gần như mọi mạng nơ-ron hiện đại được huấn luyện.</p></details></article></div>
+</div></section>
+
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: xây và huấn luyện bộ não của em</h2><p class="muted">Chọn số nơ-ron, hàm kích hoạt, tốc độ học, rồi bấm Huấn luyện. Bên dưới là "mẫu nét" mà từng nơ-ron ẩn tự học được: đỏ là thích, xanh là ghét.</p></div>
+  
+  <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Độ chính xác qua từng vòng học</b><span class="legend"><i class="lg sm"></i>tập học <i class="lg" style="background:var(--mint)"></i>tập kiểm tra</span></div><canvas id="chart" width="1100" height="220"></canvas></div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Kiến trúc & cách học</h3>
+      <label class="ctl"><span>Số nơ-ron lớp ẩn</span><b id="HV"></b><input type="range" id="H" min="2" max="64" step="1"></label>
+      <div class="lbl muted small" style="margin:6px 0">HÀM KÍCH HOẠT</div>
+      <div class="btn-row" id="actBtns"><button class="btn small ghost" data-a="relu">ReLU</button><button class="btn small ghost" data-a="sigmoid">Sigmoid</button><button class="btn small ghost" data-a="linear">Không có</button></div>
+      <label class="ctl" style="margin-top:12px"><span>Tốc độ học</span><b id="lrV"></b><input type="range" id="lr" min="0.005" max="3" step="0.005"></label>
+      <label class="ctl"><span>Số vòng học</span><b id="epochsV"></b><input type="range" id="epochs" min="1" max="40" step="1"></label>
+      <label class="tog" style="display:inline-block;margin:6px 0 10px"><input type="checkbox" id="norm"><span>Căn giữa & phóng vừa chữ số</span></label>
+      <div><button class="btn small accent" id="btnTrain"><i data-i="play"></i>Huấn luyện</button></div>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm coral"><i data-i="checkCircle"></i></span>Ma trận nhầm lẫn (200 chữ số kiểm tra)</h3>
+      <div class="lab" id="confOut"></div>
+    </div>
+    <div class="card canvas-card">
+      <h3 class="h-ic"><span class="ico-box sm amber"><i data-i="eye"></i></span>Mẫu nét mỗi nơ-ron ẩn đã tự học</h3>
+      <canvas id="weights" width="680" height="350"></canvas>
+      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của mạng</h3><pre class="code" id="genCode"></pre>
+    </div>
+  </div>
+</div></section>
+
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm mạng nơ-ron đọc sai!</h2><p class="muted"></p></div>
+  <div class="grid g3">
+    <div class="card break"><div class="ico-box coral"><i data-i="cpu"></i></div><span class="chip coral">SỰ CỐ 1</span><h3>Bộ não tí hon</h3><p>Lớp ẩn chỉ còn <b>2 nơ-ron</b>. Liệu 2 nơ-ron có đủ để phân biệt 10 chữ số?</p>
+      <button class="btn small coral" data-break="tiny"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Hai nơ-ron chỉ học được hai "mẫu nét", quá ít để phân biệt 10 chữ số. Xem độ chính xác và ma trận nhầm lẫn. Tăng lên 16–32 nơ-ron. Nhưng nhiều quá cũng không tốt: tốn thời gian và dễ quá khớp (Dự án 6).</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="bolt"></i></div><span class="chip coral">SỰ CỐ 2</span><h3>Tốc độ học quá lớn</h3><p>Tốc độ học tăng vọt lên <b>2,5</b>. Mỗi lần học, các trọng số bị đẩy đi quá xa.</p>
+      <button class="btn small coral" data-break="lr"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Giống viên bi ở Dự án 7, các trọng số nhảy lung tung và không bao giờ ổn định, thậm chí nhiều nơ-ron "chết" (luôn ra 0 với ReLU). Giảm tốc độ học xuống khoảng 0,05.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="crosshair"></i></div><span class="chip coral">SỰ CỐ 3</span><h3>Chữ nhỏ trong góc</h3><p>Máy viết mẫu bắt đầu viết chữ <b>rất nhỏ ở góc</b> bảng, và bước <b>căn giữa</b> bị tắt.</p>
+      <button class="btn small coral" data-break="small"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Mạng chỉ từng thấy chữ số to và ở giữa, nên chữ nhỏ ở góc trông như một thứ hoàn toàn khác. Bật <b>Căn giữa & phóng vừa</b> rồi huấn luyện lại. Mạng tích chập ở Dự án 14 giải quyết vấn đề này theo cách thông minh hơn.</p></details></div></div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Mạng nơ-ron đọc chữ đang được dùng ở đâu?</h2></div>
+  <div class="grid g3"><div class="card"><div class="ico-box "><i data-i="send"></i></div><h3>Phân loại thư</h3><p class="muted">Bưu điện dùng máy đọc mã bưu chính viết tay trên phong bì từ nhiều chục năm nay; đây là một trong những ứng dụng đầu tiên của mạng nơ-ron.</p></div><div class="card"><div class="ico-box mint"><i data-i="camera"></i></div><h3>Quét chữ bằng điện thoại</h3><p class="muted">Ứng dụng chụp ảnh và chuyển chữ in hoặc chữ viết tay thành văn bản, kể cả tiếng Việt có dấu.</p></div><div class="card"><div class="ico-box amber"><i data-i="checkCircle"></i></div><h3>Chấm bài trắc nghiệm</h3><p class="muted">Máy quét phiếu trả lời trắc nghiệm, đọc số báo danh và mã đề viết tay của thí sinh.</p></div></div>
+  <div class="card ethics" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3><ul><li>Nếu máy chấm thi đọc nhầm số báo danh của một bạn, ai chịu trách nhiệm? Làm sao để phát hiện lỗi?</li><li>Máy học từ chữ viết của học sinh thành phố có đọc tốt chữ của người lớn tuổi, hay chữ viết bằng tay trái không?</li><li>Mạng nơ-ron có hàng nghìn trọng số, khó giải thích hơn cây quyết định (Dự án 10). Khi nào ta chấp nhận dùng một mô hình khó giải thích?</li></ul></div>
+</div></section>
+
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden><svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg><div><h3>Huy hiệu "Kỹ Sư Nơ-ron"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Nơ-ron nhân tạo · Hàm kích hoạt · Đặc trưng tự học · Lan truyền ngược.</p></div></div>
+</div></section>
+
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ đọc chữ số đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf"><div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div><h3>Thêm chữ cái và dấu</h3><p><b>Gợi ý:</b> Thêm các lớp mới như +, −, × hoặc vài chữ cái. Mỗi lớp vẽ 20–30 mẫu bằng tay của cả nhóm và tăng số đầu ra của mạng.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> đọc đúng trên 80% với mẫu của bạn ngoài nhóm.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div><h3>Máy tính bỏ túi viết tay</h3><p><b>Gợi ý:</b> Cắt dòng chữ thành từng ký tự (tách theo cột trống), đọc từng ký tự rồi tính kết quả, ví dụ "12+7" thành 19.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> giải đúng 8/10 phép tính viết tay.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div><h3>Đọc chữ viết tay tiếng Việt có dấu</h3><p><b>Gợi ý:</b> Xây bộ dữ liệu chữ cái tiếng Việt viết tay của học sinh. Nghiên cứu cách tách và nhận dạng riêng phần dấu (sắc, huyền, hỏi, ngã, nặng) với phần chữ.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> độ chính xác theo từng loại dấu, so sánh giữa nhận dạng gộp và nhận dạng tách riêng.</span></p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13"><rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">11 · Chữ số</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text><rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">12 · Phông nền ảo</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">phân loại từng điểm ảnh</text><rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">14 · Bác sĩ lá cây</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">mạng tích chập</text><rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">16 · Đoán chữ tiếp theo</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">mạng cho ngôn ngữ</text></g>
+      </svg></div>
+    <div class="card khkt"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3><dl><dt>Vấn đề</dt><dd>Chữ viết tay tiếng Việt có dấu khó nhận dạng hơn chữ tiếng Anh.</dd><dt>Câu hỏi nghiên cứu</dt><dd>Tách nhận dạng dấu riêng có cải thiện độ chính xác so với nhận dạng cả chữ không?</dd><dt>Giả thuyết</dt><dd>Tách dấu giúp tăng độ chính xác với các chữ cùng gốc như a, á, à, ả, ã, ạ.</dd><dt>Lưu ý đạo đức</dt><dd>Thu thập chữ viết có sự đồng ý; không ghi tên người viết vào dữ liệu.</dd></dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p></div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../10-tu-the-ngoi/index.html"><i data-i="arrowL"></i>Dự án 10</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../12-phong-nen/index.html">Dự án 12<i data-i="arrowR"></i></a></p>
+</div></section><footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 11 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="digit-gen.js"></script>
+<script src="digits.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Không ai chỉ đường cho chú robot này. Nó chỉ biết mình đang đứng ở ô nào, được thưởng khi tới đích và bị phạt khi rơi bẫy. Ban đầu nó đi lung tung, nhưng sau…">
+<meta name="keywords" content="Học tăng cường, Bảng Q, Khám phá &amp; khai thác, Thưởng sai, học sai, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robot thoát mê cung · Dự án AI 18 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Không ai chỉ đường cho chú robot này. Nó chỉ biết mình đang đứng ở ô nào, được thưởng khi tới đích và bị phạt khi rơi bẫy. Ban đầu nó đi lung tung, nhưng sau…">
+<meta property="og:image" content="../../assets/og/18.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Robot thoát mê cung · Dự án AI 18 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Robot thoát mê cung · Dự án AI 18 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Không ai chỉ đường cho chú robot này. Nó chỉ biết mình đang đứng ở ô nào, được thưởng khi tới đích và bị phạt khi rơi bẫy. Ban đầu nó đi lung tung, nhưng sau…">
+<meta name="twitter:image" content="../../assets/og/18.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 18: Robot thoát mê cung", "description": "Không ai chỉ đường cho chú robot này. Nó chỉ biết mình đang đứng ở ô nào, được thưởng khi tới đích và bị phạt khi rơi bẫy. Ban đầu nó đi lung tung, nhưng sau…", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Học tăng cường", "Bảng Q", "Khám phá & khai thác", "Thưởng sai, học sai"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/18.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Robot thoát mê cung · Dự án AI 18 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 4</a> / DỰ ÁN 18</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div><h1>Robot <span class="hl-word">thoát mê cung</span></h1><p class="lead">Không ai chỉ đường cho chú robot này. Nó chỉ biết mình đang đứng ở ô nào, được thưởng khi tới đích và bị phạt khi rơi bẫy. Ban đầu nó đi lung tung, nhưng sau vài trăm lượt, em sẽ thấy "giá trị" của đích lan dần khắp mê cung như một tấm bản đồ nhiệt, và robot tìm ra đường.</p></div>
+  
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Mê cung với bản đồ giá trị và robot"></canvas><div class="stage-tag"><span class="live-dot"></span><span>HỌC TĂNG CƯỜNG</span></div></div>
+      <div class="toolbar">
+        <div class="seg"><button class="btn small" id="btnRun"></button><button class="btn small ghost" id="btnStep"><i data-i="skip"></i>1 bước</button><button class="btn small ghost" id="btnFast"><i data-i="bolt"></i>Học nhanh 200 lượt</button></div>
+        <div class="seg"><button class="btn small ghost" id="btnPath"><i data-i="arrowR"></i>Đường đi tốt nhất</button><button class="btn small ghost" id="btnFour"><i data-i="blocks"></i>4 giá trị Q</button></div>
+      </div>
+      <div class="game"><span class="small muted">Vẽ lên mê cung</span><div class="btn-row" id="toolBtns"><button class="btn small" data-t="#">Tường</button><button class="btn small ghost" data-t="X">Bẫy</button><button class="btn small ghost" data-t="$">Xu</button><button class="btn small ghost" data-t="G">Đích</button><button class="btn small ghost" data-t=".">Xóa</button><button class="btn small ghost" data-t="S">Chỗ xuất phát</button></div></div>
+      <div class="game"><span class="small muted">Mê cung</span><div class="btn-row" id="mapBtns"><button class="btn small ghost" data-m="mau">Mê cung mẫu</button><button class="btn small ghost" data-m="trong">Sân trống</button><button class="btn small ghost" id="btnReset"><i data-i="reset"></i>Xóa trí nhớ robot</button></div></div>
+      <p class="small muted" style="margin:8px 0 0"><i data-i="bulb"></i> Màu ô: vàng sáng là ô có giá trị cao (gần đích), tím là ô nguy hiểm. Mũi tên là hướng robot cho là tốt nhất.</p>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="metric-row"><div class="metric"><span>LƯỢT CHƠI</span><b id="bEp">0</b></div><div class="metric"><span>BƯỚC TRONG LƯỢT</span><b id="bStep">0</b></div></div>
+      <div class="metric-row"><div class="metric"><span>SỐ LẦN TỚI ĐÍCH</span><b id="bWin">0</b></div><div class="metric"><span>TỚI ĐÍCH / 20 LƯỢT GẦN NHẤT</span><b id="bRate">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">NƯỚC ĐI VỪA RỒI</div><div id="bAct" style="color:#fff"></div>
+      <div class="lbl" style="margin-top:12px">BẢNG Q CỦA Ô ĐANG ĐỨNG</div><div class="bars" id="bQ"></div>
+    </aside>
+  </div>
+</div></section>
+
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Dạy robot bằng phần thưởng thay vì đáp án</h2></div>
+  <div class="grid g2">
+    <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Không có bản đồ, không có người chỉ đường. Robot học bằng cách nào?"</b></p><p class="muted">Em sẽ thấy robot <b>thử và sai</b>, nhận <b>phần thưởng</b>, ghi kinh nghiệm vào <b>bảng Q</b>, cân bằng giữa <b>khám phá</b> và <b>khai thác</b>, rồi tự vẽ mê cung để thử thách nó. Cuối cùng là bài học quan trọng nhất: thưởng sai thì robot học sai.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div></div>
+    <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist"><li data-k="win"><span class="box"><i data-i="check"></i></span>Xem robot tới đích ít nhất 3 lần</li><li data-k="fast"><span class="box"><i data-i="check"></i></span>Cho robot học nhanh 200 lượt</li><li data-k="path"><span class="box"><i data-i="check"></i></span>Bật Đường đi tốt nhất</li><li data-k="soi"><span class="box"><i data-i="check"></i></span>Soi tới bước Cập nhật bảng Q</li><li data-k="edit"><span class="box"><i data-i="check"></i></span>Tự vẽ thêm tường, bẫy hoặc xu</li><li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm robot học hỏng ít nhất 1 lần</li><li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li></ul></div>
+  </div>
+</div></section>
+
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Một bước học của robot: 6 bước</h2><p class="muted">Hình bên dưới dùng đúng bước vừa diễn ra ở phần Mồi. Tạm dừng rồi bấm "1 bước" để xem chậm.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain"><span class="chip" id="soiChip">BƯỚC 1/6</span><h3 id="soiTitle" style="margin-top:12px"></h3><div id="soiText"></div><div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div></div>
+  </div>
+</div></section>
+
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #69</span><span class="chip mint">Học máy</span></div>
+      <h3>Học tăng cường</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="20" y="40" width="70" height="44" rx="10" class="f-violet"/><text x="34" y="67" font-size="12" fill="#fff">Robot</text><rect x="170" y="40" width="74" height="44" rx="10" class="f-soft"/><text x="178" y="67" font-size="12" class="f-ink">Mê cung</text><path d="M92 52h74" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><path d="M168 74H96" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><text x="106" y="44" font-size="10" class="t-mono f-violet">hành động</text><text x="100" y="98" font-size="10" class="t-mono f-coral">thưởng, ô mới</text></svg><p>Trong <b>học tăng cường</b>, không ai đưa đáp án. Robot (tác tử) <b>hành động</b>, môi trường trả lại <b>phần thưởng</b> và trạng thái mới. Mục tiêu: tìm cách hành động để tổng phần thưởng lớn nhất.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đây là cách AI học chơi cờ vây, điều khiển robot đi bộ, và một phần cách huấn luyện chatbot (học từ đánh giá của con người).</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #70</span><span class="chip amber">Thuật toán</span></div>
+      <h3>Bảng Q</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g class="s-line" stroke-width="1"><rect x="80" y="20" width="90" height="90" fill="none"/><path d="M80 20l90 90M170 20l-90 90"/></g><g font-size="12" class="t-mono"><text x="114" y="44" class="f-mint">2.1</text><text x="140" y="70" class="f-mint">6.4</text><text x="114" y="98" class="f-coral">-3</text><text x="86" y="70" class="f-ink">0.5</text></g><text x="20" y="124" font-size="10" class="t-mono f-muted">4 giá trị cho 4 hướng của một ô</text></svg><p>Mỗi ô có 4 con số <b>Q</b>, một cho mỗi hướng: "nếu ở đây mà đi hướng này thì sau cùng được bao nhiêu điểm?". Sau mỗi bước, robot sửa con số của nước vừa đi theo những gì vừa xảy ra.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Công thức cập nhật dùng <b>α</b> (tốc độ học) và <b>γ</b> (mức coi trọng tương lai). Khi trò chơi quá lớn để có bảng, người ta thay bảng bằng mạng nơ-ron: đó là <b>Deep Q-Network</b>.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #71</span><span class="chip coral">Chiến lược</span></div>
+      <h3>Khám phá & khai thác</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><circle cx="70" cy="64" r="34" class="f-soft"/><path d="M70 64 70 30A34 34 0 0 1 99 81Z" class="f-coral"/><text x="80" y="54" font-size="10" fill="#fff">ε</text><text x="120" y="50" font-size="12" class="f-coral">khám phá: thử hướng lạ</text><text x="120" y="80" font-size="12" class="f-violet">khai thác: đi hướng tốt nhất</text></svg><p>Chỉ đi đường quen thì không bao giờ tìm được đường tốt hơn; chỉ thử lung tung thì không tận dụng được kinh nghiệm. Với xác suất <b>ε</b>, robot thử ngẫu nhiên, còn lại nó đi theo bảng Q.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Con người cũng gặp thế cân bằng này hằng ngày: gọi món quen hay món mới, đi đường quen hay thử đường khác.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #72</span><span class="chip mint">Đạo đức</span></div>
+      <h3>Thưởng sai, học sai</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><circle cx="60" cy="64" r="16" fill="#ffd84d"/><path d="M90 50c20-20 40-20 60 0M150 78c-20 20-40 20-60 0" fill="none" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><path d="M216 50l8 18 18 2-14 12 4 18-16-10-16 10 4-18-14-12 18-2z" class="f-amber" opacity=".35"/><text x="170" y="120" font-size="10" class="t-mono f-coral">đích bị bỏ quên</text></svg><p>Robot làm đúng điều <b>được thưởng</b>, chưa chắc là điều <b>ta muốn</b>. Nếu nhặt xu được điểm mãi, nó sẽ nhặt xu mãi thay vì về đích. Đây gọi là <b>lách luật phần thưởng</b>.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đã có AI chơi game đua thuyền chạy vòng tròn mãi để ăn điểm thưởng thay vì về đích. Với AI mạnh hơn, đặt đúng mục tiêu là vấn đề an toàn rất quan trọng.</p></details></article></div>
+</div></section>
+
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: chỉnh cách học và luật thưởng</h2><p class="muted">Mọi thay đổi có hiệu lực ngay với robot ở phần Mồi. Biểu đồ: mỗi chấm là tổng điểm một lượt (xanh: tới đích, cam: không), đường tím là trung bình 10 lượt gần nhất.</p></div>
+  
+  <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Tổng phần thưởng mỗi lượt</b><span class="legend"><i class="lg" style="background:var(--mint)"></i>tới đích <i class="lg" style="background:var(--coral)"></i>không tới <i class="lg" style="background:var(--violet)"></i>trung bình</span></div><canvas id="chart" width="1100" height="220"></canvas></div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Cách học</h3>
+      <label class="ctl"><span>α · tốc độ học</span><b id="alphaV"></b><input type="range" id="alpha" min="0.05" max="1" step="0.05"></label>
+      <label class="ctl"><span>γ · coi trọng tương lai</span><b id="gammaV"></b><input type="range" id="gamma" min="0" max="0.99" step="0.01"></label>
+      <label class="ctl"><span>ε · tỉ lệ khám phá</span><b id="epsV"></b><input type="range" id="eps" min="0" max="1" step="0.05"></label>
+      <label class="ctl"><span>Tốc độ chạy</span><b id="speedV"></b><input type="range" id="speed" min="1" max="60" step="1"></label>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm amber"><i data-i="award"></i></span>Luật thưởng</h3>
+      <p class="small muted">Tới đích: <b>+10</b> · Rơi bẫy: <b>−10</b></p>
+      <label class="ctl"><span>Mỗi bước đi</span><b id="rStepV"></b><input type="range" id="rStep" min="-1" max="0" step="0.1"></label>
+      <label class="ctl"><span>Nhặt một đồng xu</span><b id="rCoinV"></b><input type="range" id="rCoin" min="0" max="5" step="0.5"></label>
+      <label class="tog" style="display:block;margin:8px 0"><input type="checkbox" id="coinRespawn"><span>Xu mọc lại ngay sau khi nhặt</span></label>
+      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật</h3><pre class="code" id="genCode"></pre>
+    </div>
+  </div>
+</div></section>
+
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm robot học hỏng!</h2><p class="muted"></p></div>
+  <div class="grid g3">
+    <div class="card break"><div class="ico-box coral"><i data-i="lock"></i></div><span class="chip coral">SỰ CỐ 1</span><h3>Không dám thử</h3><p>Robot có trí nhớ trắng tinh, <b>ε = 0</b> (không bao giờ khám phá), và đi thêm bước cũng không bị trừ điểm.</p>
+      <button class="btn small coral" data-break="noexp"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Mọi hướng đều có Q bằng 0, robot luôn chọn hướng đầu tiên là "lên", đụng tường, không mất gì, nên chọn lại đúng hướng đó mãi mãi. Nó không bao giờ biết đích tồn tại (biểu đồ toàn chấm cam). Sửa bằng hai việc: tăng ε lên 0,2 và đặt lại phạt mỗi bước −0,1. Phạt mỗi bước khiến hướng đã thử mất điểm, nên robot tự chuyển sang thử hướng khác. Chỉ tăng ε thôi thì robot đi lang thang rất lâu mới tình cờ gặp đích.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="eye"></i></div><span class="chip coral">SỰ CỐ 2</span><h3>Cận thị</h3><p><b>γ = 0</b>: robot chỉ quan tâm phần thưởng ngay ở bước tiếp theo.</p>
+      <button class="btn small coral" data-break="myopic"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Giá trị của đích không lan ngược ra xa được: chỉ những ô sát đích mới sáng, còn lại tối đen, nên robot ở xa không biết đi đâu. Tăng γ lên khoảng 0,9 và xem bản đồ nhiệt lan ra.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="award"></i></div><span class="chip coral">SỰ CỐ 3</span><h3>Ham xu</h3><p>Có một <b>đồng xu +2 mọc lại mãi</b> ngay gần chỗ xuất phát.</p>
+      <button class="btn small coral" data-break="coin"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Bước qua bước lại để nhặt xu được nhiều điểm hơn đi một quãng xa về đích, nên robot học cách "cày xu" mãi mãi (bật Đường đi tốt nhất để thấy). Robot không sai: nó làm đúng điều ta thưởng. Tắt <b>Xu mọc lại</b> hoặc giảm thưởng xu, rồi Xóa trí nhớ robot.</p></details></div></div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Học tăng cường đang được dùng ở đâu?</h2></div>
+  <div class="grid g3"><div class="card"><div class="ico-box "><i data-i="gamepad"></i></div><h3>Trò chơi</h3><p class="muted">AI tự học chơi cờ vây, cờ vua và trò chơi điện tử tới mức vượt nhà vô địch, chỉ từ luật chơi và điểm số.</p></div><div class="card"><div class="ico-box mint"><i data-i="robot"></i></div><h3>Robot</h3><p class="muted">Robot học đi, cầm nắm đồ vật trong mô phỏng trước khi chạy ngoài đời thật.</p></div><div class="card"><div class="ico-box amber"><i data-i="bolt"></i></div><h3>Tiết kiệm năng lượng</h3><p class="muted">Điều khiển làm mát trung tâm dữ liệu, đèn giao thông thông minh tự điều chỉnh theo lưu lượng xe.</p></div></div>
+  <div class="card ethics" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3><ul><li>Một ứng dụng mạng xã hội được "thưởng" khi em xem lâu hơn. Nó có thể học những cách nào để giữ chân em? Điều đó có tốt cho em không?</li><li>Vì sao robot trong thế giới thật nên học trong mô phỏng trước? Học bằng thử và sai ngoài đời có thể gây nguy hiểm gì?</li><li>Khi đặt mục tiêu cho một AI mạnh, làm sao chắc rằng nó không "lách luật" như robot ham xu?</li></ul></div>
+</div></section>
+
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden><svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg><div><h3>Huy hiệu "Huấn Luyện Viên Robot"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Học tăng cường · Bảng Q · Khám phá & khai thác · Thưởng sai, học sai.</p></div></div>
+</div></section>
+
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ robot mê cung đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf"><div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div><h3>Mê cung có cửa và chìa khóa</h3><p><b>Gợi ý:</b> Thêm ô chìa khóa: robot phải lấy chìa trước khi qua cửa. Trạng thái giờ gồm cả vị trí và "đã có chìa chưa".</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> robot học được thứ tự lấy chìa rồi mới về đích.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div><h3>AI chơi trò chim vỗ cánh</h3><p><b>Gợi ý:</b> Tự viết trò chơi né ống nước đơn giản, chia khoảng cách tới ống thành vài ô, dùng bảng Q để AI học khi nào vỗ cánh.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> AI vượt được 50 ống liên tiếp.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div><h3>Đèn giao thông tự học ở ngã tư gần trường</h3><p><b>Gợi ý:</b> Mô phỏng ngã tư với lưu lượng xe đo thực tế giờ tan học, dùng học tăng cường để điều khiển đèn, so sánh với đèn chu kỳ cố định.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> thời gian chờ trung bình, độ dài hàng xe, và kiểm tra AI có "bỏ đói" một hướng không.</span></p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13"><rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">18 · Mê cung</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text><rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">19 · Xe tự lái tiến hóa</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">học bằng tiến hóa thay vì phần thưởng từng bước</text><rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">7 · Dự đoán điểm thi</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">tốc độ học α</text><rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">20 · Trợ lý hỏi đáp SGK</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">AI có trách nhiệm</text></g>
+      </svg></div>
+    <div class="card khkt"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3><dl><dt>Vấn đề</dt><dd>Ùn tắc ở ngã tư gần trường giờ tan học, đèn chu kỳ cố định không linh hoạt.</dd><dt>Câu hỏi nghiên cứu</dt><dd>Đèn điều khiển bằng học tăng cường có giảm thời gian chờ trong mô phỏng không?</dd><dt>Giả thuyết</dt><dd>Giảm ít nhất 15% thời gian chờ trung bình so với chu kỳ cố định.</dd><dt>Lưu ý đạo đức</dt><dd>Chỉ thử trong mô phỏng; ưu tiên an toàn người đi bộ hơn tốc độ xe.</dd></dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p></div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../17-cam-xuc/index.html"><i data-i="arrowL"></i>Dự án 17</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../19-xe-tu-lai/index.html">Dự án 19<i data-i="arrowR"></i></a></p>
+</div></section><footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 18 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="rl.js"></script>
+</body>
+</html>

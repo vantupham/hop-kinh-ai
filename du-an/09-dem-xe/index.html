@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Một camera nhìn xuống con đường trước cổng trường. AI phải tìm từng chiếc xe máy, ô tô, xe buýt, theo dõi chúng và đếm khi chúng đi qua vạch. Nghe đơn giản…">
+<meta name="keywords" content="Phát hiện vật thể, IoU, NMS, Theo dõi &amp; đếm, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Đếm xe trên phố · Dự án AI 9 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Một camera nhìn xuống con đường trước cổng trường. AI phải tìm từng chiếc xe máy, ô tô, xe buýt, theo dõi chúng và đếm khi chúng đi qua vạch. Nghe đơn giản…">
+<meta property="og:image" content="../../assets/og/09.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Đếm xe trên phố · Dự án AI 9 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Đếm xe trên phố · Dự án AI 9 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Một camera nhìn xuống con đường trước cổng trường. AI phải tìm từng chiếc xe máy, ô tô, xe buýt, theo dõi chúng và đếm khi chúng đi qua vạch. Nghe đơn giản…">
+<meta name="twitter:image" content="../../assets/og/09.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 9: Đếm xe trên phố", "description": "Một camera nhìn xuống con đường trước cổng trường. AI phải tìm từng chiếc xe máy, ô tô, xe buýt, theo dõi chúng và đếm khi chúng đi qua vạch. Nghe đơn giản…", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Phát hiện vật thể", "IoU", "NMS", "Theo dõi & đếm"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/09.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Đếm xe trên phố · Dự án AI 9 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 2</a> / DỰ ÁN 09</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div><h1>Đếm xe <span class="hl-word">trên phố</span></h1><p class="lead">Một camera nhìn xuống con đường trước cổng trường. AI phải tìm từng chiếc xe máy, ô tô, xe buýt, theo dõi chúng và đếm khi chúng đi qua vạch. Nghe đơn giản, nhưng có rất nhiều cách để đếm sai!</p></div>
+  
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf"><canvas id="stage" width="640" height="480" aria-label="Đường phố nhìn từ trên cao với các khung phát hiện xe"></canvas><video id="video" playsinline muted></video><div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div><div id="stageMsg" class="stage-msg" hidden></div></div>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Nguồn hình ảnh"><button class="btn small" id="srcSim" aria-pressed="true"><i data-i="map"></i>Đường phố ảo</button><button class="btn small ghost" id="srcCam" aria-pressed="false"><i data-i="camera"></i>Camera</button><label class="btn small ghost"><i data-i="film"></i>Video giao thông<input type="file" id="srcVid" accept="video/*" hidden></label></div>
+        <button class="btn small ghost" id="btnReset"><i data-i="reset"></i>Đếm lại</button>
+      </div>
+      <div class="toggles"><span class="muted small"><i data-i="eye"></i> Hiển thị</span><label class="tog"><input type="checkbox" id="showRaw" checked><span>Khung thô</span></label><label class="tog"><input type="checkbox" id="showBoxes" checked><span>Khung sau lọc</span></label><label class="tog"><input type="checkbox" id="showIds" checked><span>ID theo dõi</span></label></div>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="metric-row" style="margin-top:0"><div class="metric"><span>AI ĐẾM</span><b id="bCount" style="font-size:2rem">0</b></div><div class="metric"><span>THỰC TẾ</span><b id="bTrue" style="font-size:2rem;color:#fff">0</b></div></div>
+      <div class="metric" style="margin-top:10px"><span>SAI LỆCH</span><b id="bErr">—</b></div>
+      <div class="lbl" style="margin-top:14px">PHỄU XỬ LÝ (KHUNG HÌNH NÀY)</div>
+      <div class="bars" id="bFunnel"></div>
+    </aside>
+  </div>
+</div></section>
+
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Biến hàng trăm khung bao lộn xộn thành một con số đếm chính xác</h2></div>
+  <div class="grid g2">
+    <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Mô hình AI đã tìm được xe rồi, vậy sao việc đếm vẫn dễ sai?"</b></p><p class="muted">Phát hiện vật thể chỉ là bước đầu. Em sẽ lần lượt <b>lọc ngưỡng</b>, <b>xóa khung trùng</b> bằng IoU và NMS, <b>theo dõi</b> từng xe bằng số ID, rồi mới <b>đếm</b>. Bước nào sai thì con số cuối cùng sai.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div></div>
+    <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist"><li data-k="see"><span class="box"><i data-i="check"></i></span>Xem các khung trùng bị NMS xóa</li><li data-k="iou"><span class="box"><i data-i="check"></i></span>Kéo hai khung trong máy tính IoU</li><li data-k="tune"><span class="box"><i data-i="check"></i></span>Tự chỉnh ngưỡng tin cậy</li><li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm AI đếm sai ít nhất 1 lần</li><li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li></ul></div>
+  </div>
+</div></section>
+
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Từ ảnh đường phố tới con số đếm: 6 bước</h2><p class="muted">Hình bên dưới chạy trực tiếp theo đường phố ở phần Mồi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain"><span class="chip" id="soiChip">BƯỚC 1/6</span><h3 id="soiTitle" style="margin-top:12px"></h3><div id="soiText"></div><div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div></div>
+  </div>
+</div></section>
+
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #33</span><span class="chip mint">Thị giác máy tính</span></div>
+      <h3>Phát hiện vật thể</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="20" y="20" width="220" height="80" rx="6" fill="#3d4048"/><rect x="40" y="44" width="70" height="34" rx="8" fill="#3ee9cf" opacity=".6"/><rect x="36" y="40" width="78" height="42" fill="none" stroke="#3ee9cf" stroke-width="2.5"/><rect x="36" y="28" width="66" height="12" fill="#3ee9cf"/><text x="40" y="37" font-size="9" fill="#0a0b1e" font-weight="700">Ô tô 92%</text><rect x="150" y="56" width="34" height="16" rx="5" fill="#ffc34d" opacity=".7"/><rect x="146" y="52" width="42" height="24" fill="none" stroke="#ffc34d" stroke-width="2.5"/></svg><p>Phân loại ảnh trả lời "ảnh này là gì?", còn <b>phát hiện vật thể</b> trả lời "có những vật gì, ở <b>đâu</b>?". Mỗi vật được đóng trong một <b>khung bao</b> kèm tên loại và <b>độ tin cậy</b>.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Mô hình COCO-SSD dùng ở chế độ camera nhận ra 80 loại vật thể thường gặp. Các mô hình hiện đại như YOLO có thể phát hiện hàng trăm vật trong mỗi ảnh, nhanh hơn cả tốc độ quay video.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #34</span><span class="chip mint">Toán + AI</span></div>
+      <h3>IoU: hai khung chồng nhau bao nhiêu?</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="40" y="24" width="110" height="70" class="f-vs s-violet" stroke-width="2.5"/><rect x="100" y="44" width="110" height="64" class="f-ms s-mint" stroke-width="2.5"/><rect x="100" y="44" width="50" height="50" class="f-amber" opacity=".55"/><text x="164" y="30" font-size="11" class="t-mono f-ink">IoU = giao / hợp</text></svg><p><b>IoU</b> (Intersection over Union) = diện tích phần giao chia cho diện tích phần hợp của hai khung. Trùng khít thì IoU = 1, không chạm nhau thì IoU = 0.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>IoU còn dùng để <b>chấm điểm</b> mô hình: một khung dự đoán được tính là "đúng" nếu IoU với khung đáp án từ 0,5 trở lên. Em có thể thử trong máy tính IoU ở Bàn thí nghiệm.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #35</span><span class="chip coral">Thuật toán</span></div>
+      <h3>NMS: xóa khung trùng</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="40" y="30" width="90" height="56" fill="none" class="s-mint" stroke-width="3"/><rect x="48" y="36" width="88" height="54" fill="none" class="s-coral" stroke-width="2" stroke-dasharray="4 3"/><rect x="34" y="24" width="84" height="60" fill="none" class="s-coral" stroke-width="2" stroke-dasharray="4 3"/><text x="150" y="50" font-size="11" class="t-mono f-mint">giữ 94%</text><text x="150" y="72" font-size="11" class="t-mono f-coral">xóa 71%, 55%</text></svg><p>Mô hình hay đưa ra nhiều khung gần giống nhau cho cùng một xe. <b>NMS</b> sắp xếp các khung theo độ tin cậy, giữ khung cao nhất, rồi xóa mọi khung chồng lên nó quá nhiều (IoU vượt ngưỡng).</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Ngưỡng IoU của NMS cũng là một sự đánh đổi: thấp quá thì hai xe đi sát nhau bị gộp thành một, cao quá thì khung trùng không bị xóa hết.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #36</span><span class="chip amber">Kỹ thuật</span></div>
+      <h3>Theo dõi đối tượng & đếm</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g class="f-violet"><circle cx="30" cy="80" r="5"/><circle cx="70" cy="70" r="5"/><circle cx="110" cy="62" r="5"/></g><g class="f-coral"><circle cx="170" cy="50" r="5"/><circle cx="210" cy="44" r="5"/></g><text x="24" y="104" font-size="11" class="t-mono f-violet">ID #7</text><text x="164" y="30" font-size="11" class="t-mono f-coral">ID #8 (?)</text><path d="M140 20v90" class="s-coral" stroke-width="2" stroke-dasharray="5 4"/></svg><p>Mỗi ảnh được xử lý riêng, nên máy cần <b>nối</b> khung ở ảnh này với khung ở ảnh trước để biết "đây vẫn là chiếc xe đó". Mỗi xe được gán một <b>số ID</b>, và mỗi ID chỉ được đếm một lần khi qua vạch.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Nếu xe bị che hoặc camera giật hình, bộ theo dõi có thể <b>đổi ID</b> và đếm một xe thành hai. Các bộ theo dõi tốt dùng thêm <b>dự đoán chuyển động</b> (đoán xe sẽ ở đâu tiếp theo) và đặc điểm hình dạng để nối đúng.</p></details></article></div>
+</div></section>
+
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: tinh chỉnh từng tầng của phễu xử lý</h2><p class="muted">Chỉnh các núm vặn rồi nhìn đồ thị: đường đứt là số xe thật đã qua vạch, đường hồng là số AI đếm được. Hai đường càng sát nhau càng tốt.</p></div>
+  
+  <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Tổng số xe đã đếm · 60 giây gần nhất</b><span class="legend"><i class="lg" style="background:var(--text)"></i>thực tế <i class="lg" style="background:var(--rose)"></i>AI đếm</span></div><canvas id="chart" width="1100" height="220"></canvas></div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Các núm vặn</h3>
+      <label class="ctl"><span>1. Ngưỡng tin cậy</span><b id="confV"></b><input type="range" id="conf" min="0.05" max="0.95" step="0.01"></label>
+      <label class="tog" style="display:inline-block;margin:4px 0 8px"><input type="checkbox" id="nms"><span>2. Bật NMS</span></label>
+      <label class="ctl"><span>…xóa khung trùng khi IoU ≥</span><b id="nmsIouV"></b><input type="range" id="nmsIou" min="0.1" max="0.9" step="0.05"></label>
+      <label class="tog" style="display:inline-block;margin:4px 0 8px"><input type="checkbox" id="predict"><span>3. Dự đoán chuyển động khi theo dõi</span></label>
+      <label class="ctl"><span>…giữ ID khi mất dấu tối đa</span><b id="maxAgeV"></b><input type="range" id="maxAge" min="0.1" max="2" step="0.1"></label>
+      <label class="ctl"><span>Tốc độ chụp của camera</span><b id="detHzV"></b><input type="range" id="detHz" min="2" max="30" step="1"></label>
+    </div>
+    <div class="card canvas-card">
+      <h3 class="h-ic"><span class="ico-box sm amber"><i data-i="layers"></i></span>Máy tính IoU: kéo hai khung</h3>
+      <canvas id="iouCanvas" class="touch" width="520" height="300" style="cursor:move"></canvas>
+    </div>
+  </div>
+  <div class="card" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của phễu xử lý</h3><pre class="code" id="genCode"></pre></div>
+</div></section>
+
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm AI đếm sai!</h2><p class="muted"></p></div>
+  <div class="grid g3">
+    <div class="card break"><div class="ico-box coral"><i data-i="sliders"></i></div><span class="chip coral">SỰ CỐ 1</span><h3>Ngưỡng quá thấp</h3><p>Hạ ngưỡng tin cậy xuống <b>12%</b>. Bóng cây và vết dầu trên đường bắt đầu được coi là xe…</p>
+      <button class="btn small coral" data-break="low"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Những khung báo nhầm rung rinh qua lại vạch đếm và được cộng vào. Kéo ngưỡng lên khoảng 40–60%. Không có ngưỡng nào hoàn hảo: cao quá thì bắt đầu bỏ sót những chiếc xe máy nhỏ.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="layers"></i></div><span class="chip coral">SỰ CỐ 2</span><h3>Tắt NMS</h3><p>Không còn bước xóa khung trùng: mỗi xe có thể có 2–3 khung, và mỗi khung được theo dõi như một xe riêng.</p>
+      <button class="btn small coral" data-break="nonms"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Số đếm tăng vọt so với thực tế. Bật lại <b>NMS</b>. Thử kéo ngưỡng IoU của NMS lên 0,9: khung trùng lại lọt qua. Kéo xuống 0,1: hai xe đi sát nhau bị gộp làm một.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="clock"></i></div><span class="chip coral">SỰ CỐ 3</span><h3>Camera giật hình, giờ cao điểm</h3><p>Camera chỉ chụp <b>3 ảnh mỗi giây</b>, xe đông và chạy nhanh, bộ theo dõi không dự đoán chuyển động.</p>
+      <button class="btn small coral" data-break="lag"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Giữa hai ảnh, xe đã chạy xa nên khung cũ và khung mới không còn chồng nhau. Bộ theo dõi tưởng là xe mới, cấp ID mới, nên có xe bị đếm hai lần hoặc bị bỏ sót. Bật <b>Dự đoán chuyển động</b>, tăng thời gian giữ ID, hoặc dùng camera nhanh hơn.</p></details></div></div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Phát hiện & theo dõi vật thể đang được dùng ở đâu?</h2></div>
+  <div class="grid g3"><div class="card"><div class="ico-box "><i data-i="map"></i></div><h3>Điều khiển đèn giao thông</h3><p class="muted">Đếm xe ở từng hướng để điều chỉnh thời gian đèn xanh, giảm ùn tắc giờ cao điểm.</p></div><div class="card"><div class="ico-box mint"><i data-i="eye"></i></div><h3>Xe tự lái</h3><p class="muted">Ô tô tự lái liên tục phát hiện và theo dõi người đi bộ, xe máy, ô tô xung quanh để dự đoán họ sẽ đi đâu.</p></div><div class="card"><div class="ico-box amber"><i data-i="activity"></i></div><h3>Thể thao & cửa hàng</h3><p class="muted">Theo dõi cầu thủ và quả bóng trên sân; đếm lượt khách vào cửa hàng mà không cần biết họ là ai.</p></div></div>
+  <div class="card ethics" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3><ul><li>Một camera AI đếm xe cũng có thể đọc biển số và nhận diện khuôn mặt. Ai được quyết định camera được phép làm gì?</li><li>Nếu số đếm của AI sai 20% và thành phố dựa vào đó để xây thêm đường, hậu quả là gì? Cần kiểm tra AI thế nào trước khi tin?</li><li>Ở Việt Nam xe máy rất nhiều và đi sát nhau. Một mô hình học từ video giao thông nước ngoài có đếm tốt ở đây không?</li></ul></div>
+</div></section>
+
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden><svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg><div><h3>Huy hiệu "Người Gác Ngã Tư"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Phát hiện vật thể · IoU · NMS · Theo dõi & đếm.</p></div></div>
+</div></section>
+
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ đếm xe ảo đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf"><div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div><h3>Đếm người vào thư viện</h3><p><b>Gợi ý:</b> Đặt camera nhìn cửa thư viện, dùng lớp "person" của COCO-SSD và vạch đếm hai chiều để biết lúc nào có bao nhiêu người bên trong.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> số người trong thư viện sai lệch không quá 2 sau 30 phút.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div><h3>Bản đồ mật độ xe cổng trường</h3><p><b>Gợi ý:</b> Quay video cổng trường giờ tan học ở nhiều ngày (không quay rõ mặt), đếm xe theo từng 5 phút và vẽ biểu đồ để đề xuất giờ tan học lệch giữa các khối.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> có biểu đồ lưu lượng 5 ngày và một đề xuất gửi nhà trường.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div><h3>Phát hiện người không đội mũ bảo hiểm</h3><p><b>Gợi ý:</b> Huấn luyện thêm một bộ phân loại trên vùng đầu của người đi xe máy (dựa vào khung bao xe máy). Nghiên cứu độ chính xác theo ánh sáng và góc camera.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> độ chính xác và tỉ lệ báo nhầm trên video thật, có xin phép và làm mờ mặt.</span></p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13"><rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">09 · Đếm xe</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text><rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">12 · Phông nền ảo</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">từ khung bao tới từng điểm ảnh</text><rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">14 · Bác sĩ lá cây</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">bên trong mô hình nhìn ảnh</text><rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">19 · Xe tự lái tiến hóa</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">xe tự quyết định</text></g>
+      </svg></div>
+    <div class="card khkt"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3><dl><dt>Vấn đề</dt><dd>Cổng trường ùn tắc nghiêm trọng vào giờ tan học.</dd><dt>Câu hỏi nghiên cứu</dt><dd>Lưu lượng xe theo từng 5 phút thay đổi thế nào, và tan học lệch giờ giữa các khối giảm ùn tắc được bao nhiêu?</dd><dt>Giả thuyết</dt><dd>Tan học lệch 10 phút giữa hai khối giảm lưu lượng đỉnh ít nhất 30%.</dd><dt>Lưu ý đạo đức</dt><dd>Không lưu video, chỉ lưu số đếm; không nhận diện cá nhân; xin phép nhà trường.</dd></dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p></div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../08-am-thanh/index.html"><i data-i="arrowL"></i>Dự án 08</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../10-tu-the-ngoi/index.html">Dự án 10<i data-i="arrowR"></i></a></p>
+</div></section><footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 09 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="traffic.js"></script>
+</body>
+</html>

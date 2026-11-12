@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Máy tính chỉ hiểu con số. Vậy làm sao nó biết &quot;tuyệt vời&quot; là vui còn &quot;thất vọng&quot; là buồn? Bí quyết là biến mỗi từ thành một dãy số, sao cho từ gần nghĩa nằm…">
+<meta name="keywords" content="Vector của từ, Nghĩa từ hàng xóm, Phép tính với từ, Định kiến trong vector, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cảm xúc câu nói · Dự án AI 17 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Máy tính chỉ hiểu con số. Vậy làm sao nó biết &quot;tuyệt vời&quot; là vui còn &quot;thất vọng&quot; là buồn? Bí quyết là biến mỗi từ thành một dãy số, sao cho từ gần nghĩa nằm…">
+<meta property="og:image" content="../../assets/og/17.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cảm xúc câu nói · Dự án AI 17 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cảm xúc câu nói · Dự án AI 17 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Máy tính chỉ hiểu con số. Vậy làm sao nó biết &quot;tuyệt vời&quot; là vui còn &quot;thất vọng&quot; là buồn? Bí quyết là biến mỗi từ thành một dãy số, sao cho từ gần nghĩa nằm…">
+<meta name="twitter:image" content="../../assets/og/17.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 17: Cảm xúc câu nói", "description": "Máy tính chỉ hiểu con số. Vậy làm sao nó biết \"tuyệt vời\" là vui còn \"thất vọng\" là buồn? Bí quyết là biến mỗi từ thành một dãy số, sao cho từ gần nghĩa nằm…", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Vector của từ", "Nghĩa từ hàng xóm", "Phép tính với từ", "Định kiến trong vector"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/17.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Cảm xúc câu nói · Dự án AI 17 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 4</a> / DỰ ÁN 17</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div><h1>Cảm xúc <span class="hl-word">câu nói</span></h1><p class="lead">Máy tính chỉ hiểu con số. Vậy làm sao nó biết "tuyệt vời" là vui còn "thất vọng" là buồn? Bí quyết là biến mỗi từ thành một dãy số, sao cho từ gần nghĩa nằm gần nhau trên một tấm bản đồ. Gõ một câu và xem nó "rơi" vào đâu trên bản đồ cảm xúc.</p></div>
+  
+  <style>.sent-in{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line-strong);background:var(--surface-solid);color:var(--text);font:inherit;font-size:1.05rem;margin-bottom:10px}
+  .chips{min-height:44px;margin-bottom:10px;line-height:2.1}.tk{display:inline-block;padding:0 8px;margin:0 3px 4px 0;border-radius:7px;color:#11142e;font-weight:600}.tk.oov{background:var(--line-strong);color:var(--muted);text-decoration:line-through dotted}.tk.ng{background:var(--amber)}
+  .gauge{height:16px;border-radius:8px;background:#232866;overflow:hidden;margin:8px 0}.gauge i{display:block;height:100%;border-radius:8px;transition:width .25s}
+  .ana{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}.ana select{min-width:0;flex:1;padding:6px 8px;border-radius:8px;border:1px solid var(--line-strong);background:var(--surface-solid);color:var(--text);font:inherit}.ana b{font-size:1.2rem}</style>
+  <div class="playground">
+    <div class="stage-col">
+      <input class="sent-in" id="sentIn" aria-label="Câu của em" placeholder="Gõ một câu, ví dụ: trà sữa ở quán này ngon tuyệt vời">
+      <div class="chips" id="chips" aria-live="polite"></div>
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Bản đồ từ: mỗi chấm là một từ"></canvas><div class="stage-tag"><span class="live-dot"></span><span>BẢN ĐỒ TỪ</span></div></div>
+      <div class="toolbar"><div class="seg" id="mapBtns"><button class="btn small" data-m="pca"><i data-i="map"></i>Bản đồ nghĩa</button><button class="btn small ghost" data-m="sent"><i data-i="activity"></i>Trục cảm xúc</button></div><span class="muted small"><i data-i="bulb"></i> Chạm vào một từ để xem từ gần nghĩa</span></div>
+      <div class="game"><span class="small muted">Thử câu</span><div class="btn-row" id="preBtns"></div></div>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result"><small>CẢM XÚC CỦA CÂU</small><span id="bLabel">—</span></div>
+      <div class="gauge"><i id="gaugeFill"></i></div><div style="display:flex;justify-content:space-between;font-size:.75rem;color:#c3c7f0"><span>tiêu cực</span><b id="bScore" style="color:#fff">—</b><span>tích cực</span></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>TỪ MÁY CHƯA BIẾT</span><b id="bOov">0</b></div><div class="metric"><span>SỐ TỪ TRONG TỪ ĐIỂN</span><b id="bVoc">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>ĐÚNG VỚI TỪ CHƯA HỌC NHÃN</span><b id="bTest">—</b></div><div class="metric"><span>CÁCH TÍNH CÂU</span><b style="font-size:.9rem">trung bình</b></div></div>
+      <div class="lbl" style="margin-top:12px">TỪ GẦN NGHĨA</div><div id="bNb" class="small" style="color:#c3c7f0;line-height:1.7"></div>
+    </aside>
+  </div>
+</div></section>
+
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Biến từ thành vector và vẽ bản đồ nghĩa</h2></div>
+  <div class="grid g2">
+    <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Không ai dạy máy "hạnh phúc" là từ vui. Vậy sao máy vẫn đoán đúng?"</b></p><p class="muted">Em sẽ thấy máy học <b>vector của từ</b> chỉ bằng cách đếm <b>từ nào hay đứng cạnh từ nào</b>, nhìn các từ tự xếp thành nhóm trên <b>bản đồ</b>, làm <b>phép tính với từ</b>, rồi tìm ra chỗ yếu: phủ định, từ lạ, và định kiến học từ dữ liệu.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div></div>
+    <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist"><li data-k="try"><span class="box"><i data-i="check"></i></span>Thử chấm cảm xúc ít nhất 3 câu</li><li data-k="map"><span class="box"><i data-i="check"></i></span>Chạm vào một từ trên bản đồ</li><li data-k="soi"><span class="box"><i data-i="check"></i></span>Soi tới bước Nghĩa từ hàng xóm</li><li data-k="math"><span class="box"><i data-i="check"></i></span>Làm một phép tính với từ</li><li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm máy chấm sai ít nhất 1 lần</li><li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li></ul></div>
+  </div>
+</div></section>
+
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Từ câu nói tới điểm cảm xúc: 6 bước</h2><p class="muted">Hình bên dưới dùng đúng câu em đang gõ ở phần Mồi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain"><span class="chip" id="soiChip">BƯỚC 1/6</span><h3 id="soiTitle" style="margin-top:12px"></h3><div id="soiText"></div><div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div></div>
+  </div>
+</div></section>
+
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #65</span><span class="chip mint">Ngôn ngữ</span></div>
+      <h3>Vector của từ</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g font-size="12" class="f-ink"><text x="14" y="40">vui</text><text x="14" y="76">hạnh phúc</text><text x="14" y="112">buồn</text></g><g><rect x="90" y="28" width="30" height="18" class="f-mint"/><rect x="122" y="28" width="30" height="18" class="f-coral" opacity=".4"/><rect x="154" y="28" width="30" height="18" class="f-mint" opacity=".6"/><rect x="90" y="64" width="30" height="18" class="f-mint" opacity=".9"/><rect x="122" y="64" width="30" height="18" class="f-coral" opacity=".3"/><rect x="154" y="64" width="30" height="18" class="f-mint" opacity=".5"/><rect x="90" y="100" width="30" height="18" class="f-coral"/><rect x="122" y="100" width="30" height="18" class="f-mint" opacity=".4"/><rect x="154" y="100" width="30" height="18" class="f-coral" opacity=".6"/></g></svg><p>Mỗi từ được đổi thành một <b>vector</b>: một dãy số. Từ gần nghĩa có dãy số gần nhau. Nhờ vậy máy đo được độ giống nhau về nghĩa, giống như đo khoảng cách giữa hai điểm.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Các mô hình thật dùng vector vài trăm tới vài nghìn chiều. Trong chatbot, mỗi token cũng có một vector như vậy ở lớp đầu tiên của mạng.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #66</span><span class="chip amber">Học máy</span></div>
+      <h3>Nghĩa từ hàng xóm</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g font-size="12"><text x="10" y="40" class="f-muted">em</text><text x="40" y="40" class="f-mint">mỉm cười</text><text x="104" y="40" class="f-muted">vì phở</text><text x="150" y="40" class="f-ink" font-weight="700">ngon</text><text x="10" y="90" class="f-muted">em</text><text x="40" y="90" class="f-mint">mỉm cười</text><text x="104" y="90" class="f-muted">vì kem</text><text x="150" y="90" class="f-ink" font-weight="700">tuyệt</text></g><path d="M170 46v28" class="s-violet" stroke-width="2" stroke-dasharray="4 3"/><text x="180" y="66" font-size="10" class="t-mono f-violet">gần nghĩa</text></svg><p>Máy biết nghĩa của một từ qua <b>những từ đứng cạnh nó</b>. Đếm số lần mỗi cặp từ đứng gần nhau, rồi nén bảng đếm khổng lồ thành vector ngắn: từ có hàng xóm giống nhau sẽ có vector giống nhau.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đây gọi là <b>giả thuyết phân bố</b>. Cách nén ở đây là PPMI và phân tích ma trận (SVD); các phương pháp nổi tiếng khác là word2vec và GloVe.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #67</span><span class="chip coral">Toán + AI</span></div>
+      <h3>Phép tính với từ</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g class="f-violet"><circle cx="40" cy="90" r="6"/><circle cx="40" cy="40" r="6"/></g><g class="f-mint"><circle cx="190" cy="96" r="6"/><circle cx="190" cy="46" r="6"/></g><path d="M40 84V48M190 90V54" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><g font-size="11" class="f-ink"><text x="50" y="94">bà</text><text x="50" y="44">ông</text><text x="200" y="100">mẹ</text><text x="200" y="50">bố ?</text></g></svg><p>Hướng đi từ "bà" tới "ông" (nữ → nam) gần giống hướng từ "mẹ" tới "bố". Vì vậy <b>ông − bà + mẹ ≈ bố</b>. Quan hệ về nghĩa trở thành <b>hướng</b> trong không gian vector.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Phép tính này không phải lúc nào cũng đúng, nhất là với dữ liệu ít. Nó cho thấy vector chứa nhiều "trục nghĩa" mà không ai dạy trực tiếp: giới tính, tuổi tác, cảm xúc…</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #68</span><span class="chip mint">Đạo đức</span></div>
+      <h3>Định kiến trong vector</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><path d="M20 64h220" class="s-line" stroke-width="2"/><text x="14" y="56" font-size="10" class="t-mono f-violet">nam</text><text x="214" y="56" font-size="10" class="t-mono f-coral">nữ</text><circle cx="70" cy="64" r="8" class="f-violet"/><text x="54" y="92" font-size="11" class="f-ink">bác sĩ</text><circle cx="190" cy="64" r="8" class="f-coral"/><text x="178" y="92" font-size="11" class="f-ink">y tá</text></svg><p>Vector học từ cách con người viết. Nếu dữ liệu toàn viết "bác sĩ ấy là người đàn ông", thì vector "bác sĩ" sẽ <b>lệch về phía nam</b>, và mọi ứng dụng dùng vector đó mang theo <b>định kiến</b> này.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đã có hệ thống tuyển dụng tự động bị phát hiện chấm thấp hồ sơ của phụ nữ vì học từ dữ liệu cũ. Cách giảm: cân bằng dữ liệu, đo độ lệch như ở Bàn thí nghiệm, và luôn có con người kiểm tra.</p></details></article></div>
+</div></section>
+
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: phép tính với từ, đo định kiến, chỉnh cách học</h2><p class="muted">Thay đổi số chiều hoặc cửa sổ làm máy học lại toàn bộ vector (mất chưa tới 1 giây). Xem bản đồ ở phần Mồi thay đổi theo.</p></div>
+  
+  <div class="card chart-card"><div class="chart-head"><b><i data-i="activity"></i> Cảm xúc thay đổi khi đọc từng từ của câu</b></div><canvas id="chart" width="1100" height="220"></canvas></div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sparkle"></i></span>Phép tính với từ</h3>
+      <div class="ana"><select id="selA" aria-label="Từ A"></select><b>−</b><select id="selB" aria-label="Từ B"></select><b>+</b><select id="selC" aria-label="Từ C"></select><b>≈</b></div>
+      <div class="lab bars" id="anaOut"></div>
+      <div class="btn-row" id="anaBtns" style="margin-top:8px"><button class="btn small ghost" data-q="ông,bà,mẹ">ông − bà + mẹ</button><button class="btn small ghost" data-q="anh_trai,chị_gái,em_gái">anh trai − chị gái + em gái</button><button class="btn small ghost" data-q="bố,mẹ,bà">bố − mẹ + bà</button></div>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm coral"><i data-i="shield"></i></span>Đo độ lệch giới của nghề nghiệp</h3>
+      <div class="lab bars" id="biasOut"></div>
+      <label class="tog" style="display:block;margin:8px 0"><input type="checkbox" id="balance"><span>Dữ liệu cân bằng nam / nữ cho mọi nghề</span></label>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm amber"><i data-i="sliders"></i></span>Cách học vector</h3>
+      <label class="ctl"><span>Số chiều của vector</span><b id="dimV"></b><input type="range" id="dim" min="2" max="16" step="1"></label>
+      <label class="ctl"><span>Cửa sổ hàng xóm</span><b id="winV"></b><input type="range" id="win" min="1" max="4" step="1"></label>
+      <label class="tog" style="display:block;margin:8px 0"><input type="checkbox" id="neg"><span>Hiểu chữ "không": đảo nghĩa từ đứng sau</span></label>
+      <button class="btn small ghost" id="btnTeach"><i data-i="book"></i>Dạy từ mới "xịn"</button><p class="small muted" id="teachInfo"></p>
+      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật</h3><pre class="code" id="genCode"></pre>
+    </div>
+  </div>
+</div></section>
+
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm máy hiểu sai cảm xúc!</h2><p class="muted"></p></div>
+  <div class="grid g3">
+    <div class="card break"><div class="ico-box coral"><i data-i="repeat"></i></div><span class="chip coral">SỰ CỐ 1</span><h3>Chữ "không"</h3><p>Câu: <b>"bài kiểm tra hôm nay không vui chút nào"</b>.</p>
+      <button class="btn small coral" data-break="neg"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Máy lấy trung bình vector các từ, nên chữ "vui" vẫn kéo câu về phía tích cực; chữ "không" thậm chí không có trong từ điển. Bật <b>Hiểu chữ "không"</b>: từ đứng sau bị đảo dấu. Đây là cách vá tạm; mô hình hiện đại đọc cả câu theo thứ tự nên hiểu phủ định tốt hơn.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="help"></i></div><span class="chip coral">SỰ CỐ 2</span><h3>Từ lóng mới</h3><p>Câu: <b>"trà sữa quán này xịn quá"</b>. Máy chưa từng gặp chữ "xịn".</p>
+      <button class="btn small coral" data-break="oov"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Từ lạ bị bỏ qua (gạch ngang), nên câu chỉ còn "trà sữa" trung tính. Bấm <b>Dạy từ mới "xịn"</b>: máy đọc thêm vài câu có "xịn" đứng cạnh "mỉm cười", "vỗ tay", và tự xếp "xịn" vào nhóm từ vui. Không ai dán nhãn cho "xịn" cả!</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="shield"></i></div><span class="chip coral">SỰ CỐ 3</span><h3>Dữ liệu thiên lệch</h3><p>Kho câu học gần như luôn viết bác sĩ, kỹ sư, đầu bếp là <b>người đàn ông</b>, còn y tá, giáo viên là <b>người phụ nữ</b>.</p>
+      <button class="btn small coral" data-break="bias"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Xem bảng <b>Đo độ lệch giới</b> ở Bàn thí nghiệm: các nghề bị kéo hẳn về một phía. Máy không "nghĩ" vậy, nó chỉ phản chiếu dữ liệu. Bật <b>Dữ liệu cân bằng</b> để thấy độ lệch biến mất. Ngoài đời, dữ liệu thật thường có định kiến khó phát hiện hơn nhiều.</p></details></div></div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Vector từ và phân tích cảm xúc được dùng ở đâu?</h2></div>
+  <div class="grid g3"><div class="card"><div class="ico-box "><i data-i="msg"></i></div><h3>Đọc bình luận</h3><p class="muted">Cửa hàng, nhà hàng, ứng dụng dùng máy đọc hàng nghìn bình luận để biết khách hài lòng hay không.</p></div><div class="card"><div class="ico-box mint"><i data-i="scan"></i></div><h3>Tìm kiếm theo nghĩa</h3><p class="muted">Gõ "giày chạy bộ" vẫn tìm được "giày thể thao": máy so vector, không chỉ so từng chữ.</p></div><div class="card"><div class="ico-box amber"><i data-i="shield"></i></div><h3>Lọc bình luận độc hại</h3><p class="muted">Mạng xã hội dùng mô hình ngôn ngữ để phát hiện lời lẽ xúc phạm, bắt nạt trên mạng.</p></div></div>
+  <div class="card ethics" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3><ul><li>Mỉa mai như "Hay quá, lại mất điện!" làm máy hiểu sai. Nếu máy dùng để kiểm duyệt bình luận, ai bị thiệt?</li><li>Máy chấm cảm xúc bài viết của học sinh để "phát hiện bạn đang buồn". Có nên không? Cần những điều kiện gì?</li><li>Định kiến trong vector từ có thể ảnh hưởng tới ai khi máy được dùng để lọc hồ sơ xin việc?</li></ul></div>
+</div></section>
+
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden><svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg><div><h3>Huy hiệu "Nhà Bản Đồ Ngôn Từ"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Vector của từ · Nghĩa từ hàng xóm · Phép tính với từ · Định kiến trong vector.</p></div></div>
+</div></section>
+
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ cảm xúc câu nói đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf"><div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div><h3>Thêm cảm xúc thứ ba</h3><p><b>Gợi ý:</b> Thêm nhóm từ "ngạc nhiên" (bất ngờ, không ngờ, ồ…) với ngữ cảnh riêng, đổi phân loại thành 3 lớp.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> bản đồ có 3 vùng cảm xúc tách rõ.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div><h3>Hộp thư cảm xúc ẩn danh của lớp</h3><p><b>Gợi ý:</b> Mỗi tuần cả lớp gửi một câu ẩn danh về việc học; máy vẽ biểu đồ cảm xúc chung của lớp theo thời gian (không theo từng người).</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> có biểu đồ 4 tuần và cả lớp thảo luận cách bảo vệ sự ẩn danh.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div><h3>Phát hiện lời lẽ bắt nạt trên mạng bằng tiếng Việt</h3><p><b>Gợi ý:</b> Xây bộ câu có nhãn (có đồng ý, ẩn danh), so sánh trung bình vector với mô hình đọc theo thứ tự, đặc biệt với phủ định, mỉa mai và từ lóng.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> tỉ lệ phát hiện đúng, tỉ lệ báo nhầm, và phân tích các câu máy sai.</span></p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13"><rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">17 · Cảm xúc</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text><rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">16 · Đoán chữ tiếp theo</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">mô hình ngôn ngữ</text><rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">20 · Trợ lý hỏi đáp SGK</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">tìm kiếm theo nghĩa</text><rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">13 · Bảng màu</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">không gian vector</text></g>
+      </svg></div>
+    <div class="card khkt"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3><dl><dt>Vấn đề</dt><dd>Bắt nạt trên mạng bằng tiếng Việt thường dùng từ lóng, viết tắt, khó lọc tự động.</dd><dt>Câu hỏi nghiên cứu</dt><dd>Vector từ học từ bình luận tiếng Việt có giúp phát hiện lời lẽ bắt nạt không?</dd><dt>Giả thuyết</dt><dd>Mô hình phát hiện tốt lời lẽ trực tiếp nhưng kém với mỉa mai.</dd><dt>Lưu ý đạo đức</dt><dd>Ẩn danh hoàn toàn dữ liệu; không dùng để trừng phạt mà để hỗ trợ.</dd></dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p></div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../16-doan-chu/index.html"><i data-i="arrowL"></i>Dự án 16</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../18-me-cung/index.html">Dự án 18<i data-i="arrowR"></i></a></p>
+</div></section><footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 17 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="emb.js"></script>
+</body>
+</html>

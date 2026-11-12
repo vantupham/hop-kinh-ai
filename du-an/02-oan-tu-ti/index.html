@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Ra búa, kéo hay bao trước camera: AI nhìn bàn tay em, đoán cử chỉ rồi đấu với máy. Chơi vài ván trước, rồi cùng xem AI &quot;nghĩ&quot; gì.">
+<meta name="keywords" content="Đặc trưng, Phân loại &amp; nhãn, KNN, Dữ liệu huấn luyện, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oẳn tù tì với AI · Dự án AI 2 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Ra búa, kéo hay bao trước camera: AI nhìn bàn tay em, đoán cử chỉ rồi đấu với máy. Chơi vài ván trước, rồi cùng xem AI &quot;nghĩ&quot; gì.">
+<meta property="og:image" content="../../assets/og/02.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Oẳn tù tì với AI · Dự án AI 2 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Oẳn tù tì với AI · Dự án AI 2 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Ra búa, kéo hay bao trước camera: AI nhìn bàn tay em, đoán cử chỉ rồi đấu với máy. Chơi vài ván trước, rồi cùng xem AI &quot;nghĩ&quot; gì.">
+<meta name="twitter:image" content="../../assets/og/02.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 2: Oẳn tù tì với AI", "description": "Ra búa, kéo hay bao trước camera: AI nhìn bàn tay em, đoán cử chỉ rồi đấu với máy. Chơi vài ván trước, rồi cùng xem AI \"nghĩ\" gì.", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Đặc trưng", "Phân loại & nhãn", "KNN", "Dữ liệu huấn luyện"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/02.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Oẳn tù tì với AI · Dự án AI 2 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 1</a> / DỰ ÁN 02</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<!-- ============ 1. MỒI ============ -->
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div>
+    <h1>Oẳn tù tì với <span class="hl-word">AI</span></h1>
+    <p class="lead">Ra búa, kéo hay bao trước camera: AI nhìn bàn tay em, đoán cử chỉ rồi đấu với máy. Chơi vài ván trước, rồi cùng xem AI "nghĩ" gì.</p>
+  </div>
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf">
+        <canvas id="stage" width="640" height="480" aria-label="Bàn tay và các điểm AI tìm được"></canvas>
+        <video id="video" playsinline muted></video>
+        <div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div>
+        <div id="stageMsg" class="stage-msg" hidden></div>
+      </div>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Nguồn hình ảnh">
+          <button class="btn small" id="srcSim" aria-pressed="true"><i data-i="figure"></i>Bàn tay ảo</button>
+          <button class="btn small ghost" id="srcCam" aria-pressed="false"><i data-i="camera"></i>Camera</button>
+        </div>
+        <div class="seg sim-only" id="gestBtns" role="group" aria-label="Cử chỉ của bàn tay ảo"></div>
+      </div>
+      <div class="panel-ctl sim-only">
+        <label class="ctl"><span>Xoay bàn tay</span><b id="rotV">0°</b><input type="range" id="rot" min="-60" max="60" step="5"></label>
+        <label class="ctl"><span>Khoảng cách tới camera</span><b id="sizeV">gần</b><input type="range" id="size" min="60" max="150" step="5"></label>
+        <label class="ctl"><span>Rung tay</span><b id="shakeV">ít</b><input type="range" id="shake" min="0" max="10" step="1"></label>
+      </div>
+      <div class="game">
+        <button class="btn accent" id="btnPlay"><i data-i="gamepad"></i>Đấu với máy</button>
+        <span id="gameMsg" class="muted small">Chọn cử chỉ cho bàn tay ảo rồi bấm Đấu.</span>
+        <span class="score" id="gameScore">Em 0 – 0 Máy</span>
+      </div>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result" id="bResult"><small>AI ĐOÁN</small>—</div>
+      <div class="lbl" style="margin-top:14px">PHIẾU BẦU CỦA K HÀNG XÓM</div>
+      <div class="bars" id="bProbs"></div>
+      <div class="lbl" style="margin-top:14px">5 ĐẶC TRƯNG (ĐỘ DUỖI TỪNG NGÓN)</div>
+      <div class="bars" id="bFeat"></div>
+      <div class="metric-row">
+        <div class="metric"><span>K</span><b id="bK">5</b></div>
+        <div class="metric"><span>SỐ MẪU ĐÃ HỌC</span><b id="bN">0</b></div>
+      </div>
+    </aside>
+  </div>
+</div></section>
+
+<!-- ============ 2. NHIỆM VỤ ============ -->
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Dạy máy phân biệt búa, kéo, bao bằng chính dữ liệu của em</h2></div>
+  <div class="grid g2">
+    <div class="card vf">
+      <div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Làm sao máy biết đây là kéo chứ không phải bao, khi không ai viết luật cho nó?"</b></p>
+      <p class="muted">Ở Dự án 1, em <b>tự viết luật</b> (góc &lt; 90° thì là ngồi). Lần này em sẽ <b>cho máy xem ví dụ</b> và để nó tự quyết định. Đây là bước chuyển từ "lập trình" sang "học máy".</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div>
+    </div>
+    <div class="card">
+      <h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3>
+      <ul class="checklist" id="checklist">
+        <li data-k="see"><span class="box"><i data-i="check"></i></span>Xem 21 điểm và 5 đặc trưng của bàn tay</li>
+        <li data-k="play"><span class="box"><i data-i="check"></i></span>Đấu với máy đủ 3 ván</li>
+        <li data-k="data"><span class="box"><i data-i="check"></i></span>Tự thu thập ít nhất 5 mẫu cho mỗi cử chỉ</li>
+        <li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm AI đoán sai ít nhất 1 lần</li>
+        <li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 3. SOI ============ -->
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Từ bàn tay đến câu trả lời "Kéo!": 6 bước</h2>
+  <p class="muted">Bấm vào từng bước. Hình bên dưới chạy trực tiếp theo bàn tay ở phần Mồi: đổi cử chỉ ở trên để thấy các con số thay đổi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain">
+      <span class="chip" id="soiChip">BƯỚC 1/6</span>
+      <h3 id="soiTitle" style="margin-top:12px"></h3>
+      <div id="soiText"></div>
+      <div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 4. LÝ THUYẾT ============ -->
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #05</span><span class="chip mint">Học máy</span></div>
+      <h3>Đặc trưng (feature)</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <g class="s-ink" stroke-width="2" fill="none"><path d="M40 100v-30M40 70l-14-30M40 70l-4-40M40 70l6-42M40 70l14-34M40 70l22-20"/></g>
+        <path d="M86 64h28" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/>
+        <g class="t-mono" font-size="11"><text x="126" y="34" class="f-muted">cái</text><text x="126" y="52" class="f-muted">trỏ</text><text x="126" y="70" class="f-muted">giữa</text><text x="126" y="88" class="f-muted">áp út</text><text x="126" y="106" class="f-muted">út</text></g>
+        <g><rect x="170" y="25" width="70" height="10" rx="5" class="f-soft"/><rect x="170" y="25" width="64" height="10" rx="5" class="f-mint"/><rect x="170" y="43" width="70" height="10" rx="5" class="f-soft"/><rect x="170" y="43" width="66" height="10" rx="5" class="f-mint"/><rect x="170" y="61" width="70" height="10" rx="5" class="f-soft"/><rect x="170" y="61" width="67" height="10" rx="5" class="f-mint"/><rect x="170" y="79" width="70" height="10" rx="5" class="f-soft"/><rect x="170" y="79" width="62" height="10" rx="5" class="f-mint"/><rect x="170" y="97" width="70" height="10" rx="5" class="f-soft"/><rect x="170" y="97" width="60" height="10" rx="5" class="f-mint"/></g>
+      </svg>
+      <p>42 con số tọa độ của bàn tay rất khó so sánh. Ta rút gọn thành <b>5 con số có ý nghĩa</b>: mỗi ngón duỗi bao nhiêu. Chọn đặc trưng tốt là <b>một nửa thành công</b> của mọi dự án học máy.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đặc trưng ở đây được <b>chia cho cỡ bàn tay</b> (khoảng cách cổ tay – gốc ngón giữa). Nhờ vậy, tay để gần hay xa camera, to hay nhỏ, thì con số vẫn như nhau. Ở Cấp 3, em sẽ thấy mạng nơ-ron <i>tự học</i> ra đặc trưng thay vì để con người chọn.</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #06</span><span class="chip mint">Học máy</span></div>
+      <h3>Phân loại & nhãn</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <g><rect x="14" y="18" width="62" height="40" rx="8" class="f-cs"/><text x="45" y="43" text-anchor="middle" font-size="12" class="f-coral" font-weight="700">Búa</text>
+        <rect x="14" y="66" width="62" height="40" rx="8" class="f-vs"/><text x="45" y="91" text-anchor="middle" font-size="12" class="f-violet" font-weight="700">Kéo</text></g>
+        <g class="s-line" stroke-width="1.5" stroke-dasharray="4 4" fill="none"><path d="M80 38h40M80 86h40"/></g>
+        <rect x="122" y="22" width="60" height="80" rx="10" class="f-paper s-line"/><text x="152" y="66" text-anchor="middle" font-size="11" class="t-mono f-muted">máy học</text>
+        <path d="M188 62h24" class="s-mint" stroke-width="2.5" marker-end="url(#arM)"/>
+        <rect x="216" y="44" width="36" height="36" rx="8" class="f-ms"/><text x="234" y="66" text-anchor="middle" font-size="13" class="f-mint" font-weight="800">?</text>
+      </svg>
+      <p><b>Phân loại</b> là trả lời câu hỏi "thứ này thuộc nhóm nào?". Mỗi mẫu dữ liệu đi kèm một <b>nhãn</b> (Búa, Kéo, Bao) do con người gắn. Máy học từ các cặp (dữ liệu, nhãn) đó để đoán nhãn cho mẫu mới.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Kiểu học "có đáp án đi kèm" này gọi là <b>học có giám sát</b>. Lọc thư rác, nhận diện chữ viết và chẩn đoán ảnh y khoa đều là bài toán phân loại.</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #07</span><span class="chip coral">Thuật toán</span></div>
+      <h3>K hàng xóm gần nhất (KNN)</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <g class="f-coral"><circle cx="40" cy="30" r="6"/><circle cx="58" cy="44" r="6"/><circle cx="34" cy="56" r="6"/><circle cx="70" cy="26" r="6"/></g>
+        <g class="f-violet"><circle cx="180" cy="86" r="6"/><circle cx="204" cy="70" r="6"/><circle cx="196" cy="100" r="6"/><circle cx="222" cy="92" r="6"/></g>
+        <g class="f-mint"><circle cx="200" cy="26" r="6"/><circle cx="222" cy="40" r="6"/></g>
+        <circle cx="160" cy="72" r="34" fill="none" class="s-ink" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <g class="s-ink" stroke-width="1.2"><path d="M146 66 180 86M146 66 204 70M146 66 196 100"/></g>
+        <circle cx="146" cy="66" r="8" class="f-amber"/><text x="146" y="70" text-anchor="middle" font-size="10" fill="#fff" font-weight="800">?</text>
+        <text x="20" y="108" font-size="11" class="t-mono f-muted">K = 3 → 3 phiếu "Kéo"</text>
+      </svg>
+      <p>Muốn đoán cử chỉ mới, máy tìm <b>K mẫu giống nó nhất</b> trong dữ liệu đã học, rồi cho chúng <b>bỏ phiếu</b>. Nhãn nhiều phiếu nhất thắng. "Giống" được đo bằng <b>khoảng cách</b> giữa hai dãy 5 số.</p>
+      <details><summary>Hiểu sâu hơn: khoảng cách 5 chiều</summary><p>Khoảng cách giữa hai điểm trong mặt phẳng là √((x₁−x₂)² + (y₁−y₂)²), chính là định lý Pythagoras. Với 5 đặc trưng, ta chỉ cần cộng thêm 3 bình phương nữa. Máy tính không cần "nhìn thấy" không gian 5 chiều mà vẫn tính được rất dễ.</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #08</span><span class="chip amber">Dữ liệu</span></div>
+      <h3>Dữ liệu huấn luyện quyết định tất cả</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <g class="t-mono" font-size="11"><text x="16" y="24" class="f-mint" font-weight="700">cân bằng</text><text x="140" y="24" class="f-coral" font-weight="700">lệch</text></g>
+        <g><rect x="16" y="56" width="26" height="50" rx="4" class="f-coral"/><rect x="48" y="58" width="26" height="48" rx="4" class="f-violet"/><rect x="80" y="54" width="26" height="52" rx="4" class="f-mint"/></g>
+        <g><rect x="140" y="30" width="26" height="76" rx="4" class="f-coral"/><rect x="172" y="96" width="26" height="10" rx="4" class="f-violet"/><rect x="204" y="80" width="26" height="26" rx="4" class="f-mint"/></g>
+      </svg>
+      <p>KNN không có "luật" nào cả: <b>dữ liệu chính là bộ não</b> của nó. Dữ liệu ít, lệch (quá nhiều búa, quá ít kéo) hoặc gắn <b>nhãn sai</b> thì AI sẽ học sai theo. Người ta hay nói: "rác vào, rác ra".</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đây là lý do các công ty AI tốn rất nhiều công sức để thu thập và kiểm tra dữ liệu. Một hệ thống nhận diện chỉ được học trên ảnh của một nhóm người thường sẽ hoạt động kém với những nhóm khác.</p></details>
+    </article>
+  </div>
+</div></section>
+
+<!-- ============ 5. TỰ LÀM ============ -->
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: tự thu thập dữ liệu và dạy máy</h2>
+  <p class="muted">Mỗi chấm trên bản đồ là một mẫu dữ liệu. Ngôi sao là bàn tay hiện tại, các đường nối chỉ tới K hàng xóm gần nhất. Đổi cử chỉ ở phần Mồi để thấy ngôi sao di chuyển.</p></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Bản đồ đặc trưng</h3>
+      <div class="scatter-wrap"><canvas id="scatter" width="640" height="480"></canvas></div>
+      <div class="axis-pick">Trục ngang <select id="axX" aria-label="Trục ngang"></select> Trục dọc <select id="axY" aria-label="Trục dọc"></select></div>
+      <p class="muted small" style="margin-top:8px">Bản đồ chỉ vẽ được 2 trong 5 đặc trưng, nhưng máy tính khoảng cách bằng đủ cả 5.</p>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="layers"></i></span>Bộ dữ liệu của em</h3>
+      <div class="data-count" id="dataCount"></div>
+      <p class="small muted">Tạo cử chỉ ở phần Mồi (hoặc giơ tay trước camera), rồi bấm nút để <b>ghi lại một mẫu</b> kèm nhãn:</p>
+      <div class="btn-row" id="addBtns"></div>
+      <div class="btn-row" style="margin-top:10px">
+        <button class="btn small ghost" id="btnSeed"><i data-i="sparkle"></i>Dùng bộ mẫu có sẵn</button>
+        <button class="btn small ghost" id="btnClear"><i data-i="x"></i>Xóa hết</button>
+      </div>
+      <h3 class="h-ic" style="margin-top:22px"><span class="ico-box sm amber"><i data-i="sliders"></i></span>Tinh chỉnh</h3>
+      <label class="ctl"><span>Số hàng xóm K</span><b id="kV">5</b><input type="range" id="k" min="1" max="15" step="1"></label>
+      <label class="tog" style="margin:6px 0 10px;display:inline-block"><input type="checkbox" id="allowUnknown"><span>Cho phép AI trả lời "Không biết"</span></label>
+      <label class="ctl"><span>…khi hàng xóm gần nhất xa hơn</span><b id="unkV">0.35</b><input type="range" id="unk" min="0.1" max="1" step="0.05"></label>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm coral"><i data-i="checkCircle"></i></span>Kiểm tra độ chính xác</h3>
+      <p class="small muted">Tạo 90 bàn tay mới mà máy <b>chưa từng thấy</b> (30 mỗi loại) rồi chấm điểm.</p>
+      <button class="btn small accent" id="btnTest"><i data-i="flask"></i>Chạy kiểm tra</button>
+      <div id="testOut" style="margin-top:12px"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của thuật toán KNN</h3>
+    <pre class="code" id="genCode"></pre>
+  </div>
+</div></section>
+
+<!-- ============ 6. PHÁ MÁY ============ -->
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm AI đoán sai!</h2>
+  <p class="muted">Với KNN, cách phá máy hiệu quả nhất là… phá dữ liệu. Bật từng sự cố rồi xem bản đồ đặc trưng và kết quả kiểm tra.</p></div>
+  <div class="grid g3">
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="chart"></i></div>
+      <span class="chip coral">SỰ CỐ 1</span><h3>Dữ liệu lệch</h3>
+      <p>Bộ dữ liệu mới có <b>20 mẫu Búa</b> nhưng chỉ <b>2 mẫu Kéo</b>, và K = 9.</p>
+      <button class="btn small coral" data-break="skew"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Khi K lớn hơn số mẫu Kéo, Kéo không bao giờ thắng được cuộc bỏ phiếu. Em có thể giảm K, hoặc tốt hơn là <b>thu thập thêm mẫu Kéo</b> cho cân bằng. Dữ liệu lệch là nguyên nhân rất phổ biến khiến AI ngoài đời đối xử không công bằng.</p></details>
+    </div>
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="x"></i></div>
+      <span class="chip coral">SỰ CỐ 2</span><h3>Nhãn bị gắn sai</h3>
+      <p>Một bạn "nghịch" đã đổi nhãn <b>30% số mẫu</b> thành nhãn ngẫu nhiên, và K = 1.</p>
+      <button class="btn small coral" data-break="noise"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Với K = 1, AI tin tuyệt đối vào đúng một hàng xóm, kể cả khi hàng xóm đó bị dán nhãn sai. Hãy tăng K lên 7–9: các mẫu đúng sẽ thắng phiếu. Đây là lý do K lớn hơn giúp AI <b>chống nhiễu</b> tốt hơn.</p></details>
+    </div>
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="help"></i></div>
+      <span class="chip coral">SỰ CỐ 3</span><h3>Cử chỉ lạ</h3>
+      <p>Cho bàn tay ảo giơ <b>ngón cái "Like"</b>, thứ mà AI chưa từng học. AI vẫn tự tin trả lời Búa, Kéo hoặc Bao!</p>
+      <button class="btn small coral" data-break="unknown"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>AI chỉ biết chọn trong những nhãn nó được học. Cách sửa: bật <b>"Cho phép AI trả lời Không biết"</b> trong Bàn thí nghiệm. Khi hàng xóm gần nhất ở quá xa, AI sẽ thừa nhận là nó không chắc.</p></details>
+    </div>
+  </div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Khôi phục dữ liệu chuẩn</button></p>
+</div></section>
+
+<!-- ============ 7. NGOÀI ĐỜI ============ -->
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Nhận diện cử chỉ đang được dùng ở đâu?</h2></div>
+  <div class="grid g3">
+    <div class="card"><div class="ico-box"><i data-i="msg"></i></div><h3>Ngôn ngữ ký hiệu</h3><p class="muted">Phần mềm nhận diện cử chỉ tay giúp dịch ngôn ngữ ký hiệu, hỗ trợ giao tiếp với người khiếm thính.</p></div>
+    <div class="card"><div class="ico-box mint"><i data-i="eye"></i></div><h3>Kính thực tế ảo</h3><p class="muted">Nhiều kính thực tế ảo cho phép điều khiển bằng tay không: chụm ngón để chọn, vuốt để cuộn.</p></div>
+    <div class="card"><div class="ico-box amber"><i data-i="activity"></i></div><h3>Điều khiển không chạm</h3><p class="muted">Ô tô, màn hình bếp hay phòng mổ dùng cử chỉ để không phải chạm vào thiết bị khi tay bẩn hoặc cần vô trùng.</p></div>
+  </div>
+  <div class="card ethics" style="margin-top:18px">
+    <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3>
+    <ul>
+      <li>Nếu dữ liệu chỉ gồm tay của học sinh lớp em, AI có nhận ra tay của ông bà, em bé, hay người bị mất một ngón tay không?</li>
+      <li>Ở một số nền văn hóa, một cử chỉ có thể mang ý nghĩa xấu. AI có hiểu được ngữ cảnh đó không?</li>
+      <li>Khi AI không chắc chắn, nói "Không biết" có tốt hơn là đoán bừa không? Trong những việc nào điều này đặc biệt quan trọng?</li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- ============ 8. KIỂM TRA ============ -->
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden>
+    <svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg>
+    <div><h3>Huy hiệu "Người Thầy Của Máy"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Đặc trưng · Phân loại & nhãn · KNN · Dữ liệu huấn luyện.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ 9. PHÁT TRIỂN ============ -->
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ oẳn tù tì đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf">
+      <div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div>
+      <h3>Thêm cử chỉ "Thằn lằn" và "Spock"</h3>
+      <p><b>Gợi ý:</b> Thêm 2 nhãn mới vào danh sách lớp và thu thập 15–20 mẫu mỗi loại. Có cử chỉ nào mà 5 đặc trưng độ duỗi không phân biệt được không? Thử thêm đặc trưng "khoảng cách giữa hai đầu ngón".</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> độ chính xác kiểm tra trên 5 lớp đạt trên 90%.</span></p>
+    </div>
+    <div class="card dev vf">
+      <div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div>
+      <h3>Điều khiển slide bằng tay</h3>
+      <p><b>Gợi ý:</b> Ghép phân loại cử chỉ (bàn tay mở, chỉ trái, chỉ phải) với luật thời gian: giữ cử chỉ 0,5 giây mới chuyển slide, để tránh bấm nhầm.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> thuyết trình được 10 slide trước lớp mà không chạm vào máy tính.</span></p>
+    </div>
+    <div class="card dev vf">
+      <div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div>
+      <h3>AI đoán trước nước đi của người chơi</h3>
+      <p><b>Gợi ý:</b> Con người ra oẳn tù tì không hoàn toàn ngẫu nhiên. Ghi lại lịch sử ván đấu và đếm "sau Búa thường ra gì". Máy dùng thống kê đó để đoán trước và ra nước khắc chế.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> tỉ lệ thắng của máy sau 50 ván với 20 người chơi, so với mức 33% của chiến lược ngẫu nhiên.</span></p>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13">
+          <rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">02 · Oẳn tù tì</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text>
+          <rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">03 · Họa sĩ không chạm</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">theo dõi ngón tay</text>
+          <rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">06 · Thùng rác thông minh</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">phân loại cả bức ảnh</text>
+          <rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">15 · Ngôn ngữ ký hiệu</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">cử chỉ chuyển động</text>
+        </g>
+      </svg>
+    </div>
+    <div class="card khkt">
+      <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3>
+      <dl>
+        <dt>Vấn đề</dt><dd>Người khiếm thính gặp khó khăn khi giao tiếp với người không biết ngôn ngữ ký hiệu.</dd>
+        <dt>Câu hỏi nghiên cứu</dt><dd>KNN trên đặc trưng bàn tay nhận diện được bảng chữ cái ngón tay tiếng Việt chính xác đến đâu?</dd>
+        <dt>Giả thuyết</dt><dd>Thêm đặc trưng về góc giữa các ngón sẽ phân biệt tốt hơn các chữ có hình dạng tay gần giống nhau.</dd>
+        <dt>Lưu ý đạo đức</dt><dd>Hợp tác với cộng đồng người khiếm thính khi thu thập dữ liệu và đánh giá kết quả.</dd>
+      </dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p>
+    </div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../01-squat/index.html"><i data-i="arrowL"></i>Dự án 01</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../03-hoa-si/index.html">Dự án 03<i data-i="arrowR"></i></a></p>
+</div></section>
+<footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 02 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="../../assets/sim-hand.js"></script>
+<script src="rps.js"></script>
+</body>
+</html>

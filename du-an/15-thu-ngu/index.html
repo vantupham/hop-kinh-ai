@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Vẫy tay chào, vẽ vòng tròn trong không khí, vuốt lên để lật trang… Những cử chỉ này không nằm trong một khung hình mà trải dài theo thời gian. Đây cũng là…">
+<meta name="keywords" content="Chuỗi thời gian, Cắt đoạn &amp; chuẩn hóa, DTW, AI và ngôn ngữ ký hiệu, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hiểu cử chỉ chuyển động · Dự án AI 15 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Vẫy tay chào, vẽ vòng tròn trong không khí, vuốt lên để lật trang… Những cử chỉ này không nằm trong một khung hình mà trải dài theo thời gian. Đây cũng là…">
+<meta property="og:image" content="../../assets/og/15.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Hiểu cử chỉ chuyển động · Dự án AI 15 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hiểu cử chỉ chuyển động · Dự án AI 15 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Vẫy tay chào, vẽ vòng tròn trong không khí, vuốt lên để lật trang… Những cử chỉ này không nằm trong một khung hình mà trải dài theo thời gian. Đây cũng là…">
+<meta name="twitter:image" content="../../assets/og/15.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 15: Hiểu cử chỉ chuyển động", "description": "Vẫy tay chào, vẽ vòng tròn trong không khí, vuốt lên để lật trang… Những cử chỉ này không nằm trong một khung hình mà trải dài theo thời gian. Đây cũng là…", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Chuỗi thời gian", "Cắt đoạn & chuẩn hóa", "DTW", "AI và ngôn ngữ ký hiệu"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/15.jpg", "datePublished": "2026-11-12", "timeRequired": "PT75M"}]}</script>
+<!--seo:end-->
+<title>Hiểu cử chỉ chuyển động · Dự án AI 15 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 3</a> / DỰ ÁN 15</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div><h1>Hiểu <span class="hl-word">cử chỉ chuyển động</span></h1><p class="lead">Vẫy tay chào, vẽ vòng tròn trong không khí, vuốt lên để lật trang… Những cử chỉ này không nằm trong một khung hình mà trải dài theo thời gian. Đây cũng là bước đầu tiên để máy hiểu được ngôn ngữ ký hiệu. Hãy xem máy cắt, kéo giãn và so khớp từng chuỗi chuyển động.</p></div>
+  
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Bàn tay làm cử chỉ và bảng so khớp với 5 mẫu"></canvas><video id="video" playsinline muted hidden></video><div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div><div class="stage-msg" id="stageMsg" hidden></div></div>
+      <div class="toolbar">
+        <div class="seg"><button class="btn small" id="srcSim"><i data-i="film"></i>Mô phỏng</button><button class="btn small ghost" id="srcCam"><i data-i="camera"></i>Camera thật</button></div>
+        <div class="seg sim-only" id="modeBtns"><button class="btn small ghost" data-m="auto"><i data-i="play"></i>Máy tự diễn</button><button class="btn small ghost" data-m="mouse"><i data-i="figure"></i>Em tự vẽ</button></div>
+      </div>
+      <div class="game sim-only"><span class="small muted">Bảo máy diễn</span><div class="btn-row" id="gBtns"></div></div>
+      <p class="small muted" style="margin:8px 0 0"><i data-i="bulb"></i> Giữ chuột (hoặc ngón tay) trên sân khấu và vẽ một trong 5 cử chỉ, rồi thả ra.</p>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result"><small>CỬ CHỈ VỪA RỒI</small><span id="bRes">—</span></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>SỐ KHUNG TRONG ĐOẠN</span><b id="bSeg">—</b></div><div class="metric"><span>KHOẢNG CÁCH GẦN NHẤT</span><b id="bDist">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>ĐÚNG / 20 LẦN GẦN NHẤT</span><b id="bAcc">—</b></div><div class="metric"><span>ĐIỂM MỖI CỬ CHỈ</span><b>32</b></div></div>
+      <p class="small" style="color:#c3c7f0;margin-top:12px">5 cử chỉ ở đây do Hộp Kính AI tự đặt ra để học cách làm, <b>không phải</b> ký hiệu của Ngôn ngữ ký hiệu Việt Nam.</p>
+    </aside>
+  </div>
+</div></section>
+
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Dạy máy hiểu một chuyển động, không chỉ một tư thế</h2></div>
+  <div class="grid g2">
+    <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Cùng một cử chỉ, mỗi lần làm lại nhanh chậm khác nhau. Máy so sánh thế nào?"</b></p><p class="muted">Em sẽ biến bàn tay thành một <b>chuỗi điểm theo thời gian</b>, xem máy <b>cắt đoạn</b> chuyển động, <b>chuẩn hóa</b>, rồi dùng <b>DTW</b> để co giãn thời gian khi so với mẫu. Em còn có thể dạy máy cử chỉ của riêng em.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>60–75 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div></div>
+    <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist"><li data-k="see3"><span class="box"><i data-i="check"></i></span>Để máy nhận đúng ít nhất 3 cử chỉ khác nhau</li><li data-k="own"><span class="box"><i data-i="check"></i></span>Tự vẽ một cử chỉ bằng chuột hoặc camera</li><li data-k="soi"><span class="box"><i data-i="check"></i></span>Soi tới bước So khớp DTW</li><li data-k="save"><span class="box"><i data-i="check"></i></span>Lưu một cử chỉ của em làm mẫu</li><li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm máy nhận sai ít nhất 1 lần</li><li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li></ul></div>
+  </div>
+</div></section>
+
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Từ bàn tay tới cử chỉ: 6 bước</h2><p class="muted">Hình bên dưới dùng đúng cử chỉ vừa diễn ra ở phần Mồi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain"><span class="chip" id="soiChip">BƯỚC 1/6</span><h3 id="soiTitle" style="margin-top:12px"></h3><div id="soiText"></div><div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div></div>
+  </div>
+</div></section>
+
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #57</span><span class="chip mint">Dữ liệu</span></div>
+      <h3>Chuỗi thời gian</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><path d="M20 100H240" class="s-line" stroke-width="1"/><path d="M20 80C50 30 70 30 90 70S140 110 160 60S210 30 240 50" fill="none" class="s-violet" stroke-width="3"/><g class="f-coral"><circle cx="20" cy="80" r="4"/><circle cx="90" cy="70" r="4"/><circle cx="160" cy="60" r="4"/><circle cx="240" cy="50" r="4"/></g><text x="190" y="116" font-size="10" class="t-mono f-muted">thời gian →</text></svg><p><b>Chuỗi thời gian</b> là dãy số đo nối tiếp nhau theo thời gian: nhịp tim, nhiệt độ, giá cả, hay vị trí bàn tay mỗi khung hình. Với chuỗi, <b>thứ tự</b> mang ý nghĩa: đảo ngược vuốt lên sẽ thành vuốt xuống.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Em đã gặp chuỗi thời gian ở Dự án 1 (đếm squat theo góc gối), Dự án 8 (âm thanh) và Dự án 10. Ở đây cả chuỗi là một mẫu dữ liệu cần phân loại.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #58</span><span class="chip amber">Xử lý</span></div>
+      <h3>Cắt đoạn & chuẩn hóa</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="20" y="30" width="220" height="60" rx="6" class="f-soft"/><path d="M20 80h40l20-40 20 40 20-40 20 40h100" fill="none" class="s-violet" stroke-width="2.5"/><rect x="60" y="30" width="80" height="60" fill="none" class="s-mint" stroke-width="2.5" stroke-dasharray="5 4"/><text x="62" y="110" font-size="10" class="t-mono f-mint">một cử chỉ</text></svg><p>Máy phải tự tìm <b>lúc bắt đầu và kết thúc</b> một cử chỉ: dựa vào tốc độ bàn tay. Sau đó đưa đoạn về cùng vị trí và cùng kích thước để chỉ còn lại <b>hình dạng</b> của chuyển động.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Cắt đoạn là phần khó nhất của nhận dạng ngôn ngữ ký hiệu thật, vì người ký hiệu nối các từ liền mạch, không dừng giữa các từ. Các hệ thống hiện đại dùng mạng nơ-ron học luôn cả việc cắt đoạn.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #59</span><span class="chip coral">Thuật toán</span></div>
+      <h3>Co giãn thời gian (DTW)</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><path d="M20 40C60 10 80 70 120 40S200 20 240 40" fill="none" class="s-violet" stroke-width="3"/><path d="M20 100C40 70 60 130 100 100S200 80 240 100" fill="none" class="s-coral" stroke-width="3"/><g class="s-line" stroke-width="1"><path d="M20 40 20 100M60 34 40 94M120 40 100 100M180 30 150 94M240 40 240 100"/></g></svg><p>Hai lần vẫy tay không bao giờ cùng nhịp. <b>DTW</b> (Dynamic Time Warping) tìm cách ghép từng điểm của chuỗi này với điểm tương ứng của chuỗi kia, cho phép <b>kéo giãn</b> hay <b>nén</b> thời gian, sao cho tổng khoảng cách nhỏ nhất.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>DTW dùng <b>quy hoạch động</b>: điền dần một bảng, mỗi ô dựa trên 3 ô bên cạnh đã tính. Đây là một kỹ thuật thuật toán quan trọng em sẽ gặp lại trong tin học, ví dụ khi so sánh hai đoạn ADN.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #60</span><span class="chip mint">Đạo đức</span></div>
+      <h3>AI và ngôn ngữ ký hiệu</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><circle cx="80" cy="60" r="34" class="f-soft"/><path d="M64 60l10 10 20-22" fill="none" class="s-mint" stroke-width="4"/><circle cx="180" cy="60" r="34" class="f-soft"/><path d="M180 44v18M180 72v4" class="s-coral" stroke-width="5" stroke-linecap="round"/></svg><p>Ngôn ngữ ký hiệu có ngữ pháp riêng, dùng cả bàn tay, nét mặt và cơ thể. Nhận được vài cử chỉ <b>chưa phải</b> là hiểu ngôn ngữ. Một hệ thống thật phải được xây <b>cùng</b> cộng đồng người Điếc, không chỉ <b>cho</b> họ.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Ngôn ngữ ký hiệu ở mỗi nước, thậm chí mỗi vùng, khác nhau. Dữ liệu phải do người dùng ngôn ngữ đó cung cấp và đồng ý, và họ cần được tham gia đánh giá xem hệ thống có hữu ích, có tôn trọng ngôn ngữ của họ không.</p></details></article></div>
+</div></section>
+
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: ma trận DTW và cử chỉ của riêng em</h2><p class="muted">Chọn một mẫu để xem ma trận chi phí giữa nó và cử chỉ vừa rồi. Ô sáng là cặp điểm gần nhau; đường vàng là cách ghép tốt nhất.</p></div>
+  
+  <div class="two-col">
+    <div class="card canvas-card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="blocks"></i></span>Ma trận chi phí DTW</h3>
+      <canvas id="dtwM" width="460" height="400"></canvas>
+      <div class="btn-row" id="tplBtns" style="margin-top:8px"></div>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="sliders"></i></span>Điều chỉnh</h3>
+      <label class="tog" style="display:block;margin:6px 0"><input type="checkbox" id="norm"><span>Chuẩn hóa vị trí & kích thước</span></label>
+      <label class="tog" style="display:block;margin:6px 0 10px"><input type="checkbox" id="dtw"><span>Dùng DTW (tắt = so từng khung theo thời gian thật)</span></label>
+      <label class="ctl"><span>Ngưỡng khoảng cách</span><b id="thrV"></b><input type="range" id="thr" min="0.1" max="1.5" step="0.01"></label>
+      <label class="ctl"><span>Đứng yên bao lâu thì cắt đoạn</span><b id="restV"></b><input type="range" id="rest" min="0.05" max="0.8" step="0.01"></label>
+      <div class="lbl muted small" style="margin:10px 0 4px">NGƯỜI DIỄN MÔ PHỎNG</div>
+      <label class="ctl"><span>Nhịp thất thường</span><b id="warpV"></b><input type="range" id="warp" min="0" max="0.95" step="0.05"></label>
+      <label class="ctl"><span>Tốc độ diễn</span><b id="speedV"></b><input type="range" id="speed" min="0.5" max="2" step="0.1"></label>
+      <div class="btn-row" style="margin-top:8px"><button class="btn small accent" id="btnSave"><i data-i="upload"></i>Lưu cử chỉ vừa rồi làm mẫu</button><button class="btn small ghost" id="btnResetTpl"><i data-i="reset"></i>Về mẫu gốc</button></div>
+      <p class="small muted" style="margin:6px 0 0">Mẫu được lưu vào loại đang chọn bên trái. Hiện có: <b id="tplCount"></b></p>
+    </div>
+  </div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card chart-card"><div class="chart-head"><b><i data-i="activity"></i> Tốc độ bàn tay (dùng để cắt đoạn)</b></div><canvas id="chart" width="540" height="200"></canvas></div>
+    <div class="card"><div class="chart-head"><b><i data-i="checkCircle"></i> 20 cử chỉ gần nhất của máy diễn · đúng <span id="labAcc">—</span></b></div><canvas id="histV" width="540" height="130"></canvas><p class="small muted" style="margin:4px 0 0">Xanh: đúng · Cam: sai · Xám: Không rõ</p>
+      <h3 class="h-ic" style="margin-top:12px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật</h3><pre class="code" id="genCode"></pre></div>
+  </div>
+</div></section>
+
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm máy hiểu sai cử chỉ!</h2><p class="muted"></p></div>
+  <div class="grid g3">
+    <div class="card break"><div class="ico-box coral"><i data-i="clock"></i></div><span class="chip coral">SỰ CỐ 1</span><h3>Nhịp thất thường</h3><p>Người diễn làm cử chỉ <b>chậm hơn mẫu, lại nhanh chỗ này chậm chỗ kia</b>, và máy bị tắt DTW: khung thứ 1 so với khung thứ 1, khung thứ 2 với khung thứ 2…</p>
+      <button class="btn small coral" data-break="speed"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Khi so cứng theo thời gian, lúc mẫu đã vẽ xong thì em mới vẽ được nửa đường, nên máy nhận sai hoặc nói Không rõ. Bật <b>Dùng DTW</b>: máy co giãn thời gian để ghép đúng điểm tương ứng. Xem ma trận: đường vàng không còn là đường chéo thẳng.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="scan"></i></div><span class="chip coral">SỰ CỐ 2</span><h3>Cắt đoạn vội vàng</h3><p>Chỉ cần bàn tay dừng <b>0,05 giây</b> là máy coi như cử chỉ đã xong.</p>
+      <button class="btn small coral" data-break="cut"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Chữ Z và chữ V có những chỗ tay dừng rất ngắn ở góc. Máy cắt cử chỉ thành nhiều mẩu, mỗi mẩu trông như "vuốt" một đường. Tăng <b>thời gian đứng yên</b> lên khoảng 0,3 giây. Đặt quá dài thì hai cử chỉ liền nhau sẽ bị dính vào nhau.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="crosshair"></i></div><span class="chip coral">SỰ CỐ 3</span><h3>Đứng lệch, ở xa</h3><p>Người diễn đứng ở <b>góc trên bên phải</b>, xa camera nên cử chỉ nhỏ, và bước chuẩn hóa bị tắt.</p>
+      <button class="btn small coral" data-break="pos"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Không chuẩn hóa thì máy so tọa độ thật: cử chỉ nhỏ ở góc cách xa mọi mẫu ở giữa, nên máy chọn mẫu "ít xa nhất" một cách vô nghĩa (thường cứ ra một cử chỉ) hoặc nói Không rõ. Bật <b>Chuẩn hóa vị trí & kích thước</b>.</p></details></div></div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Nhận dạng chuyển động đang được dùng ở đâu?</h2></div>
+  <div class="grid g3"><div class="card"><div class="ico-box "><i data-i="msg"></i></div><h3>Hỗ trợ giao tiếp</h3><p class="muted">Các dự án nghiên cứu nhận dạng ngôn ngữ ký hiệu từ video, giúp người Điếc và người nghe trao đổi dễ hơn. Đây là bài toán còn rất khó.</p></div><div class="card"><div class="ico-box mint"><i data-i="gamepad"></i></div><h3>Điều khiển không chạm</h3><p class="muted">Vẫy tay để chuyển bài, xoay tay để chỉnh âm lượng trong ô tô, trò chơi vận động trước màn hình.</p></div><div class="card"><div class="ico-box amber"><i data-i="activity"></i></div><h3>Sức khỏe & thể thao</h3><p class="muted">So khớp động tác tập phục hồi chức năng với động tác mẫu của bác sĩ, kể cả khi bệnh nhân làm chậm hơn.</p></div></div>
+  <div class="card ethics" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3><ul><li>Một ứng dụng "phiên dịch ngôn ngữ ký hiệu" chỉ biết vài chục từ và hay dịch sai. Quảng cáo nó như một phiên dịch viên có ổn không?</li><li>Ai nên được tham gia khi xây dựng công nghệ cho cộng đồng người Điếc? Vì sao?</li><li>Dữ liệu video ký hiệu cho thấy rõ khuôn mặt người làm. Cần bảo vệ quyền riêng tư của họ thế nào?</li></ul></div>
+</div></section>
+
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden><svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg><div><h3>Huy hiệu "Bậc Thầy Chuyển Động"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Chuỗi thời gian · Cắt đoạn & chuẩn hóa · DTW · AI và ngôn ngữ ký hiệu.</p></div></div>
+</div></section>
+
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ cử chỉ chuyển động đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf"><div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div><h3>Điều khiển trình chiếu bằng cử chỉ</h3><p><b>Gợi ý:</b> Gán vuốt lên, vòng tròn, chữ V thành các phím chuyển trang, phóng to, tắt màn hình cho bài thuyết trình của em.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> trình bày được 5 phút chỉ bằng cử chỉ, sai không quá 1 lần.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div><h3>Cử chỉ bằng cả hai tay và hình dạng bàn tay</h3><p><b>Gợi ý:</b> Mỗi khung dùng thêm 5 độ duỗi ngón tay (Dự án 3) và vị trí tay thứ hai, rồi so khớp DTW trên chuỗi nhiều chiều.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> phân biệt được hai cử chỉ có cùng đường đi nhưng khác hình bàn tay.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div><h3>Trợ lý học ký hiệu cho người mới</h3><p><b>Gợi ý:</b> Cùng thầy cô và cộng đồng người Điếc ở địa phương chọn 10–20 ký hiệu thông dụng, thu dữ liệu có đồng ý, xây công cụ chấm điểm động tác cho người học.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> độ chính xác, và đánh giá của chính người Điếc về độ hữu ích và độ tôn trọng ngôn ngữ.</span></p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13"><rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">15 · Cử chỉ động</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text><rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">16 · Đoán chữ tiếp theo</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">chuỗi chữ thay cho chuỗi chuyển động</text><rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">5 · Vũ công AI</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">so khớp động tác</text><rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">18 · Robot thoát mê cung</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">AI tự quyết định</text></g>
+      </svg></div>
+    <div class="card khkt"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3><dl><dt>Vấn đề</dt><dd>Người mới học ngôn ngữ ký hiệu khó biết mình làm đúng hay chưa khi không có giáo viên.</dd><dt>Câu hỏi nghiên cứu</dt><dd>So khớp DTW với mẫu của người Điếc có chấm điểm động tác sát với đánh giá của họ không?</dd><dt>Giả thuyết</dt><dd>Điểm DTW tương quan chặt với điểm do người Điếc chấm.</dd><dt>Lưu ý đạo đức</dt><dd>Hợp tác và ghi công cộng đồng người Điếc; có đồng ý khi quay video; không công bố khuôn mặt.</dd></dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p></div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../14-la-cay/index.html"><i data-i="arrowL"></i>Dự án 14</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../16-doan-chu/index.html">Dự án 16<i data-i="arrowR"></i></a></p>
+</div></section><footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 15 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="../../assets/sim-hand.js"></script>
+<script src="gesture.js"></script>
+</body>
+</html>

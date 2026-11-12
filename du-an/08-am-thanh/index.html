@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Vỗ tay, huýt sáo, gảy đàn hay gõ trống: AI nghe và gọi tên âm thanh ngay lập tức. Bí mật là gì? Máy biến âm thanh thành một bức ảnh, rồi nhìn bức ảnh đó!">
+<meta name="keywords" content="Âm thanh là sóng, Biến đổi Fourier, Ảnh phổ, Tiếng ồn &amp; chuẩn hóa, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nhận diện âm thanh · Dự án AI 8 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Vỗ tay, huýt sáo, gảy đàn hay gõ trống: AI nghe và gọi tên âm thanh ngay lập tức. Bí mật là gì? Máy biến âm thanh thành một bức ảnh, rồi nhìn bức ảnh đó!">
+<meta property="og:image" content="../../assets/og/08.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nhận diện âm thanh · Dự án AI 8 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nhận diện âm thanh · Dự án AI 8 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Vỗ tay, huýt sáo, gảy đàn hay gõ trống: AI nghe và gọi tên âm thanh ngay lập tức. Bí mật là gì? Máy biến âm thanh thành một bức ảnh, rồi nhìn bức ảnh đó!">
+<meta name="twitter:image" content="../../assets/og/08.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 8: Nhận diện âm thanh", "description": "Vỗ tay, huýt sáo, gảy đàn hay gõ trống: AI nghe và gọi tên âm thanh ngay lập tức. Bí mật là gì? Máy biến âm thanh thành một bức ảnh, rồi nhìn bức ảnh đó!", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Âm thanh là sóng", "Biến đổi Fourier", "Ảnh phổ", "Tiếng ồn & chuẩn hóa"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/08.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Nhận diện âm thanh · Dự án AI 8 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 2</a> / DỰ ÁN 08</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div><h1>Nhận diện <span class="hl-word">âm thanh</span></h1><p class="lead">Vỗ tay, huýt sáo, gảy đàn hay gõ trống: AI nghe và gọi tên âm thanh ngay lập tức. Bí mật là gì? Máy biến âm thanh thành một bức ảnh, rồi nhìn bức ảnh đó!</p></div>
+  
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf"><canvas id="stage" width="640" height="480" aria-label="Sóng âm và ảnh phổ đang chạy"></canvas><div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div><div id="stageMsg" class="stage-msg" hidden></div></div>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Nguồn âm thanh"><button class="btn small" id="srcSim" aria-pressed="true"><i data-i="pulse"></i>Âm thanh mô phỏng</button><button class="btn small ghost" id="srcCam" aria-pressed="false"><i data-i="msg"></i>Micro</button></div>
+        <div class="seg sim-only"><button class="btn small" id="btnAuto" aria-pressed="true"><i data-i="repeat"></i>Phát ngẫu nhiên</button><button class="btn small ghost" id="btnPlay"><i data-i="play"></i>Nghe âm vừa rồi</button></div>
+      </div>
+      <div class="toolbar sim-only"><span class="muted small">Tạo âm thanh:</span><div class="seg" id="makeBtns"></div></div>
+      <div class="panel-ctl sim-only"><label class="ctl"><span>Tiếng ồn nền</span><b id="noiseV"></b><input type="range" id="noise" min="0" max="0.35" step="0.01"></label><label class="ctl"><span>Âm lượng (gần hay xa micro)</span><b id="volV"></b><input type="range" id="vol" min="0.05" max="1.5" step="0.05"></label></div>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result" id="bResult"><small>AI NGHE THẤY</small>—</div>
+      <div class="lbl" style="margin-top:14px">XÁC SUẤT TỪNG LOẠI</div>
+      <div class="bars" id="bProbs"></div>
+      <div class="metric-row"><div class="metric"><span>NHẬN ĐÚNG</span><b id="bStats">0/0</b></div><div class="metric"><span>TIẾNG ỒN NỀN</span><b id="bNoise">—</b></div></div>
+    </aside>
+  </div>
+</div></section>
+
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Biến âm thanh thành hình ảnh, rồi dạy máy nhận ra hình ảnh đó</h2></div>
+  <div class="grid g2">
+    <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Máy không có tai. Vậy làm sao nó phân biệt được tiếng vỗ tay và tiếng huýt sáo?"</b></p><p class="muted">Em sẽ thấy âm thanh chỉ là một dãy số, dùng <b>phép biến đổi Fourier</b> để tách nó thành các tần số, rồi vẽ thành <b>ảnh phổ</b>. Từ đây, nhận diện âm thanh trở thành nhận diện ảnh, việc em đã làm ở Dự án 6!</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div></div>
+    <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist"><li data-k="make"><span class="box"><i data-i="check"></i></span>Tạo đủ 4 loại âm thanh và xem ảnh phổ của chúng</li><li data-k="see"><span class="box"><i data-i="check"></i></span>Xem phép biến đổi Fourier tách một khung âm thanh</li><li data-k="record"><span class="box"><i data-i="check"></i></span>Ghi ít nhất 3 mẫu âm thanh của em</li><li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm AI nghe nhầm ít nhất 1 lần</li><li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li></ul></div>
+  </div>
+</div></section>
+
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Từ dãy số tới tên âm thanh: 6 bước</h2><p class="muted">Ba bước đầu dùng âm thanh vừa phát, ba bước sau dùng âm vừa được AI nhận diện ở phần Mồi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain"><span class="chip" id="soiChip">BƯỚC 1/6</span><h3 id="soiTitle" style="margin-top:12px"></h3><div id="soiText"></div><div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div></div>
+  </div>
+</div></section>
+
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #29</span><span class="chip mint">Vật lý + AI</span></div>
+      <h3>Âm thanh là sóng</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><path d="M10 60 C25 20 40 20 55 60 S85 100 100 60 S130 20 145 60" fill="none" class="s-violet" stroke-width="2.5"/><path d="M150 60 C155 45 160 45 165 60 S175 75 180 60 S190 45 195 60 S205 75 210 60 S220 45 225 60 S235 75 240 60" fill="none" class="s-coral" stroke-width="2.5"/><text x="30" y="112" font-size="11" class="t-mono f-violet">trầm (tần số thấp)</text><text x="150" y="112" font-size="11" class="t-mono f-coral">bổng (tần số cao)</text></svg><p>Âm thanh là không khí dao động. <b>Tần số</b> (số dao động mỗi giây, đơn vị Hz) quyết định âm trầm hay bổng, còn <b>biên độ</b> quyết định to hay nhỏ. Micro đo dao động này 16.000 lần mỗi giây.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Tai người nghe được khoảng 20 Hz tới 20.000 Hz. Tiếng trống chủ yếu dưới 150 Hz, huýt sáo khoảng 1.000–2.500 Hz, còn tiếng vỗ tay trải rộng khắp các tần số, giống như "nhiễu".</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #30</span><span class="chip mint">Toán + AI</span></div>
+      <h3>Phép biến đổi Fourier</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><path d="M20 70 C40 30 50 100 70 60 S100 40 110 70" fill="none" class="s-ink" stroke-width="2"/><path d="M120 60h24" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><g><rect x="156" y="70" width="10" height="34" class="f-coral"/><rect x="170" y="40" width="10" height="64" class="f-amber"/><rect x="184" y="84" width="10" height="20" class="f-mint"/><rect x="198" y="58" width="10" height="46" class="f-violet"/><rect x="212" y="92" width="10" height="12" class="f-mint"/><rect x="226" y="96" width="10" height="8" class="f-mint"/></g></svg><p>Một âm thanh phức tạp là <b>tổng của nhiều sóng đơn giản</b> ở các tần số khác nhau. Phép biến đổi Fourier tìm ra mỗi tần số góp bao nhiêu, giống như lăng kính tách ánh sáng trắng thành cầu vồng.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>FFT (Fast Fourier Transform) là cách tính nhanh, được coi là một trong những thuật toán quan trọng nhất thế kỷ 20. Nó có mặt trong nén nhạc MP3, ảnh JPEG, wifi, và cả máy chụp cộng hưởng từ trong bệnh viện.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #31</span><span class="chip coral">Thị giác máy tính</span></div>
+      <h3>Ảnh phổ: nghe bằng mắt</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g><rect x="20" y="20" width="220" height="80" fill="#0b0d26"/><rect x="40" y="30" width="6" height="66" fill="#ffc34d" opacity=".9"/><rect x="50" y="32" width="6" height="62" fill="#ffc34d" opacity=".7"/><path d="M100 46 Q130 36 160 42" stroke="#3ee9cf" stroke-width="4" fill="none"/><rect x="190" y="80" width="30" height="16" fill="#ff7d5f"/></g></svg><p>Xếp kết quả Fourier của từng khung cạnh nhau, ta được <b>ảnh phổ</b>: ngang là thời gian, dọc là tần số. Vỗ tay là vạch dọc, huýt sáo là đường mảnh ở trên cao, trống là khối ở dưới đáy. Máy chỉ cần <b>nhận diện ảnh</b>.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đây là ví dụ đẹp của việc tái sử dụng ý tưởng trong AI: nhiều hệ thống nhận dạng giọng nói và nhận diện tiếng chim đều chuyển âm thanh thành ảnh phổ rồi dùng mạng nhận diện ảnh (Dự án 14).</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #32</span><span class="chip amber">Dữ liệu</span></div>
+      <h3>Tiếng ồn & chuẩn hóa âm lượng</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="20" y="20" width="100" height="80" fill="#0b0d26"/><rect x="20" y="20" width="100" height="80" fill="#ff7d5f" opacity=".25"/><path d="M40 46 Q70 36 100 42" stroke="#3ee9cf" stroke-width="3" fill="none" opacity=".5"/><path d="M128 60h24" class="s-mint" stroke-width="2.5" marker-end="url(#arM)"/><rect x="160" y="20" width="80" height="80" fill="#0b0d26"/><path d="M172 46 Q200 36 228 42" stroke="#3ee9cf" stroke-width="4" fill="none"/></svg><p>Ngoài đời luôn có tiếng quạt, tiếng xe, tiếng mưa che lấp âm cần nghe. Người ta <b>ước lượng tiếng ồn nền</b> rồi trừ bớt đi. Âm lượng cũng thay đổi theo khoảng cách, nên cần <b>chuẩn hóa</b>: chỉ so hình dạng ảnh phổ, không so độ to.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Tai nghe chống ồn và cuộc gọi video đều dùng kỹ thuật lọc tiếng ồn, ngày nay thường bằng mạng nơ-ron. Nhưng lọc quá tay cũng có thể xóa luôn âm thanh cần nghe.</p></details></article></div>
+</div></section>
+
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: xử lý âm thanh và tự huấn luyện</h2><p class="muted">Bật hoặc tắt từng bước xử lý rồi xem AI nghe đúng hay sai. Bên dưới là "ảnh phổ trung bình" của mỗi loại âm mà máy đã học, tức là máy nhớ mỗi âm "trông như thế nào".</p></div>
+  
+  <div class="two-col">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Các bước xử lý</h3>
+      <div class="btn-row" style="margin-bottom:10px"><label class="tog"><input type="checkbox" id="norm"><span>Chuẩn hóa âm lượng</span></label><label class="tog"><input type="checkbox" id="sub"><span>Trừ tiếng ồn nền</span></label><label class="tog"><input type="checkbox" id="unk"><span>Cho phép trả lời "Không biết"</span></label></div>
+      <label class="ctl"><span>"Không biết" khi xác suất cao nhất dưới</span><b id="unkThV"></b><input type="range" id="unkTh" min="0.3" max="0.95" step="0.05"></label>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm coral"><i data-i="checkCircle"></i></span>Kiểm tra với 40 âm mới</h3>
+      <p class="small muted">Dùng đúng mức tiếng ồn và âm lượng đang chọn ở phần Mồi.</p>
+      <div class="btn-row"><button class="btn small accent" id="btnTest"><i data-i="flask"></i>Chạy kiểm tra</button><span class="chip mint">Độ chính xác: <b id="testAcc">—</b></span></div>
+      <div class="lab" id="confOut" style="margin-top:10px"></div>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của đường xử lý</h3><pre class="code" id="genCode"></pre>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm amber"><i data-i="upload"></i></span>Dạy máy bằng âm thanh của em</h3>
+      <p class="small muted">Sau khi AI vừa nghe một âm (mô phỏng hoặc micro), bấm đúng tên âm đó để lưu làm mẫu:</p>
+      <div class="btn-row" id="recBtns"></div>
+      <p class="small muted" id="ownInfo" style="margin:8px 0">Chưa có mẫu nào.</p>
+      <button class="btn small accent" id="btnOwn"><i data-i="play"></i>Huấn luyện bằng mẫu của em</button>
+    </div>
+  </div>
+  <div class="card canvas-card" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm"><i data-i="image"></i></span>Ảnh phổ trung bình mà máy đã học</h3><canvas id="protos" width="670" height="180"></canvas></div>
+</div></section>
+
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm AI nghe nhầm!</h2><p class="muted"></p></div>
+  <div class="grid g3">
+    <div class="card break"><div class="ico-box coral"><i data-i="pulse"></i></div><span class="chip coral">SỰ CỐ 1</span><h3>Phòng rất ồn</h3><p>Bật quạt to hết cỡ: tiếng ồn nền lấp gần hết ảnh phổ.</p>
+      <button class="btn small coral" data-break="noisy"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Ảnh phổ bị phủ một lớp "sương mù" màu, nên các hình dạng khó nhận ra. Bật <b>Trừ tiếng ồn nền</b> trong Bàn thí nghiệm rồi chạy kiểm tra lại. Lưu ý là trừ tiếng ồn giúp được một phần, nhưng không thần kỳ.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="msg"></i></div><span class="chip coral">SỰ CỐ 2</span><h3>Âm thanh ở xa</h3><p>Âm lượng chỉ còn 12% (như đứng cuối lớp), và <b>tắt chuẩn hóa âm lượng</b>.</p>
+      <button class="btn small coral" data-break="quiet"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Máy đã học từ âm thanh to rõ. Không có chuẩn hóa, âm nhỏ trông "nhạt" hẳn đi trên ảnh phổ nên máy đoán sai. Bật lại <b>Chuẩn hóa âm lượng</b> để máy chỉ so hình dạng.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="help"></i></div><span class="chip coral">SỰ CỐ 3</span><h3>Âm lạ: chó sủa</h3><p>Thỉnh thoảng có tiếng chó sủa, âm thanh mà máy chưa từng học.</p>
+      <button class="btn small coral" data-break="dog"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Máy vẫn tự tin gọi nó là một trong 4 loại đã học. Bật <b>Cho phép trả lời "Không biết"</b>. Đây là bài học em đã gặp ở Dự án 2 và 6: AI chỉ biết những gì nó đã thấy.</p></details></div></div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Nhận diện âm thanh đang được dùng ở đâu?</h2></div>
+  <div class="grid g3"><div class="card"><div class="ico-box "><i data-i="heart"></i></div><h3>Bảo tồn thiên nhiên</h3><p class="muted">Các nhà khoa học đặt micro trong rừng, dùng AI nhận ra tiếng chim, tiếng vượn hay tiếng cưa máy của lâm tặc.</p></div><div class="card"><div class="ico-box mint"><i data-i="alert"></i></div><h3>Cảnh báo an toàn</h3><p class="muted">Điện thoại có thể nhận ra tiếng còi báo cháy, tiếng em bé khóc hay chuông cửa để báo cho người khiếm thính.</p></div><div class="card"><div class="ico-box amber"><i data-i="msg"></i></div><h3>Trợ lý giọng nói</h3><p class="muted">Nhận dạng giọng nói cũng bắt đầu từ ảnh phổ, nhưng phức tạp hơn nhiều: phải hiểu cả chuỗi âm tiết nối nhau.</p></div></div>
+  <div class="card ethics" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3><ul><li>Một chiếc loa thông minh luôn "nghe" để chờ lệnh. Em có biết nó gửi những gì lên máy chủ không? Làm sao để biết?</li><li>Nếu trường lắp micro AI để phát hiện đánh nhau, lời nói riêng của học sinh có bị thu lại không? Ai được nghe?</li><li>Trang web này phân tích âm thanh ngay trên máy em và không ghi âm lại. Vì sao cách thiết kế này quan trọng?</li></ul></div>
+</div></section>
+
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden><svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg><div><h3>Huy hiệu "Đôi Tai Fourier"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Âm thanh là sóng · Biến đổi Fourier · Ảnh phổ · Tiếng ồn & chuẩn hóa.</p></div></div>
+</div></section>
+
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ nhận diện âm thanh đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf"><div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div><h3>Chuông báo tiếng vỗ tay</h3><p><b>Gợi ý:</b> Dùng micro, ghi 10 mẫu vỗ tay và 10 mẫu "im lặng/nói chuyện". Khi nhận ra 2 tiếng vỗ tay liên tiếp, đổi màu màn hình hoặc bật nhạc.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> không bị kích hoạt nhầm trong 5 phút cả lớp nói chuyện.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div><h3>Nhận diện tiếng chim quanh trường</h3><p><b>Gợi ý:</b> Ghi âm tiếng chim ở sân trường (nhờ thầy cô sinh học giúp nhận biết loài), tạo ảnh phổ và huấn luyện bộ phân loại 3–5 loài phổ biến.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> nhận đúng loài trong 7/10 đoạn ghi âm mới.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div><h3>Cảnh báo âm thanh cho người khiếm thính</h3><p><b>Gợi ý:</b> Phát hiện tiếng chuông cửa, còi báo cháy, nồi cơm sôi… rồi rung điện thoại hoặc nháy đèn. Nghiên cứu cách giảm báo động nhầm trong nhà nhiều tiếng ồn.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> tỉ lệ phát hiện đúng và số lần báo nhầm mỗi giờ trong môi trường thật.</span></p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13"><rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">08 · Âm thanh</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text><rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">11 · Đọc chữ số</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">mạng nơ-ron nhiều lớp</text><rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">14 · Bác sĩ lá cây</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">mạng tích chập nhìn ảnh</text><rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">15 · Ngôn ngữ ký hiệu</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">chuỗi theo thời gian</text></g>
+      </svg></div>
+    <div class="card khkt"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3><dl><dt>Vấn đề</dt><dd>Người khiếm thính không nghe được các âm thanh cảnh báo trong nhà.</dd><dt>Câu hỏi nghiên cứu</dt><dd>Một điện thoại cũ có thể nhận diện 5 âm cảnh báo trong nhà với độ chính xác bao nhiêu?</dd><dt>Giả thuyết</dt><dd>Trừ tiếng ồn nền và chuẩn hóa âm lượng giúp giảm báo nhầm ở nhà có tivi bật.</dd><dt>Lưu ý đạo đức</dt><dd>Không ghi âm lời nói; xử lý trên máy; thiết kế cùng người dùng khiếm thính.</dd></dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p></div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../07-diem-thi/index.html"><i data-i="arrowL"></i>Dự án 07</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../09-dem-xe/index.html">Dự án 09<i data-i="arrowR"></i></a></p>
+</div></section><footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 08 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="audio-lab.js"></script>
+<script src="sound.js"></script>
+</body>
+</html>

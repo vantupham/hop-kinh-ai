@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Đeo kính râm ảo, gắn tai mèo, và để AI đoán biểu cảm của em: vui, buồn, ngạc nhiên hay buồn ngủ. Nhưng AI có thật sự hiểu cảm xúc không? Hãy cùng soi.">
+<meta name="keywords" content="Lưới &amp; điểm neo, Đo bằng tỉ lệ, Biểu cảm ≠ cảm xúc, Dữ liệu sinh trắc học, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mặt nạ cảm xúc · Dự án AI 4 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Đeo kính râm ảo, gắn tai mèo, và để AI đoán biểu cảm của em: vui, buồn, ngạc nhiên hay buồn ngủ. Nhưng AI có thật sự hiểu cảm xúc không? Hãy cùng soi.">
+<meta property="og:image" content="../../assets/og/04.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mặt nạ cảm xúc · Dự án AI 4 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mặt nạ cảm xúc · Dự án AI 4 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Đeo kính râm ảo, gắn tai mèo, và để AI đoán biểu cảm của em: vui, buồn, ngạc nhiên hay buồn ngủ. Nhưng AI có thật sự hiểu cảm xúc không? Hãy cùng soi.">
+<meta name="twitter:image" content="../../assets/og/04.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 4: Mặt nạ cảm xúc", "description": "Đeo kính râm ảo, gắn tai mèo, và để AI đoán biểu cảm của em: vui, buồn, ngạc nhiên hay buồn ngủ. Nhưng AI có thật sự hiểu cảm xúc không? Hãy cùng soi.", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Lưới & điểm neo", "Đo bằng tỉ lệ", "Biểu cảm ≠ cảm xúc", "Dữ liệu sinh trắc học"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/04.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Mặt nạ cảm xúc · Dự án AI 4 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 1</a> / DỰ ÁN 04</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<!-- ============ 1. MỒI ============ -->
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div>
+    <h1>Mặt nạ <span class="hl-word">cảm xúc</span></h1>
+    <p class="lead">Đeo kính râm ảo, gắn tai mèo, và để AI đoán biểu cảm của em: vui, buồn, ngạc nhiên hay buồn ngủ. Nhưng AI có thật sự hiểu cảm xúc không? Hãy cùng soi.</p>
+  </div>
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf">
+        <canvas id="stage" width="640" height="480" aria-label="Khuôn mặt và lưới điểm AI tìm được"></canvas>
+        <video id="video" playsinline muted></video>
+        <div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div>
+        <div id="stageMsg" class="stage-msg" hidden></div>
+      </div>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Nguồn hình ảnh">
+          <button class="btn small" id="srcSim" aria-pressed="true"><i data-i="figure"></i>Khuôn mặt ảo</button>
+          <button class="btn small ghost" id="srcCam" aria-pressed="false"><i data-i="camera"></i>Camera</button>
+        </div>
+        <div class="seg" id="maskBtns" role="group" aria-label="Chọn mặt nạ"></div>
+      </div>
+      <div class="toolbar sim-only">
+        <div class="seg" id="exprBtns" role="group" aria-label="Biểu cảm của khuôn mặt ảo"></div>
+        <button class="btn small ghost" id="btnAuto" aria-pressed="true"><i data-i="play"></i>Diễn tự động</button>
+      </div>
+      <div class="panel-ctl sim-only">
+        <label class="ctl"><span>Khóe miệng</span><b id="cuoiV"></b><input type="range" id="cuoi" min="-0.6" max="1" step="0.05"></label>
+        <label class="ctl"><span>Há miệng</span><b id="miengV"></b><input type="range" id="mieng" min="0" max="1" step="0.05"></label>
+        <label class="ctl"><span>Nhướng mày</span><b id="mayV"></b><input type="range" id="may" min="-0.5" max="1" step="0.05"></label>
+        <label class="ctl"><span>Nhắm mắt</span><b id="nhamV"></b><input type="range" id="nham" min="0" max="1" step="0.05"></label>
+        <label class="ctl"><span>Quay đầu</span><b id="quayV"></b><input type="range" id="quay" min="-35" max="35" step="1"></label>
+        <label class="ctl"><span>Nghiêng đầu</span><b id="nghiengV"></b><input type="range" id="nghieng" min="-25" max="25" step="1"></label>
+      </div>
+      <div class="toggles">
+        <span class="muted small"><i data-i="eye"></i> Hiển thị</span>
+        <label class="tog"><input type="checkbox" id="showImg" checked><span>Ảnh</span></label>
+        <label class="tog"><input type="checkbox" id="showMesh" checked><span>Lưới điểm</span></label>
+        <label class="tog"><input type="checkbox" id="showMask" checked><span>Mặt nạ</span></label>
+      </div>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result" id="bExpr"><small>BIỂU CẢM AI ĐOÁN</small>—</div>
+      <div class="lbl" style="margin-top:14px">4 "CƠ MẶT" ĐO ĐƯỢC</div>
+      <div class="bars" id="bFeat"></div>
+      <canvas id="radar" width="300" height="230" style="width:100%;height:auto;margin-top:8px"></canvas>
+      <div class="metric-row">
+        <div class="metric"><span>ĐỘ TIN CẬY KHUÔN MẶT</span><b id="bConf">—</b></div>
+        <div class="metric"><span>SỐ ĐIỂM MỐC</span><b id="bPts">—</b></div>
+      </div>
+    </aside>
+  </div>
+</div></section>
+
+<!-- ============ 2. NHIỆM VỤ ============ -->
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Hiểu AI "đọc" khuôn mặt như thế nào, và nó không đọc được gì</h2></div>
+  <div class="grid g2">
+    <div class="card vf">
+      <div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Khi AI nói em đang vui, nó thật sự biết điều gì?"</b></p>
+      <p class="muted">Em sẽ thấy AI biến khuôn mặt thành hàng trăm điểm, đo vài khoảng cách, rồi áp luật. Em cũng sẽ thấy rõ: AI đo <b>hình dạng cơ mặt</b>, chứ không đọc được <b>cảm xúc bên trong</b>. Khuôn mặt còn là <b>dữ liệu rất riêng tư</b>.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div>
+    </div>
+    <div class="card">
+      <h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3>
+      <ul class="checklist" id="checklist">
+        <li data-k="see"><span class="box"><i data-i="check"></i></span>Xem lưới điểm và các điểm neo trên khuôn mặt</li>
+        <li data-k="mask"><span class="box"><i data-i="check"></i></span>Thử ít nhất 3 mặt nạ khác nhau</li>
+        <li data-k="rules"><span class="box"><i data-i="check"></i></span>Tự chỉnh luật nhận biểu cảm</li>
+        <li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm AI đoán sai ít nhất 1 lần</li>
+        <li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 3. SOI ============ -->
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Từ khuôn mặt tới "Vui!" và chiếc kính râm: 6 bước</h2>
+  <p class="muted">Hình bên dưới chạy trực tiếp theo khuôn mặt ở phần Mồi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain">
+      <span class="chip" id="soiChip">BƯỚC 1/6</span>
+      <h3 id="soiTitle" style="margin-top:12px"></h3>
+      <div id="soiText"></div>
+      <div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 4. LÝ THUYẾT ============ -->
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #13</span><span class="chip mint">Thị giác máy tính</span></div>
+      <h3>Lưới khuôn mặt & điểm neo</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <ellipse cx="70" cy="60" rx="40" ry="50" class="f-paper s-line"/>
+        <g class="f-violet"><circle cx="54" cy="48" r="2.5"/><circle cx="86" cy="48" r="2.5"/><circle cx="70" cy="64" r="2.5"/><circle cx="58" cy="82" r="2.5"/><circle cx="82" cy="82" r="2.5"/><circle cx="70" cy="86" r="2.5"/><circle cx="70" cy="12" r="2.5"/><circle cx="70" cy="108" r="2.5"/><circle cx="32" cy="60" r="2.5"/><circle cx="108" cy="60" r="2.5"/><circle cx="44" cy="34" r="2.5"/><circle cx="96" cy="34" r="2.5"/></g>
+        <path d="M120 60h26" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/>
+        <g class="t-mono" font-size="11"><text x="156" y="36" class="f-ink">478 điểm</text><text x="156" y="56" class="f-muted">→ chọn vài</text><text x="156" y="76" class="f-mint" font-weight="700">điểm neo</text><text x="156" y="96" class="f-muted">mắt, mũi, môi</text></g>
+      </svg>
+      <p>Mô hình MediaPipe Face tìm <b>478 điểm</b> phủ kín khuôn mặt như một tấm lưới. Ta không cần dùng hết: chỉ chọn vài <b>điểm neo</b> như khóe mắt, chóp mũi, khóe môi để đo và để gắn mặt nạ.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Mỗi điểm còn có tọa độ <b>z</b> (độ sâu), nên AI dựng lại được hình 3D của khuôn mặt từ một ảnh phẳng. Đó là lý do mặt nạ vẫn bám đúng khi em quay đầu.</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #14</span><span class="chip mint">Toán + AI</span></div>
+      <h3>Đo bằng tỉ lệ, không đo bằng pixel</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <ellipse cx="60" cy="60" rx="26" ry="34" class="f-paper s-line"/><ellipse cx="180" cy="60" rx="44" ry="54" class="f-paper s-line"/>
+        <path d="M50 74q10 6 20 0" fill="none" class="s-coral" stroke-width="2.5"/><path d="M164 82q16 10 32 0" fill="none" class="s-coral" stroke-width="3"/>
+        <text x="20" y="114" font-size="10" class="t-mono f-muted">xa: 20 px</text><text x="140" y="114" font-size="10" class="t-mono f-muted">gần: 32 px</text>
+        <text x="96" y="20" font-size="11" class="t-mono f-mint" font-weight="700">tỉ lệ như nhau</text>
+      </svg>
+      <p>Khi em ngồi gần camera, mọi khoảng cách trên mặt đều dài ra. Vì vậy ta <b>chia cho chiều cao khuôn mặt</b> để ra tỉ lệ. Ta cũng xoay hệ trục theo đường nối hai mắt, nên nghiêng đầu không làm sai phép đo.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đây là ý tưởng <b>chuẩn hóa</b> em đã gặp ở Dự án 2 (chia cho cỡ bàn tay). Chuẩn hóa xuất hiện trong gần như mọi hệ thống AI, vì dữ liệu thật luôn có kích thước và góc nhìn khác nhau.</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #15</span><span class="chip coral">Bản chất AI</span></div>
+      <h3>Biểu cảm ≠ cảm xúc</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <circle cx="60" cy="60" r="38" class="f-paper s-line"/><circle cx="48" cy="50" r="4" class="f-ink"/><circle cx="72" cy="50" r="4" class="f-ink"/><path d="M42 70q18 16 36 0" fill="none" class="s-ink" stroke-width="3"/>
+        <text x="118" y="44" font-size="12" class="t-mono f-mint" font-weight="700">AI thấy: Vui</text>
+        <text x="118" y="70" font-size="12" class="t-mono f-coral" font-weight="700">Bên trong: ?</text>
+        <text x="118" y="96" font-size="10" class="t-mono f-muted">cười lịch sự, cười gượng…</text>
+      </svg>
+      <p>AI chỉ đo <b>hình dạng</b>: khóe miệng cao hay thấp, mắt mở hay nhắm. Con người có thể cười khi buồn, hoặc mặt tỉnh bơ khi vui. Biểu cảm còn khác nhau giữa các nền văn hóa. AI <b>không đọc được suy nghĩ</b>.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Vì những lý do này, Đạo luật AI của Liên minh châu Âu đã cấm dùng AI để nhận diện cảm xúc ở nơi làm việc và trong trường học, trừ một số trường hợp vì lý do y tế hoặc an toàn.</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #16</span><span class="chip amber">Đạo đức</span></div>
+      <h3>Khuôn mặt là dữ liệu sinh trắc học</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <rect x="90" y="50" width="80" height="58" rx="10" class="f-as"/><path d="M106 50V36a24 24 0 0 1 48 0v14" fill="none" class="s-ink" stroke-width="3"/>
+        <circle cx="130" cy="76" r="8" class="f-amber"/><rect x="127" y="80" width="6" height="14" rx="3" class="f-amber"/>
+      </svg>
+      <p>Mật khẩu bị lộ thì có thể đổi, nhưng <b>khuôn mặt thì không</b>. Hình dạng khuôn mặt có thể dùng để nhận ra một người, nên đây là loại dữ liệu cần được bảo vệ đặc biệt và chỉ được thu thập khi có <b>sự đồng ý</b>.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Trang web này xử lý mọi thứ ngay trên máy em và không gửi ảnh đi đâu. Hãy luôn tự hỏi khi dùng một ứng dụng filter: ảnh của mình đi đâu, ai được xem, có được lưu lại không?</p></details>
+    </article>
+  </div>
+</div></section>
+
+<!-- ============ 5. TỰ LÀM ============ -->
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: viết luật nhận biểu cảm</h2>
+  <p class="muted">Bốn đường trên biểu đồ là 4 "cơ mặt" theo thời gian. Bật "Diễn tự động" ở phần Mồi, rồi chỉnh ngưỡng sao cho AI đoán đúng từng biểu cảm.</p></div>
+  <div class="card chart-card">
+    <div class="chart-head"><b><i data-i="chart"></i> 4 cơ mặt theo thời gian · 10 giây gần nhất</b><span class="legend"><i class="lg" style="background:var(--amber)"></i>khóe miệng <i class="lg" style="background:var(--mint)"></i>há miệng <i class="lg" style="background:var(--violet)"></i>nhướng mày <i class="lg" style="background:var(--coral)"></i>nhắm mắt</span></div>
+    <canvas id="chart" width="1100" height="240"></canvas>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="blocks"></i></span>Luật nhận biểu cảm (xét từ trên xuống)</h3>
+      <div class="rule"><span class="kw">NẾU</span> nhắm mắt &gt; <input type="number" aria-label="Ngưỡng nhắm mắt" id="tNham" step="0.05" min="0" max="1"> liên tục quá <input type="number" aria-label="Số giây nhắm mắt liên tục" id="tGiay" step="0.1" min="0" max="5"> giây <span class="kw">THÌ</span> <b class="st ngoi">Buồn ngủ</b></div>
+      <div class="rule"><span class="kw">NẾU</span> há miệng &gt; <input type="number" aria-label="Ngưỡng há miệng" id="tMieng" step="0.05" min="0" max="1"> và nhướng mày &gt; <input type="number" aria-label="Ngưỡng nhướng mày" id="tMay" step="0.05" min="0" max="1"> <span class="kw">THÌ</span> <b class="st dung">Ngạc nhiên</b></div>
+      <div class="rule"><span class="kw">NẾU</span> khóe miệng &gt; <input type="number" aria-label="Ngưỡng cười để coi là vui" id="tVui" step="0.05" min="-1" max="1"> <span class="kw">THÌ</span> <b class="st ngoi">Vui</b></div>
+      <div class="rule"><span class="kw">NẾU</span> khóe miệng &lt; <input type="number" aria-label="Ngưỡng để coi là buồn" id="tBuon" step="0.05" min="-1" max="1"> <span class="kw">THÌ</span> <b class="st dung">Buồn</b></div>
+      <div class="rule"><span class="kw">CÒN LẠI</span> <b class="st">Bình thường</b></div>
+      <button class="btn small ghost" id="btnDefaults" style="margin-top:6px"><i data-i="reset"></i>Về mặc định</button>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của luật em vừa viết</h3>
+      <pre class="code" id="genCode"></pre>
+      <details><summary>Ở chế độ camera thì sao?</summary><p>Khi dùng camera thật, MediaPipe còn tính sẵn <b>52 "cơ mặt"</b> (blendshapes) bằng một mạng nơ-ron, ví dụ <span class="mono">mouthSmileLeft</span>, <span class="mono">jawOpen</span>, <span class="mono">eyeBlinkLeft</span>. Trang web dùng chúng thay cho phép đo hình học, còn luật của em vẫn giữ nguyên.</p></details>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 6. PHÁ MÁY ============ -->
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm AI đoán sai!</h2></div>
+  <div class="grid g3">
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="moon"></i></div>
+      <span class="chip coral">SỰ CỐ 1</span><h3>Phòng tối</h3>
+      <p>Giảm ánh sáng còn 20%. Lưới điểm rung mạnh, mặt nạ nhảy lung tung, có lúc AI mất dấu khuôn mặt.</p>
+      <button class="btn small coral" data-break="dark"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Ít ánh sáng thì ảnh nhiều nhiễu, và mô hình kém chắc chắn hơn. Có thể làm mượt điểm neo như ở Dự án 3, bỏ qua khung hình có độ tin cậy thấp như ở Dự án 1, hoặc đơn giản là… bật đèn lên.</p></details>
+    </div>
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="shield"></i></div>
+      <span class="chip coral">SỰ CỐ 2</span><h3>Đeo khẩu trang</h3>
+      <p>Khuôn mặt ảo đeo khẩu trang và đang cười tươi. AI vẫn vẽ ra một cái miệng, nhưng đó chỉ là <b>đoán mò</b>.</p>
+      <button class="btn small coral" data-break="mask"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Mô hình luôn trả về đủ điểm, kể cả những điểm nó không nhìn thấy. Khi miệng bị che, nó đặt miệng ở vị trí "trung bình" nên không bao giờ thấy cười. Một hệ thống tốt nên biết vùng nào bị che và nói "không xác định được".</p></details>
+    </div>
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="help"></i></div>
+      <span class="chip coral">SỰ CỐ 3</span><h3>Cười gượng</h3>
+      <p>Khóe miệng kéo lên nhưng lông mày chùng xuống, kiểu cười khi đang buồn. AI vẫn khẳng định: <b>Vui</b>.</p>
+      <button class="btn small coral" data-break="fake"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Có sửa được không?</summary><p>Luật chỉ nhìn khóe miệng. Em có thể thêm điều kiện về lông mày, nhưng sẽ luôn có trường hợp không đoán được, vì cảm xúc thật nằm bên trong con người. Đây là <b>giới hạn bản chất</b>, không phải lỗi lập trình.</p></details>
+    </div>
+  </div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<!-- ============ 7. NGOÀI ĐỜI ============ -->
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Công nghệ khuôn mặt đang được dùng ở đâu?</h2></div>
+  <div class="grid g3">
+    <div class="card"><div class="ico-box"><i data-i="sparkle"></i></div><h3>Filter mạng xã hội</h3><p class="muted">Các hiệu ứng tai thỏ, kính, trang điểm ảo đều dựa trên lưới điểm khuôn mặt và điểm neo, giống hệt những gì em vừa làm.</p></div>
+    <div class="card"><div class="ico-box mint"><i data-i="eye"></i></div><h3>Cảnh báo buồn ngủ</h3><p class="muted">Một số ô tô có camera theo dõi mắt tài xế. Khi mắt nhắm quá lâu hoặc chớp quá chậm, xe phát cảnh báo nghỉ ngơi.</p></div>
+    <div class="card"><div class="ico-box amber"><i data-i="lock"></i></div><h3>Mở khóa bằng khuôn mặt</h3><p class="muted">Đây là bài toán khác: nhận ra <b>ai</b> đang nhìn máy, chứ không phải biểu cảm gì. Nó cần dữ liệu khuôn mặt của chính chủ, nên đặt ra nhiều câu hỏi về quyền riêng tư.</p></div>
+  </div>
+  <div class="card ethics" style="margin-top:18px">
+    <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3>
+    <ul>
+      <li>Một trường học muốn dùng camera AI để "đo mức độ tập trung" của học sinh qua nét mặt. Em đồng ý không? Điều gì có thể đi sai?</li>
+      <li>Biểu cảm của mỗi người, mỗi nền văn hóa khác nhau. Nếu dữ liệu huấn luyện chủ yếu đến từ một nhóm người, AI sẽ đoán kém với những ai?</li>
+      <li>Trước khi dùng một ứng dụng filter, em sẽ kiểm tra những gì về quyền riêng tư?</li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- ============ 8. KIỂM TRA ============ -->
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden>
+    <svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg>
+    <div><h3>Huy hiệu "Người Gác Khuôn Mặt"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Lưới & điểm neo · Đo bằng tỉ lệ · Biểu cảm ≠ cảm xúc · Dữ liệu sinh trắc học.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ 9. PHÁT TRIỂN ============ -->
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ mặt nạ ảo đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf">
+      <div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div>
+      <h3>Tự thiết kế mặt nạ</h3>
+      <p><b>Gợi ý:</b> Vẽ mặt nạ của em (nón lá, mặt nạ Trung thu, râu ông Địa…) quanh gốc tọa độ, rồi dùng 3 phép biến đổi: <b>dịch</b> tới điểm neo, <b>xoay</b> theo góc hai mắt, <b>phóng to</b> theo khoảng cách hai mắt.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> mặt nạ bám đúng khi quay và nghiêng đầu 20°.</span></p>
+    </div>
+    <div class="card dev vf">
+      <div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div>
+      <h3>Nhắc nghỉ khi học bài quá mệt</h3>
+      <p><b>Gợi ý:</b> Đếm số lần chớp mắt mỗi phút và tỉ lệ thời gian mắt nhắm. Khi các chỉ số này tăng cao trong 5 phút, máy nhắc em đứng dậy nghỉ ngơi.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> chạy được 30 phút và chỉ nhắc khi em thật sự thấy mệt.</span></p>
+    </div>
+    <div class="card dev vf">
+      <div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div>
+      <h3>Điều khiển máy tính bằng nét mặt</h3>
+      <p><b>Gợi ý:</b> Dành cho người không cử động được tay: quay đầu để di chuyển con trỏ, nháy mắt trái để bấm chuột, há miệng để cuộn trang.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> thời gian hoàn thành các thao tác mẫu và số lần bấm nhầm, so với chuột thường.</span></p>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13">
+          <rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">04 · Mặt nạ</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text>
+          <rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">05 · Vũ công AI</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">so sánh hai cơ thể</text>
+          <rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">10 · Tư thế ngồi học</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">máy tự học luật</text>
+          <rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">17 · Cảm xúc câu nói</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">AI đọc cảm xúc từ chữ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="card khkt">
+      <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3>
+      <dl>
+        <dt>Vấn đề</dt><dd>Người bị liệt tay khó sử dụng máy tính và điện thoại.</dd>
+        <dt>Câu hỏi nghiên cứu</dt><dd>Một webcam thường cùng AI khuôn mặt có thể thay thế chuột với độ chính xác bao nhiêu?</dd>
+        <dt>Giả thuyết</dt><dd>Kết hợp hướng đầu và nháy mắt có chủ đích sẽ nhanh và ít nhầm hơn chỉ dùng nháy mắt.</dd>
+        <dt>Lưu ý đạo đức</dt><dd>Cùng thiết kế với người dùng khuyết tật, xử lý trên máy, không lưu ảnh khuôn mặt.</dd>
+      </dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p>
+    </div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../03-hoa-si/index.html"><i data-i="arrowL"></i>Dự án 03</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../05-vu-cong/index.html">Dự án 05<i data-i="arrowR"></i></a></p>
+</div></section>
+<footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 04 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="face-sim.js"></script>
+<script src="mask.js"></script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Nhảy theo vũ công mẫu và để AI chấm điểm từng nhịp. Hoặc chơi trò &quot;Tạo dáng&quot;: kéo tay chân của vũ công bên phải cho giống mẫu. Làm sao máy biết hai dáng…">
+<meta name="keywords" content="Vector, Chuẩn hóa, Độ tương đồng cosine, Chuỗi thời gian, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vũ công AI · Dự án AI 5 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Nhảy theo vũ công mẫu và để AI chấm điểm từng nhịp. Hoặc chơi trò &quot;Tạo dáng&quot;: kéo tay chân của vũ công bên phải cho giống mẫu. Làm sao máy biết hai dáng…">
+<meta property="og:image" content="../../assets/og/05.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vũ công AI · Dự án AI 5 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vũ công AI · Dự án AI 5 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Nhảy theo vũ công mẫu và để AI chấm điểm từng nhịp. Hoặc chơi trò &quot;Tạo dáng&quot;: kéo tay chân của vũ công bên phải cho giống mẫu. Làm sao máy biết hai dáng…">
+<meta name="twitter:image" content="../../assets/og/05.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 5: Vũ công AI", "description": "Nhảy theo vũ công mẫu và để AI chấm điểm từng nhịp. Hoặc chơi trò \"Tạo dáng\": kéo tay chân của vũ công bên phải cho giống mẫu. Làm sao máy biết hai dáng…", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Vector", "Chuẩn hóa", "Độ tương đồng cosine", "Chuỗi thời gian"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/05.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Vũ công AI · Dự án AI 5 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 1</a> / DỰ ÁN 05</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<!-- ============ 1. MỒI ============ -->
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head">
+    <div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div>
+    <h1>Vũ công <span class="hl-word">AI</span></h1>
+    <p class="lead">Nhảy theo vũ công mẫu và để AI chấm điểm từng nhịp. Hoặc chơi trò "Tạo dáng": kéo tay chân của vũ công bên phải cho giống mẫu. Làm sao máy biết hai dáng người "giống nhau" bao nhiêu phần trăm?</p>
+  </div>
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf">
+        <canvas id="stage" class="touch" width="640" height="480" aria-label="Vũ công mẫu bên trái và vũ công của em bên phải"></canvas>
+        <video id="video" playsinline muted></video>
+        <div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div>
+        <div id="stageMsg" class="stage-msg" hidden></div>
+      </div>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Nguồn hình ảnh">
+          <button class="btn small" id="srcSim" aria-pressed="true"><i data-i="figure"></i>Vũ công ảo</button>
+          <button class="btn small ghost" id="srcCam" aria-pressed="false"><i data-i="camera"></i>Camera</button>
+        </div>
+        <div class="seg sim-only" role="group" aria-label="Chế độ">
+          <button class="btn small" id="modeDance" aria-pressed="true"><i data-i="play"></i>Nhảy theo nhạc</button>
+          <button class="btn small ghost" id="modePose" aria-pressed="false"><i data-i="target"></i>Trò chơi tạo dáng</button>
+        </div>
+      </div>
+      <div class="panel-ctl sim-only" id="danceCtl">
+        <label class="ctl"><span>Tay trái sai lệch</span><b id="errV">0°</b><input type="range" id="err" min="0" max="80" step="5"></label>
+        <label class="ctl"><span>Nhảy chậm nhịp</span><b id="delayV">0 s</b><input type="range" id="delay" min="0" max="0.6" step="0.05"></label>
+        <label class="ctl"><span>Đứng cách camera</span><b id="farV">bằng mẫu</b><input type="range" id="far" min="0.55" max="1" step="0.05"></label>
+      </div>
+      <div class="game sim-only" id="poseCtl" hidden>
+        <span class="muted small"><i data-i="bulb"></i> Kéo các chấm tròn ở <b>cổ tay</b> và <b>cổ chân</b> của vũ công bên phải.</span>
+        <span id="poseMsg" class="small"></span>
+        <span class="score" id="poseLevel">Dáng 1/5</span>
+        <button class="btn small ghost" id="btnSkip"><i data-i="skip"></i>Dáng khác</button>
+      </div>
+      <div class="toggles">
+        <span class="muted small"><i data-i="eye"></i> Hiển thị</span>
+        <label class="tog"><input type="checkbox" id="showGhost" checked><span>Bóng mẫu chồng lên em</span></label>
+        <label class="tog"><input type="checkbox" id="showColor" checked><span>Tô màu theo điểm</span></label>
+        <label class="tog"><input type="checkbox" id="mirrorFix"><span>Lật gương khi so sánh</span></label>
+        <label class="tog"><input type="checkbox" id="window"><span>Cửa sổ thời gian</span></label>
+      </div>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="lbl">ĐIỂM GIỐNG MẪU</div>
+      <div class="score-big" id="bScore">—</div>
+      <div class="lbl" style="margin-top:12px">CÁCH SO SÁNH</div>
+      <div class="btn-row" id="methodBtns" role="group" aria-label="Cách so sánh"></div>
+      <div class="lbl" style="margin-top:14px">ĐIỂM TỪNG ĐOẠN XƯƠNG</div>
+      <div class="bars" id="bBones"></div>
+      <div class="metric-row">
+        <div class="metric"><span>NHỊP</span><b id="bBeat">—</b></div>
+        <div class="metric"><span>LỆCH NHỊP TỐT NHẤT</span><b id="bTau">—</b></div>
+      </div>
+    </aside>
+  </div>
+</div></section>
+
+<!-- ============ 2. NHIỆM VỤ ============ -->
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Dạy máy so sánh hai dáng người một cách công bằng</h2></div>
+  <div class="grid g2">
+    <div class="card vf">
+      <div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Một bạn cao 1m4 đứng xa và một bạn cao 1m7 đứng gần cùng làm động tác chữ T. Máy chấm thế nào cho công bằng?"</b></p>
+      <p class="muted">Em sẽ biến mỗi đoạn xương thành một <b>vector</b> (mũi tên), rồi đo độ giống nhau bằng <b>góc giữa hai mũi tên</b>. Cách này không quan tâm em cao hay thấp, đứng gần hay xa.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div>
+    </div>
+    <div class="card">
+      <h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3>
+      <ul class="checklist" id="checklist">
+        <li data-k="see"><span class="box"><i data-i="check"></i></span>Xem các vector xương được so sánh từng đôi</li>
+        <li data-k="match"><span class="box"><i data-i="check"></i></span>Qua được 3 dáng trong trò chơi tạo dáng</li>
+        <li data-k="method"><span class="box"><i data-i="check"></i></span>Thử cả 3 cách so sánh</li>
+        <li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm AI chấm sai ít nhất 1 lần</li>
+        <li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 3. SOI ============ -->
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>Từ hai cơ thể đến con số "87 điểm": 6 bước</h2>
+  <p class="muted">Hình bên dưới chạy trực tiếp theo hai vũ công ở phần Mồi.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain">
+      <span class="chip" id="soiChip">BƯỚC 1/6</span>
+      <h3 id="soiTitle" style="margin-top:12px"></h3>
+      <div id="soiText"></div>
+      <div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 4. LÝ THUYẾT ============ -->
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #17</span><span class="chip mint">Toán + AI</span></div>
+      <h3>Vector: mũi tên có hướng</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <g class="s-ink" stroke-width="2"><path d="M40 30v40M40 70l-12 36M40 70l12 36M22 46l18-6 18 6"/></g>
+        <circle cx="40" cy="22" r="8" class="f-paper s-line"/>
+        <path d="M58 46 92 26" class="s-coral" stroke-width="3" marker-end="url(#arC)"/>
+        <path d="M120 60h20" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/>
+        <text x="160" y="44" font-size="12" class="t-mono f-coral" font-weight="700">v = (34, −20)</text>
+        <text x="160" y="70" font-size="11" class="t-mono f-muted">từ khuỷu → cổ tay</text>
+      </svg>
+      <p>Lấy hai đầu một đoạn xương (ví dụ khuỷu tay → cổ tay), ta được một <b>vector</b>: một mũi tên có <b>hướng</b> và <b>độ dài</b>. Cả cơ thể trở thành 8 mũi tên: cánh tay, cẳng tay, đùi, cẳng chân ở hai bên.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Vector = điểm cuối − điểm đầu = (x₂ − x₁, y₂ − y₁). Đây chính là kiến thức vectơ trong Hình học 10. Trong AI, gần như mọi thứ đều được biểu diễn bằng vector: ảnh, âm thanh, cả từ ngữ (Dự án 17).</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #18</span><span class="chip mint">Kỹ thuật</span></div>
+      <h3>Chuẩn hóa vị trí & kích thước</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <g class="s-violet" stroke-width="2.5"><path d="M40 30v34M40 64l-8 26M40 64l8 26M28 40h24"/></g>
+        <g class="s-coral" stroke-width="4"><path d="M100 18v52M100 70l-12 40M100 70l12 40M82 34h36"/></g>
+        <path d="M130 60h24" class="s-mint" stroke-width="2.5" marker-end="url(#arM)"/>
+        <g stroke-width="2.5" opacity=".9"><path d="M200 30v36M200 66l-9 28M200 66l9 28M187 42h26" class="s-violet"/><path d="M200 30v36M200 66l-9 28M200 66l9 28M187 42h26" class="s-coral" stroke-dasharray="4 4"/></g>
+      </svg>
+      <p>Trước khi so sánh, ta <b>dời</b> cả hai cơ thể sao cho tâm hông về cùng một chỗ, rồi <b>chia</b> mọi tọa độ cho chiều dài thân người. Nhờ vậy, người cao, người thấp, người đứng gần hay đứng xa đều được so sánh công bằng.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Em đã gặp chuẩn hóa ở Dự án 2 (chia cho cỡ bàn tay) và Dự án 4 (chia cho chiều cao khuôn mặt). Hầu hết các mô hình AI đều cần dữ liệu được chuẩn hóa thì mới học tốt.</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #19</span><span class="chip coral">Thuật toán</span></div>
+      <h3>Độ tương đồng cosine</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <path d="M40 100 140 40" class="s-violet" stroke-width="3" marker-end="url(#arV)"/>
+        <path d="M40 100 150 70" class="s-coral" stroke-width="3" marker-end="url(#arC)"/>
+        <path d="M100 64a64 64 0 0 1 10 18" fill="none" class="s-ink" stroke-width="1.5"/>
+        <text x="114" y="80" font-size="12" class="t-mono f-ink">θ</text>
+        <text x="170" y="40" font-size="11" class="t-mono f-ink">cos 0° = 1</text><text x="170" y="62" font-size="11" class="t-mono f-ink">cos 90° = 0</text><text x="170" y="84" font-size="11" class="t-mono f-ink">cos 180° = −1</text>
+      </svg>
+      <p>Hai mũi tên càng <b>cùng hướng</b> thì càng giống nhau. Ta đo góc θ giữa chúng bằng <b>cos θ = (a·b) / (|a|·|b|)</b>. cos = 1 là giống hệt, cos = 0 là vuông góc. Độ dài mũi tên không ảnh hưởng, nên tay dài hay ngắn đều công bằng.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Cosine được dùng rất nhiều trong AI: tìm ảnh giống nhau, gợi ý bài hát, tìm câu văn có nghĩa gần nhau trong Dự án 20. Bí quyết là biến mọi thứ thành vector rồi đo góc.</p></details>
+    </article>
+    <article class="card tcard vf">
+      <div class="tc-top"><span class="chip">THẺ #20</span><span class="chip amber">Dữ liệu theo thời gian</span></div>
+      <h3>Chuỗi thời gian & lệch nhịp</h3>
+      <svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true">
+        <path d="M14 80 C40 20 70 20 96 80 S150 140 180 80 S230 20 250 60" fill="none" class="s-violet" stroke-width="2.5"/>
+        <path d="M34 80 C60 20 90 20 116 80 S170 140 200 80 S250 20 270 60" fill="none" class="s-coral" stroke-width="2.5" stroke-dasharray="5 4"/>
+        <path d="M55 30h20" class="s-ink" stroke-width="1.5" marker-end="url(#arV)"/><text x="80" y="34" font-size="11" class="t-mono f-ink">lệch 0,3 s</text>
+      </svg>
+      <p>Một bài nhảy là một <b>chuỗi</b> tư thế theo thời gian. Nếu em làm đúng động tác nhưng <b>chậm nửa nhịp</b>, so sánh từng khung hình một sẽ chấm rất thấp. Giải pháp là cho phép tìm khung hình phù hợp nhất trong một <b>cửa sổ thời gian</b>.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Kỹ thuật nâng cao để so sánh hai chuỗi có tốc độ khác nhau gọi là <b>DTW</b> (Dynamic Time Warping), được dùng trong nhận dạng giọng nói và chữ ký. Em sẽ gặp lại chuỗi thời gian ở Dự án 15.</p></details>
+    </article>
+  </div>
+</div></section>
+
+<!-- ============ 5. TỰ LÀM ============ -->
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: chọn cách chấm điểm công bằng nhất</h2>
+  <p class="muted">Biểu đồ dưới ghi lại điểm số theo thời gian. Mỗi vạch dọc là một nhịp nhạc. Hãy đổi cách so sánh ở bảng "Bộ não AI" và các thanh trượt ở phần Mồi, rồi xem đường điểm thay đổi.</p></div>
+  <div class="card chart-card">
+    <div class="chart-head"><b><i data-i="chart"></i> Điểm giống mẫu theo thời gian · 10 giây gần nhất</b><span class="legend"><i class="lg sm"></i>điểm số <i class="lg th"></i>mức đạt (85)</span></div>
+    <canvas id="chart" width="1100" height="240"></canvas>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>So sánh 3 cách chấm điểm</h3>
+      <table class="cmp" id="cmpTable"></table>
+      <p class="muted small" style="margin-top:10px">Ba cách được tính <b>cùng lúc</b> trên cùng hai vũ công. Hãy kéo thanh "Đứng cách camera" ở phần Mồi và xem cột nào thay đổi.</p>
+      <label class="ctl" style="margin-top:12px"><span>Cosine: góc lệch bao nhiêu thì 0 điểm</span><b id="maxAngV">60°</b><input type="range" id="maxAng" min="20" max="120" step="5"></label>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của cách chấm cosine</h3>
+      <pre class="code" id="genCode"></pre>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 6. PHÁ MÁY ============ -->
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm AI chấm điểm sai!</h2></div>
+  <div class="grid g3">
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="figure"></i></div>
+      <span class="chip coral">SỰ CỐ 1</span><h3>Đứng xa camera</h3>
+      <p>Em nhảy <b>đúng hoàn toàn</b> nhưng đứng xa hơn mẫu, và máy so sánh bằng <b>vị trí khớp thô</b>.</p>
+      <button class="btn small coral" data-break="far"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>So vị trí thô thì người nhỏ hơn, đứng lệch chỗ sẽ bị trừ điểm dù động tác đúng. Hãy chuyển sang <b>Chuẩn hóa</b> hoặc <b>Cosine</b>: điểm lập tức trở lại gần 100.</p></details>
+    </div>
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="repeat"></i></div>
+      <span class="chip coral">SỰ CỐ 2</span><h3>Nhảy kiểu soi gương</h3>
+      <p>Em đứng đối diện màn hình và làm theo "như soi gương": mẫu giơ tay trái thì em giơ tay phải.</p>
+      <button class="btn small coral" data-break="mirror"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Với những dáng không đối xứng, tay trái của em được so với tay trái của mẫu, nên sai hoàn toàn. Bật <b>"Lật gương khi so sánh"</b>: máy sẽ đổi trái ↔ phải trước khi so. Máy không tự biết em định nhảy kiểu nào, con người phải quy ước.</p></details>
+    </div>
+    <div class="card break">
+      <div class="ico-box coral"><i data-i="clock"></i></div>
+      <span class="chip coral">SỰ CỐ 3</span><h3>Chậm nửa nhịp</h3>
+      <p>Động tác đúng hết, nhưng em luôn <b>chậm 0,35 giây</b> so với nhạc.</p>
+      <button class="btn small coral" data-break="late"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Mỗi lần mẫu chuyển động tác, em vẫn đang ở động tác cũ nên điểm tụt mạnh (nhìn các "hố" trên biểu đồ). Bật <b>"Cửa sổ thời gian"</b>: máy tìm khung hình của mẫu khớp nhất với em trong vòng 0,6 giây. Nên chấm chậm nhịp là sai bao nhiêu? Đó là quyết định của người thiết kế.</p></details>
+    </div>
+  </div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<!-- ============ 7. NGOÀI ĐỜI ============ -->
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>So sánh tư thế đang được dùng ở đâu?</h2></div>
+  <div class="grid g3">
+    <div class="card"><div class="ico-box"><i data-i="gamepad"></i></div><h3>Trò chơi nhảy theo nhạc</h3><p class="muted">Nhiều trò chơi dùng camera hoặc cảm biến để chấm điểm người chơi nhảy theo nhân vật trên màn hình.</p></div>
+    <div class="card"><div class="ico-box mint"><i data-i="heart"></i></div><h3>Tập phục hồi tại nhà</h3><p class="muted">Bệnh nhân tập theo video mẫu, AI so sánh và nhắc khi động tác lệch, giúp bác sĩ theo dõi từ xa.</p></div>
+    <div class="card"><div class="ico-box amber"><i data-i="trophy"></i></div><h3>Thể thao & võ thuật</h3><p class="muted">So sánh cú đánh, cú vung vợt của học viên với vận động viên chuyên nghiệp để tìm điểm cần sửa.</p></div>
+  </div>
+  <div class="card ethics" style="margin-top:18px">
+    <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3>
+    <ul>
+      <li>Nếu dùng AI chấm điểm môn thể dục, một bạn ngồi xe lăn hoặc bị chấn thương sẽ bị chấm thế nào? Làm sao để công bằng?</li>
+      <li>"Đúng nhịp" quan trọng bao nhiêu so với "đúng động tác"? Ai là người quyết định trọng số đó: máy hay con người?</li>
+      <li>Điểm số của máy có nên là điểm cuối cùng, hay chỉ là gợi ý để giáo viên tham khảo?</li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- ============ 8. KIỂM TRA ============ -->
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden>
+    <svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg>
+    <div><h3>Huy hiệu "Giám Khảo Công Bằng"</h3><p>Em đã hoàn thành Cấp 1 và mở khóa 4 thẻ kiến thức: Vector · Chuẩn hóa · Độ tương đồng cosine · Chuỗi thời gian.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ 9. PHÁT TRIỂN ============ -->
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ vũ công AI đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf">
+      <div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div>
+      <h3>Tự quay bài nhảy mẫu</h3>
+      <p><b>Gợi ý:</b> Bấm phím để "chụp" 8 tư thế của chính em làm các động tác mẫu (lưu 33 điểm của mỗi tư thế), rồi phát lại theo nhịp cho bạn khác nhảy theo.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> một bạn khác đạt trên 80 điểm với bài nhảy của em.</span></p>
+    </div>
+    <div class="card dev vf">
+      <div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div>
+      <h3>Chấm bài thể dục giữa giờ</h3>
+      <p><b>Gợi ý:</b> Ghép Dự án 1 (đếm lần) với dự án này (so dáng). Mỗi động tác cần đúng số lần và đúng dáng. Thêm phần nhận xét: "Tay trái chưa giơ cao".</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> nhận xét của máy trùng với nhận xét của giáo viên ở ít nhất 4/5 bạn.</span></p>
+    </div>
+    <div class="card dev vf">
+      <div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div>
+      <h3>Trợ lý tập phục hồi chức năng</h3>
+      <p><b>Gợi ý:</b> So sánh động tác của người tập với bài mẫu của chuyên gia vật lý trị liệu, dùng DTW để không phạt người tập chậm.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> mức độ trùng khớp giữa điểm của máy và đánh giá của chuyên gia trên 20 lượt tập.</span></p>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13">
+          <rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">05 · Vũ công AI</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">hết Cấp 1</text>
+          <rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">06 · Thùng rác thông minh</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">bắt đầu Cấp 2</text>
+          <rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">13 · Phân cụm màu sắc</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">khoảng cách giữa vector</text>
+          <rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">15 · Ngôn ngữ ký hiệu</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">chuỗi thời gian</text>
+        </g>
+      </svg>
+    </div>
+    <div class="card khkt">
+      <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3>
+      <dl>
+        <dt>Vấn đề</dt><dd>Người tập phục hồi tại nhà thường làm sai động tác mà không ai nhắc.</dd>
+        <dt>Câu hỏi nghiên cứu</dt><dd>Chấm điểm bằng cosine kết hợp DTW có sát với đánh giá của chuyên gia hơn so sánh từng khung hình không?</dd>
+        <dt>Giả thuyết</dt><dd>DTW giảm việc chấm oan cho người tập chậm mà vẫn phát hiện được động tác sai.</dd>
+        <dt>Lưu ý đạo đức</dt><dd>Máy chỉ gợi ý, không thay thế chuyên gia; không lưu video người tập.</dd>
+      </dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p>
+    </div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../04-mat-na/index.html"><i data-i="arrowL"></i>Dự án 04</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../06-thung-rac/index.html">Dự án 06<i data-i="arrowR"></i></a></p>
+</div></section>
+<footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 05 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="dancer-sim.js"></script>
+<script src="dance.js"></script>
+</body>
+</html>

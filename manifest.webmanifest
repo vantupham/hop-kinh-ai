@@ -1,0 +1,28 @@
+{
+  "name": "Hộp Kính AI – Tự học AI qua 20 dự án",
+  "short_name": "Hộp Kính AI",
+  "description": "Website miễn phí giúp học sinh tự học trí tuệ nhân tạo qua 20 dự án trực quan, chạy ngay trên trình duyệt, có lý thuyết từng bước và gợi ý đề tài KHKT.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0d26",
+  "theme_color": "#5443ff",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

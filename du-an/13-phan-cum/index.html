@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Một bức ảnh có hàng chục nghìn màu. Nếu chỉ được giữ 5 màu, nên giữ màu nào? Không ai chỉ cho máy đáp án: nó tự thả từng điểm ảnh vào một khối màu 3 chiều…">
+<meta name="keywords" content="Học không giám sát, Màu là một điểm, Thuật toán K-means, Chọn K bằng khuỷu tay, trí tuệ nhân tạo, AI cho học sinh, học máy, tự học AI">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d26" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="author" href="../../index.html#bien-soan">
+<meta property="og:site_name" content="Hộp Kính AI">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bảng màu thông minh · Dự án AI 13 cho học sinh | Hộp Kính AI">
+<meta property="og:description" content="Một bức ảnh có hàng chục nghìn màu. Nếu chỉ được giữ 5 màu, nên giữ màu nào? Không ai chỉ cho máy đáp án: nó tự thả từng điểm ảnh vào một khối màu 3 chiều…">
+<meta property="og:image" content="../../assets/og/13.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bảng màu thông minh · Dự án AI 13 cho học sinh | Hộp Kính AI">
+<meta property="article:author" content="Phạm Văn Tú">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bảng màu thông minh · Dự án AI 13 cho học sinh | Hộp Kính AI">
+<meta name="twitter:description" content="Một bức ảnh có hàng chục nghìn màu. Nếu chỉ được giữ 5 màu, nên giữ màu nào? Không ai chỉ cho máy đáp án: nó tự thả từng điểm ảnh vào một khối màu 3 chiều…">
+<meta name="twitter:image" content="../../assets/og/13.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LearningResource", "name": "Dự án 13: Bảng màu thông minh", "description": "Một bức ảnh có hàng chục nghìn màu. Nếu chỉ được giữ 5 màu, nên giữ màu nào? Không ai chỉ cho máy đáp án: nó tự thả từng điểm ảnh vào một khối màu 3 chiều…", "inLanguage": "vi", "author": {"@type": "Person", "name": "Phạm Văn Tú"}, "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông", "isAccessibleForFree": true, "teaches": ["Học không giám sát", "Màu là một điểm", "Thuật toán K-means", "Chọn K bằng khuỷu tay"], "isPartOf": {"@type": "Course", "name": "Hộp Kính AI: tự học trí tuệ nhân tạo qua 20 dự án"}, "image": "../../assets/og/13.jpg", "datePublished": "2026-11-12", "timeRequired": "PT60M"}]}</script>
+<!--seo:end-->
+<title>Bảng màu thông minh · Dự án AI 13 cho học sinh | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/project.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-violet"/></marker>
+  <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-coral"/></marker>
+  <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" class="f-mint"/></marker>
+  <linearGradient id="lgE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--violet)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="10" y="2.5" width="19" height="19" rx="4" fill="none" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><path d="M5 10.5 11 4.5M22.5 10.5l5.5-6M22.5 28l5.5-6" stroke="url(#lgE)" stroke-width="1.5" opacity=".55"/><rect x="3" y="9.5" width="19.5" height="19.5" rx="4" class="f-vs" stroke="url(#lgE)" stroke-width="2"/><circle cx="12.75" cy="19.25" r="3.2" class="f-mint"/></svg>
+    Hộp Kính AI</a>
+  <span class="crumbs"><a href="../../index.html#ban-do">CẤP 3</a> / DỰ ÁN 13</span>
+  <span class="spacer"></span>
+  <span class="chip mint" id="progressChip"><i data-i="checkCircle"></i>0/5</span>
+  <button class="theme-tg" data-theme-toggle></button>
+</div></header>
+<nav class="steps" aria-label="Các bước của dự án"><div class="wrap">
+  <a href="#moi"><i data-i="play"></i>Mồi</a><a href="#nhiem-vu"><i data-i="target"></i>Nhiệm vụ</a><a href="#soi"><i data-i="scan"></i>Soi bên trong</a><a href="#ly-thuyet"><i data-i="book"></i>Lý thuyết</a><a href="#tu-lam"><i data-i="wrench"></i>Tự làm</a><a href="#pha-may"><i data-i="bolt"></i>Phá máy</a><a href="#ngoai-doi"><i data-i="globe"></i>Ngoài đời</a><a href="#kiem-tra"><i data-i="award"></i>Kiểm tra</a><a href="#phat-trien"><i data-i="rocket"></i>Phát triển</a>
+</div></nav>
+
+<section id="moi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">01</span>Mồi<span class="kl"></span></div><h1>Bảng màu <span class="hl-word">thông minh</span></h1><p class="lead">Một bức ảnh có hàng chục nghìn màu. Nếu chỉ được giữ 5 màu, nên giữ màu nào? Không ai chỉ cho máy đáp án: nó tự thả từng điểm ảnh vào một khối màu 3 chiều, rồi tự gom chúng thành nhóm. Chào mừng em đến với học không giám sát!</p></div>
+  
+  <style>.pal{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.sw{display:flex;align-items:center;gap:6px;font:11px "JetBrains Mono",monospace;color:#c3c7f0;min-width:0}.sw i{width:22px;height:22px;border-radius:6px;flex:none;border:1px solid rgba(255,255,255,.25)}.sw b{margin-left:auto;color:#fff}.file-btn{position:relative;overflow:hidden}.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}</style>
+  <div class="playground">
+    <div class="stage-col">
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Ảnh gốc và ảnh sau khi gom màu, kéo để so sánh"></canvas><div class="stage-tag"><span class="live-dot"></span><span>K-MEANS</span></div></div>
+      <div class="toolbar">
+        <div class="seg"><button class="btn small" id="btnRun"></button><button class="btn small ghost" id="btnStep"><i data-i="skip"></i>Bước tiếp</button></div>
+        <span class="muted small"><i data-i="bulb"></i> Kéo vạch trắng trên ảnh để so sánh</span>
+      </div>
+      <div class="game"><span class="small muted">Ảnh</span><div class="btn-row" id="imgBtns"><button class="btn small ghost" data-m="vuon-hoa">Vườn hoa</button><button class="btn small ghost" data-m="hoang-hon">Hoàng hôn</button><button class="btn small ghost" data-m="den-long">Đèn lồng</button><button class="btn small ghost" data-m="cau-vong">Dải màu</button><label class="btn small ghost file-btn" data-m="upload"><i data-i="upload"></i>Ảnh của em<input type="file" id="fileIn" accept="image/*"></label></div></div>
+      <div class="game"><span class="small muted">Số màu K</span><div class="btn-row" id="kBtns"><button class="btn small ghost" data-k="2">2</button><button class="btn small ghost" data-k="3">3</button><button class="btn small ghost" data-k="5">5</button><button class="btn small ghost" data-k="8">8</button><button class="btn small ghost" data-k="12">12</button></div></div>
+    </div>
+    <aside class="lab brain" aria-live="polite">
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="lbl">BẢNG MÀU MÁY TỰ TÌM</div><div class="pal" id="bPal"></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>VÒNG LẶP</span><b id="bIter">0</b></div><div class="metric"><span>SAI LỆCH MÀU TB</span><b id="bErr">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>TÂM KHÔNG CÓ ĐIỂM</span><b id="bEmpty">0</b></div><div class="metric"><span>BIT MỖI ĐIỂM ẢNH</span><b id="bBits">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">TRẠNG THÁI</div><div id="bStatus" style="color:#fff"></div>
+    </aside>
+  </div>
+</div></section>
+
+<section id="nhiem-vu" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">02</span>Nhiệm vụ<span class="kl"></span></div><h2>Để máy tự tìm ra bảng màu của một bức ảnh</h2></div>
+  <div class="grid g2">
+    <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
+      <p>Câu hỏi lớn: <b>"Không có đáp án, không có nhãn. Máy dựa vào đâu để chia nhóm?"</b></p><p class="muted">Em sẽ thấy mỗi điểm ảnh biến thành một <b>điểm trong không gian màu</b>, xem thuật toán <b>K-means</b> gán và dời tâm từng vòng, tự chọn <b>K</b> bằng biểu đồ <b>khuỷu tay</b>, và hiểu vì sao điểm xuất phát lại quan trọng.</p>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>45–60 phút</span><span class="chip mint"><i data-i="shield"></i>Không cần cài đặt</span><span class="chip coral"><i data-i="book"></i>4 thẻ kiến thức</span></div></div>
+    <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist"><li data-k="run"><span class="box"><i data-i="check"></i></span>Xem K-means chạy tới khi hội tụ</li><li data-k="soi"><span class="box"><i data-i="check"></i></span>Soi tới bước Dời tâm</li><li data-k="k"><span class="box"><i data-i="check"></i></span>Thử ít nhất 3 giá trị K khác nhau</li><li data-k="upload"><span class="box"><i data-i="check"></i></span>Thử với một ảnh của em</li><li data-k="broke"><span class="box"><i data-i="check"></i></span>Làm K-means cho kết quả tệ ít nhất 1 lần</li><li data-k="quiz"><span class="box"><i data-i="check"></i></span>Trả lời đúng hết bài kiểm tra</li></ul></div>
+  </div>
+</div></section>
+
+<section id="soi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">03</span>Soi bên trong<span class="kl"></span></div><h2>K-means từng bước trong khối màu 3D</h2><p class="muted">Khối màu dùng đúng bức ảnh và đúng lần chạy ở phần Mồi. Kéo để xoay khối.</p></div>
+  <svg id="pipeline" class="pipeline" viewBox="0 0 1100 124" role="tablist" aria-label="Sơ đồ luồng xử lý"></svg>
+  <div class="soi-body">
+    <div class="stage small-stage vf"><canvas id="soiCanvas" width="640" height="480"></canvas></div>
+    <div class="card soi-explain"><span class="chip" id="soiChip">BƯỚC 1/6</span><h3 id="soiTitle" style="margin-top:12px"></h3><div id="soiText"></div><div class="lab soi-live" id="soiLive"></div>
+      <div class="soi-nav"><button class="btn small ghost" id="soiPrev"><i data-i="arrowL"></i>Bước trước</button><button class="btn small accent" id="soiNext">Bước tiếp<i data-i="arrowR"></i></button></div></div>
+  </div>
+</div></section>
+
+<section id="ly-thuyet" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">04</span>Thẻ lý thuyết<span class="kl"></span></div><h2>4 thẻ kiến thức em sẽ thu thập</h2></div>
+  <div class="grid g2 theory">
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #49</span><span class="chip mint">Học máy</span></div>
+      <h3>Học không giám sát</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><g class="f-violet"><circle cx="40" cy="40" r="5"/><circle cx="52" cy="50" r="5"/><circle cx="34" cy="56" r="5"/><circle cx="48" cy="34" r="5"/></g><g class="f-mint"><circle cx="190" cy="40" r="5"/><circle cx="204" cy="52" r="5"/><circle cx="196" cy="30" r="5"/><circle cx="214" cy="38" r="5"/></g><g class="f-coral"><circle cx="120" cy="90" r="5"/><circle cx="132" cy="96" r="5"/><circle cx="112" cy="102" r="5"/></g><text x="64" y="118" font-size="11" class="t-mono f-muted">không nhãn → tự thành nhóm</text></svg><p>Từ đầu khóa, ta luôn cho máy <b>đáp án</b> để học (học có giám sát). <b>Học không giám sát</b> thì khác: máy chỉ có dữ liệu và phải tự tìm ra cấu trúc bên trong, ví dụ những nhóm điểm nằm gần nhau.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Gom cụm (clustering) là dạng phổ biến nhất của học không giám sát. Ngoài ra còn có giảm số chiều, phát hiện điểm bất thường… Phần lớn dữ liệu trên đời không có nhãn, nên học không giám sát rất quan trọng.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #50</span><span class="chip amber">Toán + AI</span></div>
+      <h3>Màu là một điểm trong không gian</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><path d="M70 100V30M70 100l70 0M70 100l-40 20" class="s-line" stroke-width="2"/><text x="60" y="24" font-size="11" class="t-mono f-mint">G</text><text x="146" y="104" font-size="11" class="t-mono f-coral">R</text><text x="18" y="124" font-size="11" class="t-mono f-violet">B</text><circle cx="120" cy="56" r="7" fill="#e88a3a"/><circle cx="196" cy="56" r="7" fill="#e8963f"/><path d="M127 56h62" class="s-line" stroke-dasharray="4 4"/><text x="134" y="48" font-size="10" class="t-mono f-muted">gần nhau</text></svg><p>Một màu gồm 3 số (đỏ, lục, lam), giống tọa độ (x, y, z) trong không gian. Hai màu <b>giống nhau</b> thì nằm <b>gần nhau</b>. Khoảng cách được tính bằng định lý Py-ta-go mở rộng cho 3 chiều.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Đây là ý tưởng xuyên suốt AI: biến mọi thứ (màu, âm thanh, chữ, khuôn mặt) thành các điểm trong một không gian, rồi dùng khoảng cách để đo độ giống nhau. Em đã gặp nó ở KNN (Dự án 2) và sẽ gặp lại ở Dự án 16.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #51</span><span class="chip coral">Thuật toán</span></div>
+      <h3>Thuật toán K-means</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><rect x="20" y="40" width="90" height="40" rx="10" class="f-soft"/><text x="65" y="65" text-anchor="middle" font-size="12" class="f-ink">1. Gán</text><rect x="150" y="40" width="90" height="40" rx="10" class="f-soft"/><text x="195" y="65" text-anchor="middle" font-size="12" class="f-ink">2. Dời tâm</text><path d="M112 52h34" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><path d="M195 82c0 30-130 30-130 0" fill="none" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><text x="104" y="118" font-size="10" class="t-mono f-coral">lặp lại</text></svg><p>Chỉ hai bước lặp đi lặp lại: <b>gán</b> mỗi điểm về tâm gần nhất, rồi <b>dời</b> mỗi tâm về trung bình của đội mình. Mỗi vòng, tổng sai lệch chỉ giảm chứ không tăng, nên chắc chắn sẽ dừng.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Nhưng K-means chỉ tìm được lời giải tốt <b>gần chỗ xuất phát</b>, chưa chắc là tốt nhất. Vì vậy người ta chạy nhiều lần với tâm xuất phát khác nhau, hoặc dùng <b>K-means++</b> để chọn tâm xuất phát trải đều.</p></details></article>
+    <article class="card tcard vf"><div class="tc-top"><span class="chip">THẺ #52</span><span class="chip mint">Đánh giá</span></div>
+      <h3>Chọn K: biểu đồ khuỷu tay</h3><svg viewBox="0 0 260 120" class="tc-ill" aria-hidden="true"><path d="M30 20V100H240" class="s-line" stroke-width="1.5"/><path d="M40 26 70 70 100 86 140 92 180 95 230 97" fill="none" class="s-violet" stroke-width="3"/><circle cx="100" cy="86" r="10" fill="none" class="s-mint" stroke-width="2.5" stroke-dasharray="4 3"/><text x="110" y="72" font-size="10" class="t-mono f-mint">khuỷu tay</text></svg><p>K càng lớn thì sai lệch càng nhỏ, nhưng lợi ích giảm dần. Vẽ sai lệch theo K, tìm chỗ đường cong <b>gãy</b> như khuỷu tay: thêm nhóm sau chỗ đó không còn đáng.</p>
+      <details><summary>Hiểu sâu hơn</summary><p>Không phải dữ liệu nào cũng có khuỷu rõ ràng. Khi đó việc chọn K phụ thuộc vào <b>mục đích</b>: in tranh 4 màu thì K = 4, dù dữ liệu "muốn" nhiều hơn.</p></details></article></div>
+</div></section>
+
+<section id="tu-lam" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">05</span>Tự làm<span class="kl"></span></div><h2>Bàn thí nghiệm: khối màu, tâm xuất phát và biểu đồ khuỷu tay</h2><p class="muted">Kéo khối màu để xoay. Mỗi thay đổi sẽ chạy lại K-means ngay trên sân khấu phần Mồi.</p></div>
+  
+  <div class="two-col">
+    <div class="card canvas-card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="blocks"></i></span>Khối màu RGB · trực tiếp</h3>
+      <canvas id="cube" class="touch" width="560" height="420" aria-label="Khối màu RGB 3D, kéo để xoay"></canvas>
+      <div class="btn-row" id="colorBtns" style="margin-top:8px"><button class="btn small ghost" data-c="that">Tô màu thật</button><button class="btn small ghost" data-c="cum">Tô theo đội</button></div>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="sliders"></i></span>Điều chỉnh</h3>
+      <label class="ctl"><span>Số màu K</span><b id="KV"></b><input type="range" id="K" min="1" max="16" step="1"></label>
+      <div class="lbl muted small" style="margin:6px 0">CÁCH CHỌN TÂM XUẤT PHÁT</div>
+      <div class="btn-row" id="initBtns"><button class="btn small ghost" data-n="random">Ngẫu nhiên</button><button class="btn small ghost" data-n="kpp">K-means++</button><button class="btn small ghost" data-n="bad">Dồn vào góc</button></div>
+      <label class="ctl" style="margin-top:12px"><span>Thời gian mỗi vòng</span><b id="speedV"></b><input type="range" id="speed" min="50" max="1500" step="50"></label>
+      <button class="btn small ghost" id="btnSeed"><i data-i="reset"></i>Chạy lại với xuất phát khác</button>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của K-means</h3><pre class="code" id="genCode"></pre>
+    </div>
+  </div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Sai lệch qua từng vòng lặp</b></div><canvas id="chartConv" width="540" height="220"></canvas></div>
+    <div class="card chart-card"><div class="chart-head"><b><i data-i="activity"></i> Biểu đồ khuỷu tay: sai lệch theo K</b></div><canvas id="chartElbow" width="540" height="220"></canvas></div>
+  </div>
+</div></section>
+
+<section id="pha-may" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">06</span>Phá máy<span class="kl"></span></div><h2>Thử thách: hãy làm bảng màu thông minh trở nên ngớ ngẩn!</h2><p class="muted"></p></div>
+  <div class="grid g3">
+    <div class="card break"><div class="ico-box coral"><i data-i="layers"></i></div><span class="chip coral">SỰ CỐ 1</span><h3>Chỉ 2 màu</h3><p>Bức vườn hoa rực rỡ chỉ được giữ lại <b>2 màu</b>.</p>
+      <button class="btn small coral" data-break="few"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Hai tâm phải chia nhau cả bầu trời, cỏ và hoa, nên hoa đỏ, vàng, tím biến mất vào màu trung bình. Nhìn biểu đồ khuỷu tay để chọn K hợp lý hơn. K quá nhỏ là <b>chưa khớp</b>, giống Dự án 7.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="target"></i></div><span class="chip coral">SỰ CỐ 2</span><h3>Xuất phát tồi</h3><p>Tất cả 8 tâm bị <b>dồn vào góc đen</b> của khối màu trước khi chạy, với ảnh đèn lồng.</p>
+      <button class="btn small coral" data-break="init"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>Ở lượt gán đầu tiên, gần như mọi điểm chọn cùng một tâm; các tâm còn lại không có ai và <b>đứng yên mãi mãi</b> (xem ô "Tâm không có điểm"). Chuyển sang <b>K-means++</b> hoặc Ngẫu nhiên. Bài học: K-means chỉ tìm được lời giải gần chỗ xuất phát.</p></details></div>
+    <div class="card break"><div class="ico-box coral"><i data-i="activity"></i></div><span class="chip coral">SỰ CỐ 3</span><h3>Dữ liệu không có nhóm</h3><p>Ảnh là một <b>dải màu chuyển mượt</b>, không có nhóm màu nào tách biệt.</p>
+      <button class="btn small coral" data-break="smooth"><i data-i="bolt"></i>Bật sự cố</button>
+      <details><summary>Vì sao AI sai? Cách sửa?</summary><p>K-means vẫn ngoan ngoãn trả về đúng 6 nhóm, tạo ra các <b>vệt sọc</b> trên ảnh. Biểu đồ khuỷu tay không có chỗ gãy. Thuật toán không bao giờ nói "dữ liệu này không có nhóm": việc kiểm tra các nhóm có ý nghĩa hay không là của con người.</p></details></div></div>
+  <p class="center" style="margin-top:18px"><button class="btn small ghost" id="btnFixAll"><i data-i="wrench"></i>Tắt mọi sự cố</button></p>
+</div></section>
+
+<section id="ngoai-doi" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">07</span>AI ngoài đời<span class="kl"></span></div><h2>Gom cụm đang được dùng ở đâu?</h2></div>
+  <div class="grid g3"><div class="card"><div class="ico-box "><i data-i="image"></i></div><h3>Nén ảnh và in ấn</h3><p class="muted">Ảnh GIF, ảnh pixel trong trò chơi và in lụa đều cần giảm số màu; gom cụm chọn ra bảng màu đẹp nhất.</p></div><div class="card"><div class="ico-box mint"><i data-i="globe"></i></div><h3>Ảnh vệ tinh</h3><p class="muted">Gom các điểm ảnh vệ tinh thành nhóm đất, rừng, nước, đô thị mà không cần ai tô nhãn trước.</p></div><div class="card"><div class="ico-box amber"><i data-i="chart"></i></div><h3>Nhóm khách hàng</h3><p class="muted">Cửa hàng gom khách có thói quen mua giống nhau để gợi ý sản phẩm phù hợp.</p></div></div>
+  <div class="card ethics" style="margin-top:18px"><h3 class="h-ic"><span class="ico-box sm coral"><i data-i="help"></i></span>Cùng suy nghĩ</h3><ul><li>Một ứng dụng gom học sinh thành nhóm "giỏi", "trung bình", "yếu" chỉ từ điểm số. Điều gì có thể bị bỏ qua?</li><li>Gom cụm khách hàng có thể dẫn tới việc mỗi nhóm thấy giá khác nhau. Như vậy có công bằng không?</li><li>Máy luôn trả về K nhóm. Khi một nhóm do máy "cắt" ra được đặt tên và dùng để đối xử với con người, ai phải kiểm tra?</li></ul></div>
+</div></section>
+
+<section id="kiem-tra" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">08</span>Kiểm tra<span class="kl"></span></div><h2>5 câu hỏi để nhận huy hiệu</h2></div>
+  <div id="quiz" class="quiz"></div>
+  <div id="badge" class="badge" hidden><svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg><div><h3>Huy hiệu "Thợ Pha Màu"</h3><p>Em đã mở khóa 4 thẻ kiến thức: Học không giám sát · Màu là một điểm · Thuật toán K-means · Chọn K bằng khuỷu tay.</p></div></div>
+</div></section>
+
+<section id="phat-trien" class="sec"><div class="wrap">
+  <div class="sec-head"><div class="kicker"><span class="kn">09</span>Hướng phát triển<span class="kl"></span></div><h2>Từ bảng màu thông minh đến dự án của riêng em</h2></div>
+  <div class="grid g3">
+    <div class="card dev vf"><div class="lvl" data-stars="1"><span>MỞ RỘNG NHỎ · 1 BUỔI</span></div><h3>Biến ảnh thành tranh pixel</h3><p><b>Gợi ý:</b> Thu nhỏ ảnh còn 32×32, gom thành 8 màu rồi phóng to không làm mờ: em có ngay tranh kiểu trò chơi cổ điển.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> xuất được ảnh tranh pixel và bảng màu kèm mã màu.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="2"><span>DỰ ÁN MỚI · 1–2 TUẦN</span></div><h3>Gom nhóm thói quen ngủ của lớp</h3><p><b>Gợi ý:</b> Thu (ẩn danh, có đồng ý) giờ ngủ, giờ dậy, thời gian dùng điện thoại; gom thành nhóm rồi tìm hiểu đặc điểm mỗi nhóm.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Xong khi:</b> mô tả được từng nhóm bằng lời và kiểm tra lại với chính các bạn.</span></p></div>
+    <div class="card dev vf"><div class="lvl" data-stars="3"><span>ĐỀ TÀI NGHIÊN CỨU · KHKT</span></div><h3>Theo dõi mặt nước ao hồ bằng ảnh</h3><p><b>Gợi ý:</b> Chụp ảnh mặt ao định kỳ, gom màu điểm ảnh để ước lượng tỉ lệ rêu tảo xanh theo thời gian.</p>
+      <p class="done"><i data-i="checkCircle"></i><span><b>Đo kết quả:</b> tương quan giữa tỉ lệ cụm màu xanh tảo và đo đạc thực tế (độ trong, bộ test nước).</span></p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Đi tiếp trên bản đồ</h3>
+      <svg viewBox="0 0 520 230" class="next-map" aria-label="Các dự án nối tiếp">
+        <g class="s-violet flowdash" stroke-width="2" fill="none" marker-end="url(#arV)" stroke-dasharray="6 5"><path d="M150 115 C220 115 230 40 316 40"/><path d="M150 115 L316 115"/><path d="M150 115 C220 115 230 190 316 190"/></g>
+        <g font-size="13"><rect x="10" y="88" width="140" height="54" rx="12" class="f-violet"/><text x="80" y="112" text-anchor="middle" fill="#fff" font-weight="700">13 · Bảng màu</text><text x="80" y="130" text-anchor="middle" fill="#fff" opacity=".75" font-size="11">em đang ở đây</text><rect x="320" y="16" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="37" text-anchor="middle" font-weight="700" class="f-ink">14 · Bác sĩ lá cây</text><text x="415" y="54" text-anchor="middle" class="f-muted" font-size="11">mạng tích chập</text><rect x="320" y="91" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="112" text-anchor="middle" font-weight="700" class="f-ink">16 · Đoán chữ tiếp theo</text><text x="415" y="129" text-anchor="middle" class="f-muted" font-size="11">không gian từ ngữ</text><rect x="320" y="166" width="190" height="48" rx="12" class="f-paper s-line"/><text x="415" y="187" text-anchor="middle" font-weight="700" class="f-ink">17 · Cảm xúc câu nói</text><text x="415" y="204" text-anchor="middle" class="f-muted" font-size="11">bản đồ vector của từ</text></g>
+      </svg></div>
+    <div class="card khkt"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="flask"></i></span>Thẻ ý tưởng KHKT</h3><dl><dt>Vấn đề</dt><dd>Tảo nở hoa làm ô nhiễm ao hồ nhưng khó theo dõi thường xuyên.</dd><dt>Câu hỏi nghiên cứu</dt><dd>Gom cụm màu ảnh chụp có ước lượng được mức độ tảo không?</dd><dt>Giả thuyết</dt><dd>Tỉ lệ cụm màu xanh lục đậm tăng cùng mật độ tảo đo bằng bộ test.</dd><dt>Lưu ý đạo đức</dt><dd>Không tự ý vào khu vực nguy hiểm; hỏi phép chủ ao.</dd></dl>
+      <p class="muted small showcase"><i data-i="upload"></i><span><b>Góc trưng bày:</b> Làm xong rồi? Gửi sản phẩm qua GitHub để được đăng lên trang.</span></p></div>
+  </div>
+  <p class="center" style="margin-top:30px"><a class="btn ghost" href="../12-phong-nen/index.html"><i data-i="arrowL"></i>Dự án 12</a> <a class="btn" href="../../index.html#ban-do"><i data-i="map"></i>Bản đồ</a> <a class="btn accent" href="../14-la-cay/index.html">Dự án 14<i data-i="arrowR"></i></a></p>
+</div></section><footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Dự án 13 · Mô hình AI chạy trên trình duyệt của em, không có hình ảnh nào được gửi đi.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+<script src="../../assets/project.js"></script>
+<script src="kmeans.js"></script>
+</body>
+</html>
