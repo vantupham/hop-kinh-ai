@@ -41,7 +41,7 @@ def url(rel):
     return BASE + rel if BASE else ""
 
 
-pages = [("index.html", "")] + [(p, p[: -len("index.html")]) for p in sorted(glob.glob("du-an/*/index.html", root_dir=ROOT))]
+pages = [("index.html", "")] + [(p, p[: -len("index.html")]) for p in sorted(x.replace(os.sep, "/") for x in glob.glob(os.path.join("du-an", "*", "index.html"), root_dir=ROOT))]  # luôn dùng "/" (kể cả trên Windows)
 projects = []
 for path, folder in pages[1:]:
     s = open(os.path.join(ROOT, path), encoding="utf-8").read()
@@ -152,12 +152,12 @@ for path, folder in pages:
 
 # robots.txt, sitemap.xml, manifest
 robots = "User-agent: *\nAllow: /\n" + (f"\nSitemap: {BASE}sitemap.xml\n" if BASE else "")
-open(os.path.join(ROOT, "robots.txt"), "w").write(robots)
+open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8").write(robots)
 if BASE:
     urls = [("", "1.0")] + [(p["folder"], "0.8") for p in projects]
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
         f"  <url><loc>{BASE}{u}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority></url>\n" for u, pr in urls) + "</urlset>\n"
-    open(os.path.join(ROOT, "sitemap.xml"), "w").write(xml)
+    open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(xml)
 elif os.path.exists(os.path.join(ROOT, "sitemap.xml")):
     os.remove(os.path.join(ROOT, "sitemap.xml"))
 manifest = {"name": f"{NAME} – Tự học AI qua 20 dự án", "short_name": NAME, "description": HOME_DESC, "lang": "vi", "start_url": "./", "scope": "./",
@@ -165,4 +165,8 @@ manifest = {"name": f"{NAME} – Tự học AI qua 20 dự án", "short_name": N
             "icons": [{"src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
                       {"src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml"}]}
 json.dump(manifest, open(os.path.join(ROOT, "manifest.webmanifest"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 print(f"SEO: {len(pages)} trang · biên soạn: {AUTHOR} · base = {BASE or '(chưa đặt: chạy lại với --base https://ten.github.io/ten-repo/)'}")

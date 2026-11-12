@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://vantupham.github.io/hop-kinh-ai/sitemap.xml
