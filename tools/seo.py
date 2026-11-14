@@ -46,8 +46,9 @@ projects = []
 for path, folder in pages[1:]:
     s = open(os.path.join(ROOT, path), encoding="utf-8").read()
     num = int(re.match(r"du-an/(\d+)", path).group(1)); name = text(re.search(r"<h1[^>]*>(.*?)</h1>", s, re.S).group(1))
-    projects.append({"path": path, "folder": folder, "num": num, "name": name, "title": f"Dự án {num}: {name}",
-                     "seo_title": f"{name} · Dự án AI {num} cho học sinh | {NAME}"})
+    g = re.search(r"THCS · LỚP (\d)", s); grade = g.group(1) if g else None
+    projects.append({"path": path, "folder": folder, "num": num, "name": name, "title": f"Dự án {num}: {name}", "grade": grade,
+                     "seo_title": f"{name} · AI cho học sinh lớp {grade} | {NAME}" if grade else f"{name} · Dự án AI {num} cho học sinh | {NAME}"})
 
 
 def head_block(path, folder, s):
@@ -62,7 +63,7 @@ def head_block(path, folder, s):
         desc = clip(lead)
         num = pr["num"]
         og_img = f"assets/og/{num:02d}.jpg"
-        m = re.search(r"mở khóa 4 thẻ kiến thức: (.*?)\.", s)
+        m = re.search(r"mở khóa \d+ thẻ kiến thức: (.*?)\.", s)
         teaches = [t.strip() for t in m.group(1).split("·")] if m else []
         keywords = teaches + KEYWORDS_BASE[:4]
     img_abs = url(og_img) or root + og_img
@@ -113,7 +114,7 @@ def head_block(path, folder, s):
         mins = re.search(r'<i data-i="clock"></i>([^<]*)phút', s)
         mx = re.findall(r"\d+", mins.group(1)) if mins else []
         res = {"@type": "LearningResource", "name": pr["title"], "description": desc, "inLanguage": "vi", "author": person,
-               "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": "Trung học cơ sở và trung học phổ thông",
+               "learningResourceType": "Dự án thực hành tương tác", "educationalLevel": f"Lớp {pr['grade']}" if pr["grade"] else "Trung học cơ sở và trung học phổ thông",
                "isAccessibleForFree": True, "teaches": teaches, "isPartOf": {"@type": "Course", "name": course["name"]},
                "image": img_abs, "datePublished": "2026-11-12"}
         if mx:
@@ -150,11 +151,26 @@ for path, folder in pages:
     s = footer(s, folder)
     open(fp, "w", encoding="utf-8").write(s)
 
+# trang phụ của nhánh THCS: hướng dẫn giáo viên, phiếu học tập
+EXTRA = sorted(x.replace(os.sep, "/") for pat in ("giao-vien.html", "phieu.html") for x in glob.glob(os.path.join("du-an", "*", pat), root_dir=ROOT))
+for path in EXTRA:
+    fp = os.path.join(ROOT, path); s = open(fp, encoding="utf-8").read(); folder = path.rsplit("/", 1)[0] + "/"
+    s = re.sub(r"\n?<!--seo:start-->.*?<!--seo:end-->", "", s, flags=re.S)
+    desc = clip(text(re.search(r'<p class="lead">(.*?)</p>', s, re.S).group(1))); title = re.search(r"<title>(.*?)</title>", s).group(1)
+    num = int(re.match(r"du-an/(\d+)", path).group(1)); img = url(f"assets/og/{num:02d}.jpg") or f"../../assets/og/{num:02d}.jpg"
+    L = ["<!--seo:start-->", f'<meta name="description" content="{html.escape(desc)}">', f'<meta name="author" content="{AUTHOR}">', '<meta name="robots" content="index,follow">',
+         '<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">', '<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">']
+    if BASE: L += [f'<link rel="canonical" href="{url(path)}">', f'<meta property="og:url" content="{url(path)}">']
+    L += ['<meta property="og:type" content="article">', f'<meta property="og:title" content="{html.escape(title)}">', f'<meta property="og:description" content="{html.escape(desc)}">', f'<meta property="og:image" content="{img}">', '<meta name="twitter:card" content="summary_large_image">', "<!--seo:end-->"]
+    s = s.replace('<meta name="viewport" content="width=device-width,initial-scale=1">', '<meta name="viewport" content="width=device-width,initial-scale=1">\n' + "\n".join(L), 1)
+    s = footer(s, folder)
+    open(fp, "w", encoding="utf-8").write(s)
+
 # robots.txt, sitemap.xml, manifest
 robots = "User-agent: *\nAllow: /\n" + (f"\nSitemap: {BASE}sitemap.xml\n" if BASE else "")
 open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8").write(robots)
 if BASE:
-    urls = [("", "1.0")] + [(p["folder"], "0.8") for p in projects]
+    urls = [("", "1.0")] + [(p["folder"], "0.8") for p in projects] + [(x, "0.5") for x in EXTRA]
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
         f"  <url><loc>{BASE}{u}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority></url>\n" for u, pr in urls) + "</urlset>\n"
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(xml)

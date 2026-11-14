@@ -108,7 +108,7 @@ a(f'''
 </div></section>''')
 
 body = "\n".join(out)
-h = open('tools/head.html').read().replace('{{TITLE}}', D["title"]).replace('{{LEVEL}}', D["level"]).replace('{{NUM}}', D["num"])
-f = open('tools/foot.html').read().replace('{{NUM}}', D["num"]).replace('{{SCRIPTS}}', '\n'.join(f'<script src="{s}"></script>' for s in D["scripts"]))
-open(D["out"], "w").write(h + body + f)
+h = open('tools/head.html', encoding='utf-8').read().replace('{{TITLE}}', D["title"]).replace('{{LEVEL}}', D["level"]).replace('{{NUM}}', D["num"])
+f = open('tools/foot.html', encoding='utf-8').read().replace('{{NUM}}', D["num"]).replace('{{SCRIPTS}}', '\n'.join(f'<script src="{s}"></script>' for s in D["scripts"]))
+open(D["out"], "w", encoding="utf-8").write(h + body + f)
 print("built", D["out"])

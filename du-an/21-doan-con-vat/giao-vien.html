@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Một tiết học 45 phút giúp học sinh lớp 6 hiểu cây quyết định, khóa lưỡng phân và ý tưởng máy học từ lỗi sai, thông qua trò chơi đoán con vật.">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="canonical" href="https://vantupham.github.io/hop-kinh-ai/du-an/21-doan-con-vat/giao-vien.html">
+<meta property="og:url" content="https://vantupham.github.io/hop-kinh-ai/du-an/21-doan-con-vat/giao-vien.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hướng dẫn giáo viên Dự án 21: Cây quyết định và khóa lưỡng phân (lớp 6) | Hộp Kính AI">
+<meta property="og:description" content="Một tiết học 45 phút giúp học sinh lớp 6 hiểu cây quyết định, khóa lưỡng phân và ý tưởng máy học từ lỗi sai, thông qua trò chơi đoán con vật.">
+<meta property="og:image" content="https://vantupham.github.io/hop-kinh-ai/assets/og/21.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<!--seo:end-->
+<title>Hướng dẫn giáo viên Dự án 21: Cây quyết định và khóa lưỡng phân (lớp 6) | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/thcs.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="logo" href="../../index.html">Hộp Kính AI</a><span class="crumbs"><a href="index.html">DỰ ÁN 21</a> / GIÁO VIÊN</span><span class="spacer"></span><button class="theme-tg" data-theme-toggle></button></div></header>
+<main class="doc-page">
+  <div class="print-bar"><button class="btn accent" onclick="window.print()"><i data-i="upload"></i>In hướng dẫn</button><a class="btn ghost" href="index.html"><i data-i="arrowL"></i>Về Dự án 21</a><a class="btn ghost" href="phieu.html"><i data-i="layers"></i>Phiếu học tập</a></div>
+  <p class="kicker" style="margin:0">HỘP KÍNH AI · NHÁNH THCS · LỚP 6 · HƯỚNG DẪN GIÁO VIÊN</p>
+  <h1>Dự án 21: Đoán con vật bằng câu hỏi Có/Không</h1>
+  <p class="lead">Một tiết học 45 phút giúp học sinh lớp 6 hiểu cây quyết định, khóa lưỡng phân và ý tưởng máy học từ lỗi sai, thông qua trò chơi đoán con vật.</p>
+
+  <table>
+    <tr><th style="width:28%">Đối tượng</th><td>Học sinh lớp 6 (dùng được cho lớp 7 khi ôn tập)</td></tr>
+    <tr><th>Thời lượng</th><td>1 tiết (45 phút), có phần thử thách làm ở nhà</td></tr>
+    <tr><th>Gắn với nội dung</th><td><b>Khoa học tự nhiên 6:</b> chủ đề Đa dạng thế giới sống: phân loại sinh vật, xây dựng khóa lưỡng phân.<br><b>Tin học 6:</b> thuật toán, cấu trúc rẽ nhánh (nếu… thì…).<br>Có thể dùng trong hoạt động trải nghiệm, câu lạc bộ STEM.</td></tr>
+    <tr><th>Thiết bị</th><td>Tối thiểu: 1 máy tính và máy chiếu. Tốt nhất: 1 máy tính cho mỗi nhóm 3–4 học sinh. Không cần camera, không cần cài đặt. Phiếu học tập in sẵn, kéo.</td></tr>
+  </table>
+
+  <h2>1. Mục tiêu</h2>
+  <ul>
+    <li><b>Kiến thức:</b> nêu được cây quyết định là chuỗi câu hỏi Có/Không dẫn tới kết quả; nhận ra khóa lưỡng phân là một cây quyết định; giải thích được máy "học" bằng cách thêm câu hỏi khi đoán sai.</li>
+    <li><b>Năng lực:</b> lựa chọn đặc điểm phù hợp để phân loại; so sánh hai cách xây cây theo số câu hỏi cần dùng; hợp tác nhóm.</li>
+    <li><b>Phẩm chất:</b> trung thực khi trả lời (câu trả lời sai làm máy học sai); tò mò, ham tìm hiểu.</li>
+  </ul>
+
+  <h2>2. Tiến trình gợi ý (45 phút)</h2>
+  <table>
+    <tr><th style="width:18%">Hoạt động</th><th style="width:10%">Thời gian</th><th>Giáo viên và học sinh</th></tr>
+    <tr><td><b>Khởi động</b></td><td>5 phút</td><td>Giáo viên mở mục <b>Chơi → Máy đoán</b> trên máy chiếu. Một học sinh nghĩ thầm một con vật, cả lớp cùng trả lời câu hỏi của máy. Hỏi: <i>"Máy có đọc được suy nghĩ của bạn không? Vậy nó đoán bằng cách nào?"</i></td></tr>
+    <tr><td><b>Khám phá</b></td><td>12 phút</td><td>Mở mục <b>Soi bên trong</b>, đi qua bước 1 đến 4. Liên hệ: sơ đồ này chính là khóa lưỡng phân trong môn Khoa học tự nhiên. Học sinh làm <b>Phần 1</b> của phiếu (bảng đặc điểm).</td></tr>
+    <tr><td><b>Luyện tập</b></td><td>15 phút</td><td>Nhóm 3–4 học sinh cắt 8 thẻ con vật và xây cây (<b>Phần 2</b>). Nhóm có máy tính dùng chế độ <b>Em xây cây</b> với 14 con vật, rồi bấm <b>Máy tự xây</b> và <b>Hỏi từng con một</b> để so sánh số câu hỏi trung bình.</td></tr>
+    <tr><td><b>Vận dụng</b></td><td>10 phút</td><td>Bật <b>Sự cố 1 (câu hỏi mơ hồ)</b> và <b>Sự cố 2 (con vật lạ)</b> trên máy chiếu. Một học sinh lên dạy máy về chim cánh cụt. Học sinh làm <b>Phần 3, 4</b> của phiếu.</td></tr>
+    <tr><td><b>Tổng kết</b></td><td>3 phút</td><td>Nhắc lại 3 thẻ kiến thức. Giao thử thách một sao làm ở nhà: dạy máy 3 con vật mới.</td></tr>
+  </table>
+
+  <h2>3. Câu hỏi thảo luận và gợi ý trả lời</h2>
+  <table>
+    <tr><th style="width:45%">Câu hỏi</th><th>Gợi ý</th></tr>
+    <tr><td>Vì sao máy cần ít câu hỏi hơn khi hỏi về đặc điểm thay vì hỏi tên từng con?</td><td>Một câu hỏi đặc điểm tốt loại được khoảng một nửa số con vật; hỏi tên chỉ loại được một con. Với 14 con vật: khoảng 4 câu so với tối đa 13 câu.</td></tr>
+    <tr><td>Nếu em cố tình trả lời sai, máy sẽ ra sao?</td><td>Máy đi sai nhánh và có thể "học" một nhánh sai. Máy học từ dữ liệu con người đưa vào, nên dữ liệu sai thì máy học sai.</td></tr>
+    <tr><td>Khóa lưỡng phân trong sách và cây của máy giống và khác nhau thế nào?</td><td>Giống: đều là chuỗi câu hỏi hai lựa chọn. Khác: máy tự gắn thêm nhánh khi gặp con vật mới; khóa trong sách do nhà khoa học xây sẵn.</td></tr>
+  </table>
+
+  <h2>4. Đáp án phiếu học tập</h2>
+  <p><b>Phần 1</b> (C: có, K: không)</p>
+  <table class="tick"><tr><th>Con vật</th><th>Xương sống</th><th>Sữa</th><th>Lông vũ</th><th>Biết bay</th><th>6 chân</th><th>Dưới nước</th></tr>
+    <tr><td>Mèo</td><td>C</td><td>C</td><td>K</td><td>K</td><td>K</td><td>K</td></tr>
+    <tr><td>Dơi</td><td>C</td><td>C</td><td>K</td><td>C</td><td>K</td><td>K</td></tr>
+    <tr><td>Cá heo</td><td>C</td><td>C</td><td>K</td><td>K</td><td>K</td><td>C</td></tr>
+    <tr><td>Chim sẻ</td><td>C</td><td>K</td><td>C</td><td>C</td><td>K</td><td>K</td></tr>
+    <tr><td>Gà</td><td>C</td><td>K</td><td>C</td><td>K</td><td>K</td><td>K</td></tr>
+    <tr><td>Cá chép</td><td>C</td><td>K</td><td>K</td><td>K</td><td>K</td><td>C</td></tr>
+    <tr><td>Bướm</td><td>K</td><td>K</td><td>K</td><td>C</td><td>C</td><td>K</td></tr>
+    <tr><td>Nhện</td><td>K</td><td>K</td><td>K</td><td>K</td><td>K</td><td>K</td></tr>
+  </table>
+  <p><b>Phần 2:</b> nhiều cây đúng. Một cây gọn: "Có xương sống?" → nhóm có xương sống hỏi "Nuôi con bằng sữa?", rồi "Biết bay?" / "Sống dưới nước?"; nhóm không xương sống hỏi "Có 6 chân?". Mỗi con vật cần 2–4 câu hỏi.</p>
+  <p><b>Phần 3:</b> tốt: "Có xương sống?", "Có đúng 6 chân?" (câu trả lời chắc chắn). Chưa tốt: "Có to không?", "Có dễ thương không?" (mỗi người hiểu một kiểu).</p>
+  <p><b>Phần 4:</b> ví dụ "Sống chủ yếu dưới nước không?": chim cánh cụt trả lời Có, gà trả lời Không, nên câu hỏi này tách được hai con vật.</p>
+
+  <h2>5. Lưu ý về kiến thức</h2>
+  <ul>
+    <li><b>Gà</b> có thể bay một quãng ngắn. Trong trò chơi, thống nhất trả lời "Không" cho câu "Biết bay?". Đây là dịp tốt để thảo luận vì sao câu hỏi cần rõ ràng.</li>
+    <li><b>Ốc sên</b> di chuyển bằng chân bụng (một khối cơ), không phải chân như các con vật khác; trò chơi quy ước "Không có chân".</li>
+    <li><b>Cá heo</b> và <b>dơi</b> là thú (nuôi con bằng sữa); nhiều học sinh sẽ bất ngờ, nên khai thác khi chơi.</li>
+  </ul>
+
+  <h2>6. Phân hóa và phương án không có máy tính</h2>
+  <ul>
+    <li><b>Học sinh cần hỗ trợ:</b> xây cây với 4 con vật trước, rồi tăng lên 8.</li>
+    <li><b>Học sinh khá, giỏi:</b> tìm cây có số câu hỏi trung bình ít nhất cho 8 con vật; giải thích vì sao không thể ít hơn 3 câu cho mọi con.</li>
+    <li><b>Không có máy tính:</b> chơi "đoán con vật" bằng thẻ giấy: một bạn giữ thẻ bí mật, nhóm hỏi Có/Không theo cây đã xây; khi đoán sai thì vẽ thêm nhánh vào cây trên giấy.</li>
+  </ul>
+  <p class="muted small">Học lên: Dự án 10 (Trợ lý tư thế ngồi học) cho thấy máy <b>tự học</b> cây quyết định từ dữ liệu, không cần người chọn câu hỏi.</p>
+</main>
+<footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Hướng dẫn giáo viên Dự án 21 · Được sử dụng tự do cho mục đích giáo dục.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+<script src="../../assets/ui.js"></script>
+</body>
+</html>

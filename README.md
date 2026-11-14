@@ -41,6 +41,7 @@ du-an/17-cam-xuc/            Dự án 17: Cảm xúc câu nói (vector từ, PPM
 du-an/18-me-cung/            Dự án 18: Robot thoát mê cung (học tăng cường, bảng Q, ε, γ)
 du-an/19-xe-tu-lai/          Dự án 19: Xe tự lái tiến hóa (cảm biến tia, thuật toán di truyền)
 du-an/20-hoi-dap/            Dự án 20: Trợ lý hỏi đáp SGK (TF-IDF, RAG, trích dẫn, ngưỡng liên quan)
+du-an/21-doan-con-vat/       Dự án 21 (THCS, lớp 6): Đoán con vật bằng câu hỏi Có/Không (cây quyết định, khóa lưỡng phân)
 ```
 Mỗi dự án có chế độ **mô phỏng** (chạy ở mọi máy, không cần webcam hay micro) và chế độ **thiết bị thật**: camera dùng MediaPipe (Dự án 1–5, 10, 12, 15), camera/video dùng COCO-SSD (Dự án 9), micro (Dự án 8), camera chụp ảnh tự huấn luyện (Dự án 6), tải ảnh của em (Dự án 13), camera hoặc tải ảnh (Dự án 14).
 
@@ -51,6 +52,13 @@ Sao chép thư mục `du-an/01-squat/` và giữ khung 9 bước: Mồi, Nhiệm
 
 ## Công nghệ
 MediaPipe Tasks Vision (Pose Landmarker) tải từ CDN · Canvas/SVG · HTML/CSS/JS thuần, không cần build.
+
+## Nhánh THCS (lớp 6–9)
+20 dự án 21–40 gắn với bài học trên lớp theo Chương trình GDPT 2018, mỗi dự án vừa một tiết 45 phút, có **phiếu học tập in được** (`phieu.html`) và **hướng dẫn giáo viên** (`giao-vien.html`). Trang chủ có bộ chọn lộ trình THCS / nâng cao.
+
+- Đã có: Dự án 21 · Đoán con vật bằng câu hỏi Có/Không (lớp 6).
+- Sinh trang: `python3 tools/gen_thcs.py tools/p21.py` rồi `python3 tools/seo.py`.
+- Kiểu dáng riêng của nhánh: `assets/thcs.css` (nhân vật dẫn đường Kính, thẻ con vật, trang in).
 
 ## SEO sau khi đăng
 1. Khi đã có địa chỉ trang (ví dụ `https://ten-cua-ban.github.io/hop-kinh-ai/`), chạy:

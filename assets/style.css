@@ -141,3 +141,8 @@ footer.site .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 footer.site .by{margin-left:auto}footer.site .by a{color:var(--text);font-weight:600}
 .author-card{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.author-card .avatar{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;font:800 1.5rem var(--font);color:#fff;background:linear-gradient(135deg,var(--violet),var(--mint));flex:none}
 .author-card h3{margin:0 0 4px}.author-card p{margin:0;color:var(--text-2)}
+.track-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 22px}
+.track{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px 18px;border-radius:16px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--text);font:inherit;cursor:pointer;text-align:left;transition:border-color .2s,box-shadow .2s}
+.track b{font-size:1.05rem}.track span{font-size:.85rem;color:var(--text-2)}
+.track[aria-selected="true"]{border-color:var(--violet);box-shadow:0 0 0 3px color-mix(in srgb,var(--violet) 25%,transparent);background:var(--surface-solid)}
+@media (max-width:620px){.track-tabs{grid-template-columns:1fr}}
