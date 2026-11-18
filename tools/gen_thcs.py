@@ -31,7 +31,7 @@ a(f'''
   <div class="grid g2">
     <div class="card vf"><div class="ico-box"><i data-i="target"></i></div>
       <p>Câu hỏi lớn: <b>"{D["mission_q"]}"</b></p><p class="muted">{D["mission_p"]}</p>
-      <div class="chips"><span class="chip"><i data-i="clock"></i>{D["minutes"]}</span><span class="chip mint"><i data-i="shield"></i>Không cần camera</span><span class="chip coral"><i data-i="book"></i>{len(D["cards"])} thẻ kiến thức</span></div>
+      <div class="chips"><span class="chip"><i data-i="clock"></i>{D["minutes"]}</span><span class="chip mint"><i data-i="shield"></i>{D.get("device", "Không cần camera")}</span><span class="chip coral"><i data-i="book"></i>{len(D["cards"])} thẻ kiến thức</span></div>
       <p class="small muted" style="margin:14px 0 4px">Liên quan tới bài học trên lớp:</p><div class="lesson">{les}</div></div>
     <div class="card"><h3>Danh sách nhiệm vụ <span class="muted small">· tự đánh dấu khi em làm xong</span></h3><ul class="checklist" id="checklist">{chk}</ul></div>
   </div>

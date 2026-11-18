@@ -69,5 +69,5 @@ D = dict(
   res=[("layers", "", "Phiếu học tập", "In ra để làm trên lớp, không cần máy tính.", "phieu.html"),
        ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, câu hỏi thảo luận, đáp án.", "giao-vien.html"),
        ("rocket", "amber", "Học lên: Dự án 10", "Máy tự học cây quyết định từ dữ liệu tư thế ngồi.", "../10-tu-the-ngoi/index.html")],
-  prev=None, nextp=None,
+  prev=None, nextp=("22-may-nhin-anh", "22"),
 )

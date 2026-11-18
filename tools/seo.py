@@ -21,7 +21,7 @@ json.dump(cfg, open(CFG_PATH, "w", encoding="utf-8"), ensure_ascii=False, indent
 BASE, AUTHOR, NAME = cfg["base"], cfg["author"], cfg["name"]
 TODAY = datetime.date.today().isoformat()
 
-HOME_DESC = "Website miễn phí giúp học sinh tự học trí tuệ nhân tạo qua 20 dự án trực quan, chạy ngay trên trình duyệt, có lý thuyết từng bước và gợi ý đề tài KHKT."
+HOME_DESC = "Website miễn phí giúp học sinh tự học trí tuệ nhân tạo qua 40 dự án trực quan, chạy ngay trên trình duyệt, có lý thuyết từng bước và gợi ý đề tài KHKT."
 KEYWORDS_BASE = ["trí tuệ nhân tạo", "AI cho học sinh", "học máy", "tự học AI", "dự án AI", "STEM", "KHKT", "Hộp Kính AI"]
 person = {"@type": "Person", "name": AUTHOR}
 
@@ -100,7 +100,7 @@ def head_block(path, folder, s):
           f'<meta name="twitter:description" content="{html.escape(desc)}">',
           f'<meta name="twitter:image" content="{img_abs}">']
     # dữ liệu có cấu trúc (schema.org)
-    course = {"@type": "Course", "name": f"{NAME}: tự học trí tuệ nhân tạo qua 20 dự án", "description": HOME_DESC, "inLanguage": "vi",
+    course = {"@type": "Course", "name": f"{NAME}: tự học trí tuệ nhân tạo qua 40 dự án", "description": HOME_DESC, "inLanguage": "vi",
               "provider": person, "author": person, "isAccessibleForFree": True, "educationalLevel": "Trung học cơ sở và trung học phổ thông"}
     if BASE:
         course["url"] = BASE
@@ -176,7 +176,7 @@ if BASE:
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(xml)
 elif os.path.exists(os.path.join(ROOT, "sitemap.xml")):
     os.remove(os.path.join(ROOT, "sitemap.xml"))
-manifest = {"name": f"{NAME} – Tự học AI qua 20 dự án", "short_name": NAME, "description": HOME_DESC, "lang": "vi", "start_url": "./", "scope": "./",
+manifest = {"name": f"{NAME} – Tự học AI qua 40 dự án", "short_name": NAME, "description": HOME_DESC, "lang": "vi", "start_url": "./", "scope": "./",
             "display": "standalone", "background_color": "#0b0d26", "theme_color": "#5443ff",
             "icons": [{"src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
                       {"src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml"}]}

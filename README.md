@@ -1,6 +1,6 @@
 # Hộp Kính AI
 
-Website giúp học sinh **tự học trí tuệ nhân tạo qua 20 dự án trực quan**. AI chạy ngay trên trình duyệt: không cần cài đặt, ảnh của học sinh không rời khỏi máy.
+Website giúp học sinh **tự học trí tuệ nhân tạo qua 40 dự án trực quan**. AI chạy ngay trên trình duyệt: không cần cài đặt, ảnh của học sinh không rời khỏi máy.
 
 ## Chạy thử trên máy
 ```bash
@@ -16,7 +16,7 @@ python3 -m http.server 8000
 
 ## Cấu trúc
 ```
-index.html                  Trang chủ và bản đồ 20 dự án
+index.html                  Trang chủ và bản đồ 40 dự án (THCS và nâng cao)
 assets/style.css            Hệ thiết kế dùng chung (sáng/tối)
 assets/ui.js                Bộ icon SVG + nút chuyển giao diện
 assets/project.css|.js      Thư viện chung cho trang dự án: quiz, tiến độ, sơ đồ bước, camera, biểu đồ
@@ -42,6 +42,25 @@ du-an/18-me-cung/            Dự án 18: Robot thoát mê cung (học tăng cư
 du-an/19-xe-tu-lai/          Dự án 19: Xe tự lái tiến hóa (cảm biến tia, thuật toán di truyền)
 du-an/20-hoi-dap/            Dự án 20: Trợ lý hỏi đáp SGK (TF-IDF, RAG, trích dẫn, ngưỡng liên quan)
 du-an/21-doan-con-vat/       Dự án 21 (THCS, lớp 6): Đoán con vật bằng câu hỏi Có/Không (cây quyết định, khóa lưỡng phân)
+du-an/22-may-nhin-anh/       Dự án 22 (THCS, lớp 6): Máy nhìn ảnh như thế nào? (điểm ảnh, ảnh là bảng số, RGB, so khớp mẫu)
+du-an/23-xuc-xac/            Dự án 23 (THCS, lớp 6): Thám tử tìm xúc xắc gian lận (tần số, xác suất thực nghiệm)
+du-an/24-robot-hoc/          Dự án 24 (THCS, lớp 6): Robot làm theo lệnh và robot tự học (thuật toán, thử và ghi nhớ)
+du-an/25-la-chan/            Dự án 25 (THCS, lớp 6): Lá chắn tin nhắn lừa đảo (từ khóa có điểm, ngưỡng, học từ ví dụ)
+du-an/26-doan-hinh/          Dự án 26 (THCS, lớp 7): Đoán hình em vẽ (đặc trưng, k hàng xóm gần nhất)
+du-an/27-tham-tu-du-lieu/    Dự án 27 (THCS, lớp 7): Thám tử dữ liệu lớp học (tổng thể, mẫu, mẫu bị lệch)
+du-an/28-nghe-not-nhac/      Dự án 28 (THCS, lớp 7): Máy nghe nốt nhạc (tần số, biên độ; micro không bắt buộc)
+du-an/29-robot-giao-thu/     Dự án 29 (THCS, lớp 7): Robot giao thư (tìm kiếm tuần tự, tìm kiếm nhị phân)
+du-an/30-toc-do-chay/        Dự án 30 (THCS, lớp 7): Máy chấm tốc độ chạy (theo dõi vật, đồ thị quãng đường – thời gian; camera không bắt buộc)
+du-an/31-cay-dau/             Dự án 31 (THCS, lớp 8): Đường thẳng dự đoán cây đậu lớn (hàm bậc nhất, sai số, quá khớp)
+du-an/32-trai-cay/            Dự án 32 (THCS, lớp 8): Phân loại trái cây (mặt phẳng tọa độ, khoảng cách Pythagore, chuẩn hóa)
+du-an/33-no-ron/              Dự án 33 (THCS, lớp 8): Nơ-ron đầu tiên (trọng số, ngưỡng, học từ lỗi, XOR)
+du-an/34-giay-quy/            Dự án 34 (THCS, lớp 8): Giấy chỉ thị thông minh (thang pH, màu RGB, cân bằng trắng; camera không bắt buộc)
+du-an/35-chatbot/             Dự án 35 (THCS, lớp 8): Tự làm chatbot theo luật (chuẩn hóa câu, từ khóa, chọn luật)
+du-an/36-bo-canh-cung/        Dự án 36 (THCS, lớp 9): Bọ cánh cứng ngụy trang (gen, đột biến, chọn lọc tự nhiên, thuật toán di truyền)
+du-an/37-may-dich/            Dự án 37 (THCS, lớp 9): Máy dịch ngây ngô (từ nhiều nghĩa, ngữ cảnh, thành ngữ, trật tự từ)
+du-an/38-hoc-bong/            Dự án 38 (THCS, lớp 9): Ai được nhận học bổng? (tần số tương đối, thiên kiến, thông tin đại diện)
+du-an/39-anh-that/            Dự án 39 (THCS, lớp 9): Ảnh thật hay ảnh ghép? (hạt nhiễu, bóng đổ, máy dò, kiểm tra nguồn)
+du-an/40-tro-ly-lop/          Dự án 40 (THCS, lớp 9): Trợ lý lớp học của em (dự án tổng kết: ghép khối, riêng tư, tự đánh giá)
 ```
 Mỗi dự án có chế độ **mô phỏng** (chạy ở mọi máy, không cần webcam hay micro) và chế độ **thiết bị thật**: camera dùng MediaPipe (Dự án 1–5, 10, 12, 15), camera/video dùng COCO-SSD (Dự án 9), micro (Dự án 8), camera chụp ảnh tự huấn luyện (Dự án 6), tải ảnh của em (Dự án 13), camera hoặc tải ảnh (Dự án 14).
 
@@ -56,8 +75,11 @@ MediaPipe Tasks Vision (Pose Landmarker) tải từ CDN · Canvas/SVG · HTML/CS
 ## Nhánh THCS (lớp 6–9)
 20 dự án 21–40 gắn với bài học trên lớp theo Chương trình GDPT 2018, mỗi dự án vừa một tiết 45 phút, có **phiếu học tập in được** (`phieu.html`) và **hướng dẫn giáo viên** (`giao-vien.html`). Trang chủ có bộ chọn lộ trình THCS / nâng cao.
 
-- Đã có: Dự án 21 · Đoán con vật bằng câu hỏi Có/Không (lớp 6).
-- Sinh trang: `python3 tools/gen_thcs.py tools/p21.py` rồi `python3 tools/seo.py`.
+- Đã có đủ khối lớp 6: Dự án 21 (đoán con vật), 22 (máy nhìn ảnh), 23 (xúc xắc gian lận), 24 (robot làm theo lệnh và tự học), 25 (lá chắn tin nhắn lừa đảo).
+- Đã có đủ khối lớp 7: Dự án 26 (đoán hình em vẽ), 27 (thám tử dữ liệu), 28 (máy nghe nốt nhạc), 29 (robot giao thư), 30 (máy chấm tốc độ chạy).
+- Đã có đủ khối lớp 8: Dự án 31 (cây đậu), 32 (trái cây), 33 (nơ-ron), 34 (giấy chỉ thị pH), 35 (chatbot theo luật).
+- Đã có đủ khối lớp 9: Dự án 36 (bọ cánh cứng), 37 (máy dịch), 38 (học bổng), 39 (ảnh thật hay ghép), 40 (trợ lý lớp học). Nhánh THCS hoàn chỉnh 20 dự án.
+- Sinh trang dự án: `python3 tools/gen_thcs.py tools/p22.py`; sinh phiếu học tập và hướng dẫn giáo viên: `python3 tools/gen_doc.py tools/d22.py`; sau đó chạy `python3 tools/seo.py`.
 - Kiểu dáng riêng của nhánh: `assets/thcs.css` (nhân vật dẫn đường Kính, thẻ con vật, trang in).
 
 ## SEO sau khi đăng
