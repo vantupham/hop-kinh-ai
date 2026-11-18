@@ -1,100 +1,81 @@
 D = dict(
-  out="du-an/14-la-cay/index.html", num="14", level="3", title="Dự án 14 · Bác sĩ lá cây",
-  scripts=["leaf-gen.js", "cnn.js"],
-  h1='Bác sĩ <span class="hl-word">lá cây</span>',
-  lead="Người nông dân chụp một chiếc lá, ứng dụng báo ngay: \"lá bị đốm, nên xử lý sớm\". Bên trong là mạng tích chập, loại mạng nơ-ron giúp máy tính nhìn thấy ảnh. Ở dự án này em sẽ tự tay thiết kế các bộ lọc của nó, chấm \"bệnh\" lên lá, và hỏi máy: em đang nhìn vào đâu?",
-  moi='''
-  <style>.file-btn{position:relative;overflow:hidden}.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
-  .filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.flt{border:1px solid var(--line);border-radius:14px;padding:10px;background:var(--surface);cursor:pointer;min-width:0}.flt.on{border-color:var(--amber);box-shadow:0 0 0 2px color-mix(in srgb,var(--amber) 35%,transparent)}
-  .flt-h{display:flex;gap:8px;align-items:center;margin-bottom:6px}.flt-h b{font-family:"JetBrains Mono",monospace;color:var(--violet)}.flt-h select{flex:1;min-width:0;background:var(--surface-solid);color:var(--text);border:1px solid var(--line-strong);border-radius:8px;padding:4px 6px;font:inherit;font-size:.8rem}
-  .flt .chs{gap:4px;margin-bottom:6px}.flt .chs .btn{padding:3px 7px;font-size:.7rem}.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:6px}.kgrid input{width:100%;min-width:0;text-align:center;font:600 .85rem "JetBrains Mono",monospace;padding:5px 0;border-radius:6px;border:1px solid var(--line-strong);background:var(--surface-solid);color:var(--text)}.kgrid input.pos{background:color-mix(in srgb,var(--mint) 22%,var(--surface-solid))}.kgrid input.neg{background:color-mix(in srgb,var(--coral) 22%,var(--surface-solid))}
-  .flt canvas{width:100%;aspect-ratio:1;border-radius:8px;image-rendering:pixelated;display:block}
-  @media(max-width:760px){.filters{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>
+  out="du-an/14-giay-quy/index.html", num="14", grade="8", title="Dự án 14 · Giấy quỳ thông minh",
+  scripts=["ph.js"], device="Camera: không bắt buộc",
+  h1='Giấy chỉ thị <span class="hl-word">thông minh</span> đọc độ pH',
+  lead="Nhúng giấy chỉ thị vào nước chanh, giấy chuyển đỏ; vào nước xà phòng, giấy chuyển xanh tím. Mắt người so màu với bảng mẫu để đọc pH. Một máy có camera cũng làm được: đọc ba con số màu, so với bảng mẫu, báo axit hay bazơ. Nhưng dưới ánh đèn vàng, mọi màu đều ngả vàng. Máy có bị lừa không?",
+  play='''
   <div class="playground">
     <div class="stage-col">
-      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Ảnh lá, 6 bản đồ đặc trưng và chẩn đoán"></canvas><video id="video" playsinline muted hidden></video><div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div><div class="stage-msg" id="stageMsg" hidden></div></div>
-      <div class="toolbar">
-        <div class="seg"><button class="btn small" id="srcSim"><i data-i="film"></i>Mô phỏng</button><button class="btn small ghost" id="srcCam"><i data-i="camera"></i>Camera thật</button></div>
-        <button class="btn small ghost" id="btnHeat" aria-pressed="false"><i data-i="eye"></i>AI nhìn vào đâu?</button>
+      <div class="toolbar" style="margin:0 0 10px"><div class="seg"><button class="btn small" id="srcSim" aria-pressed="true"><i data-i="flask"></i>Phòng thí nghiệm ảo</button><button class="btn small ghost" id="srcCam" aria-pressed="false"><i data-i="camera"></i>Dùng camera</button></div></div>
+      <div class="stage vf"><canvas id="stage" class="touch" width="880" height="440" aria-label="Cốc dung dịch, giấy chỉ thị, ảnh máy chụp và bảng màu pH mẫu"></canvas><video id="video" playsinline muted></video><div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div><div class="stage-msg" id="msg" hidden></div></div>
+      <div class="play-panel sim-only"><p class="small" style="margin:0 0 8px"><b>Chọn dung dịch để nhúng giấy:</b></p><div class="btn-row" id="liquids"></div></div>
+      <p class="ask" id="askText" aria-live="polite" style="margin:12px 0 0;font-size:1.02rem"></p>
+      {{GUIDE}}
+      <div class="two-col" style="margin-top:6px">
+        <div class="card">
+          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm amber"><i data-i="sun"></i></span>Ánh sáng khi chụp</h2>
+          <label class="ctl"><span>Màu đèn (trắng → vàng)</span><b id="warmV"></b><input type="range" id="warm" min="0" max="1" step="0.05"></label>
+          <label class="ctl"><span>Độ sáng</span><b id="brightV"></b><input type="range" id="bright" min="0.4" max="1.2" step="0.05"></label>
+          <label class="ctl sim-only"><span>Giấy bị nhạt màu (nhúng quá lâu, pha loãng)</span><b id="fadeV"></b><input type="range" id="fade" min="0" max="0.8" step="0.05"></label>
+        </div>
+        <div class="card">
+          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="cpu"></i></span>Cách máy đọc màu</h2>
+          <div class="toggles"><label class="tog"><input type="checkbox" id="optWB" checked><span>Cân bằng trắng nhờ ô giấy trắng</span></label><label class="tog"><input type="checkbox" id="optHue"><span>Chỉ so sắc màu, bỏ qua đậm nhạt</span></label><label class="tog"><input type="checkbox" id="optFull" checked><span>Dùng đủ 14 màu mẫu</span></label></div>
+        </div>
       </div>
-      <div class="game"><span class="small muted">Lá mới</span><div class="btn-row" id="clsBtns"><button class="btn small ghost" data-c="0">Lá khỏe</button><button class="btn small ghost" data-c="1">Đốm lá</button><button class="btn small ghost" data-c="2">Vàng lá</button><button class="btn small ghost" data-c="r"><i data-i="reset"></i>Ngẫu nhiên</button><label class="btn small ghost file-btn"><i data-i="upload"></i>Ảnh lá của em<input type="file" id="fileIn" accept="image/*"></label></div></div>
-      <p class="small muted" style="margin:8px 0 0"><i data-i="bulb"></i> Chạm vào chiếc lá để chấm thêm đốm bệnh. Chạm vào một bản đồ đặc trưng để chọn bộ lọc đó.</p>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · cấu tạo</div>
-      <div class="lbl">CÁC LỚP CỦA MẠNG</div>
-      <div class="layers-list" style="display:grid;gap:6px;color:#fff;font-size:.82rem;margin-top:6px">
-        <div>1. Ảnh 48×48×3</div><div>2. Tích chập: <b style="color:#ffc34d">6 bộ lọc 3×3</b> (em thiết kế)</div><div>3. ReLU → gộp max 2×2</div><div>4. Tóm tắt: 12 đặc trưng</div><div>5. Phân loại: 3 bệnh (máy tự học)</div>
-      </div>
-      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>ĐỘ CHÍNH XÁC KIỂM TRA</span><b id="bTest">—</b></div><div class="metric"><span>LÁ ĐỂ HỌC</span><b>600</b></div></div>
+      <div class="lab-h"><span class="live-dot"></span>Bộ não của máy</div>
+      <div class="metric-row"><div class="metric"><span>MÁY ĐỌC pH</span><b id="bPH">—</b></div><div class="metric"><span>LOẠI</span><b id="bKind" style="font-size:.95rem">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">BA SỐ MÀU MÁY ĐỌC ĐƯỢC</div><div id="bRGB" class="calc"></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>pH THẬT</span><b id="bTrue">—</b></div><div class="metric"><span>ĐỌC ĐÚNG (±1) / 11 DUNG DỊCH</span><b id="bAcc">—</b></div></div>
+      <p class="small" style="color:#c3c7f0;margin-top:12px"><b style="color:#ffc34d">An toàn:</b> không nếm, không ngửi trực tiếp hóa chất. Nước tẩy, nước vôi có thể gây bỏng da và mắt: luôn đeo găng tay khi làm thí nghiệm thật.</p>
     </aside>
-  </div>''',
-  mission_h2="Xây \"đôi mắt\" cho máy: các bộ lọc tích chập",
-  mission_q="Máy tìm đốm bệnh thế nào khi đốm có thể nằm ở bất kỳ chỗ nào trên lá?",
-  mission_p="Em sẽ xem một <b>bộ lọc 3×3</b> trượt qua ảnh, thấy <b>bản đồ đặc trưng</b> sáng lên ở chỗ bệnh, hiểu bước <b>gộp</b>, rồi tự thiết kế bộ lọc. Cuối cùng em sẽ bắt quả tang máy học <b>đường tắt</b> bằng bản đồ \"AI nhìn vào đâu\".",
-  minutes="60–75 phút",
-  checklist=[("paint", "Chấm ít nhất 3 đốm lên một lá và xem chẩn đoán đổi"), ("heat", "Bật bản đồ AI nhìn vào đâu"), ("soi", "Soi tới bước Trượt bộ lọc"), ("filter", "Tự sửa một bộ lọc"), ("broke", "Làm bác sĩ AI chẩn đoán sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Bên trong mạng tích chập: 6 bước",
-  soi_p="Hình bên dưới dùng đúng chiếc lá ở phần Mồi và bộ lọc em đang chọn (khung vàng).",
-  theory=[
-    dict(no="53", tag="Thị giác máy", title="Phép tích chập",
-      svg='<g class="f-soft"><rect x="20" y="20" width="90" height="90" rx="4"/></g><g class="s-line" stroke-width="1"><path d="M50 20v90M80 20v90M20 50h90M20 80h90"/></g><rect x="20" y="20" width="60" height="60" fill="none" stroke="#ffc34d" stroke-width="3"/><path d="M118 50h40" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><rect x="170" y="30" width="60" height="60" rx="4" class="f-soft"/><rect x="170" y="30" width="20" height="20" fill="#ffc34d"/><text x="166" y="112" font-size="10" class="t-mono f-muted">nhân 9 ô rồi cộng</text>',
-      p="Một <b>bộ lọc</b> nhỏ 3×3 trượt qua từng vị trí của ảnh. Ở mỗi chỗ, nhân 9 điểm ảnh với 9 trọng số rồi cộng lại. Kết quả là một <b>bản đồ đặc trưng</b>: chỗ nào giống mẫu của bộ lọc thì sáng lên.",
-      deep="Vì cùng một bộ lọc dùng cho mọi vị trí, mạng tích chập cần ít trọng số hơn nhiều so với mạng ở Dự án 11, và nhận ra đốm bệnh dù nó nằm ở góc nào. Đây là ý tưởng giúp máy tính nhìn được ảnh."),
-    dict(no="54", tag="Toán + AI", cls="amber", title="Gộp (pooling)",
-      svg='<g font-size="12" class="t-mono"><rect x="20" y="30" width="80" height="80" rx="4" class="f-soft"/><text x="32" y="58" class="f-ink">1 3</text><text x="32" y="90" class="f-ink">2 9</text><text x="68" y="58" class="f-ink">4 0</text><text x="68" y="90" class="f-ink">5 1</text></g><path d="M108 70h40" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><rect x="160" y="40" width="60" height="60" rx="4" class="f-soft"/><text x="172" y="68" font-size="12" class="t-mono f-coral">9 5</text><text x="160" y="118" font-size="10" class="t-mono f-muted">giữ số lớn nhất</text>',
-      p="Sau tích chập, mỗi ô 2×2 chỉ giữ lại <b>số lớn nhất</b>. Bản đồ nhỏ đi 4 lần nhưng vẫn giữ tín hiệu mạnh nhất, và đốm lệch một chút cũng không làm kết quả thay đổi nhiều.",
-      deep="Xếp nhiều lần tích chập rồi gộp, mỗi lớp sau \"nhìn\" được một vùng rộng hơn: lớp đầu thấy cạnh và đốm, lớp sau thấy hình dạng, lớp sau nữa thấy cả chiếc lá."),
-    dict(no="55", tag="Học máy", cls="coral", title="Mạng tích chập (CNN)",
-      svg='<rect x="14" y="40" width="44" height="44" rx="4" class="f-mint"/><g class="f-violet" opacity=".85"><rect x="78" y="34" width="34" height="34" rx="3"/><rect x="84" y="40" width="34" height="34" rx="3"/><rect x="90" y="46" width="34" height="34" rx="3"/></g><g class="f-amber"><rect x="146" y="46" width="20" height="20" rx="2"/><rect x="150" y="50" width="20" height="20" rx="2"/></g><g class="f-coral"><circle cx="210" cy="40" r="7"/><circle cx="210" cy="62" r="7"/><circle cx="210" cy="84" r="7"/></g><text x="12" y="116" font-size="10" class="t-mono f-muted">ảnh → lọc → gộp → phân loại</text>',
-      p="<b>Mạng tích chập</b> = các lớp tích chập + gộp để trích đặc trưng, rồi một lớp phân loại ở cuối. Ở đây em thiết kế bộ lọc bằng tay. Trong mạng thật, <b>máy tự học</b> các con số trong bộ lọc bằng lan truyền ngược.",
-      deep="Các mạng nhận dạng ảnh nổi tiếng có hàng chục tới hàng trăm lớp tích chập. Người ta còn dùng <b>học chuyển giao</b>: lấy một mạng đã học từ hàng triệu ảnh, chỉ dạy lại lớp cuối cho bài toán của mình, như ở Dự án 6."),
-    dict(no="56", tag="Đạo đức", cls="mint", title="Đường tắt & giải thích được",
-      svg='<rect x="20" y="20" width="100" height="90" rx="6" fill="#4a3426"/><ellipse cx="70" cy="64" rx="20" ry="30" fill="#3f8f3a"/><rect x="140" y="20" width="100" height="90" rx="6" fill="#4a3426"/><ellipse cx="190" cy="64" rx="20" ry="30" fill="#3f8f3a"/><g fill="#ff5d3c" opacity=".7"><rect x="140" y="20" width="30" height="90"/><rect x="210" y="20" width="30" height="90"/></g><text x="146" y="124" font-size="10" class="t-mono f-coral">nhìn vào nền!</text>',
-      p="Máy có thể đạt điểm cao vì học <b>đường tắt</b>: ví dụ \"nền đất = lá bệnh\". Cách bắt quả tang: che từng phần ảnh bằng một ô xám và xem dự đoán thay đổi bao nhiêu. Chỗ nào che vào làm dự đoán đổi nhiều nhất là chỗ máy đang dựa vào.",
-      deep="Cách này gọi là <b>bản đồ che khuất</b> (occlusion map), một kỹ thuật của AI giải thích được. Khi học, máy cũng được xem các ảnh bị che ngẫu nhiên một ô xám để quen với việc này. Trong y tế, đã có mô hình đọc X-quang học nhầm theo ký hiệu của bệnh viện in trên phim thay vì hình ảnh phổi."),
+  </div>
+  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Màu giấy giống mỗi màu mẫu đến mức nào? (cột cao = càng giống)</b></div><canvas id="chart" width="1100" height="220"></canvas></div>''',
+  play_guide="Bấm một dung dịch để nhúng giấy chỉ thị. Máy chụp ảnh tờ giấy, đọc <b>ba số màu</b> rồi so với bảng màu mẫu bên phải.",
+  lessons=["KHTN 8 · Acid, base, thang pH", "KHTN 8 · Chất chỉ thị màu", "KHTN 7 · Ánh sáng, màu sắc (ôn tập)"],
+  mission_h2="Dùng máy đọc màu để đo độ pH, và biết khi nào không tin máy",
+  mission_q="Cùng một tờ giấy chỉ thị, sao chụp dưới đèn vàng máy lại đọc ra pH khác?",
+  mission_p="Em sẽ thử giấy chỉ thị với 11 dung dịch quen thuộc, xem máy biến màu thành <b>ba con số</b>, so với <b>bảng màu mẫu</b>, rồi phá máy bằng <b>ánh đèn vàng</b>, <b>giấy nhạt màu</b> và <b>bảng mẫu quá thô</b>.",
+  minutes="45 phút · 1 tiết học",
+  checklist=[("dip", "Thử ít nhất 5 dung dịch"), ("acidbase", "Tìm một axit, một bazơ và một chất trung tính"), ("light", "Đổi ánh đèn và xem máy đọc thay đổi"), ("soi", "Soi tới bước Cân bằng trắng"), ("broke", "Làm máy đọc sai pH ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="Máy đọc pH từ màu như thế nào? 6 bước",
+  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Hình minh họa dùng dung dịch và ánh sáng hiện tại.",
+  soi_guide="Máy không biết \"đỏ\" là gì. Nó chỉ có <b>ba con số</b> đỏ, xanh lá, xanh dương. Cùng xem máy biến ba số đó thành độ pH!",
+  cards=[
+    dict(no="T1", tag="Hóa học", title="Thang pH và chất chỉ thị",
+      svg=''.join(f'<rect x="{12+i*16.5}" y="34" width="15" height="40" rx="3" fill="{c}"/>' for i, c in enumerate(["#e8202a", "#ef4a28", "#f47f20", "#f6a51f", "#f7d117", "#dfe31f", "#8cc63f", "#3fae49", "#1fa27f", "#2d8ec9", "#3c6ab3", "#4f4fa3", "#5a3e94", "#4b2c7a"])) + '<text x="12" y="26" font-size="10" class="t-mono f-coral">axit</text><text x="110" y="26" font-size="10" class="t-mono f-mint">trung tính</text><text x="200" y="26" font-size="10" class="t-mono f-violet">bazơ</text><text x="14" y="92" font-size="10" class="t-mono f-ink">1</text><text x="110" y="92" font-size="10" class="t-mono f-ink">7</text><text x="226" y="92" font-size="10" class="t-mono f-ink">14</text>',
+      p="pH cho biết dung dịch là <b>axit</b> (pH &lt; 7), <b>trung tính</b> (pH = 7) hay <b>bazơ</b> (pH &gt; 7). <b>Chất chỉ thị</b> đổi màu theo pH: giấy chỉ thị vạn năng đi từ đỏ (axit mạnh), qua vàng, xanh lá, tới xanh tím (bazơ mạnh).",
+      ex="Nước chanh có pH khoảng 2, nước lọc khoảng 7, nước xà phòng khoảng 10."),
+    dict(no="T2", tag="Thị giác máy tính", cls="amber", title="Màu là ba con số, so với mẫu",
+      svg='<rect x="16" y="30" width="44" height="44" rx="8" fill="#f47f20"/><text x="70" y="46" font-size="11" class="t-mono f-coral">R 244</text><text x="70" y="62" font-size="11" class="t-mono f-mint">G 127</text><text x="70" y="78" font-size="11" class="t-mono f-violet">B 32</text><path d="M140 52h24" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><rect x="172" y="30" width="22" height="44" rx="4" fill="#ef4a28"/><rect x="198" y="26" width="22" height="52" rx="4" fill="#f47f20" stroke="#fff" stroke-width="2"/><rect x="224" y="30" width="22" height="44" rx="4" fill="#f6a51f"/>',
+      p="Camera đọc màu giấy thành ba số <b>R, G, B</b>. Máy tính <b>khoảng cách</b> từ ba số đó tới ba số của từng màu trong bảng mẫu và chọn màu <b>gần nhất</b>: đó là độ pH máy đọc được.",
+      ex="Ứng dụng chọn màu sơn tường chụp ảnh căn phòng rồi tìm mã màu gần nhất trong bảng màu của hãng sơn."),
+    dict(no="T3", tag="Giới hạn", cls="coral", title="Ánh sáng đánh lừa máy",
+      svg='<rect x="16" y="30" width="60" height="50" rx="8" fill="#8cc63f"/><text x="20" y="96" font-size="10" class="t-mono f-ink">đèn trắng</text><rect x="110" y="30" width="60" height="50" rx="8" fill="#b8b72a"/><text x="112" y="96" font-size="10" class="t-mono f-amber">đèn vàng</text><rect x="196" y="30" width="44" height="50" rx="8" fill="#f5f0dc" stroke="#ffc34d" stroke-width="2"/><text x="196" y="96" font-size="10" class="t-mono f-ink">ô trắng</text>',
+      p="Màu máy chụp được là màu giấy <b>nhân với màu đèn</b>. Dưới đèn vàng, giấy xanh lá trông như vàng chanh và máy đọc nhầm pH. Đặt một <b>ô giấy trắng</b> cạnh giấy chỉ thị: máy biết đèn vàng bao nhiêu và <b>trừ bớt</b> phần đó đi (cân bằng trắng).",
+      ex="Ảnh chụp dưới đèn sợi đốt thường bị ngả vàng; điện thoại có chế độ cân bằng trắng để sửa lại."),
   ],
-  tulam_h2="Bàn thí nghiệm: thiết kế 6 bộ lọc của em",
-  tulam_p="Chọn bộ lọc mẫu, đổi kênh, hoặc gõ số vào 9 ô (từ −9 tới 9). Ô xanh là trọng số dương, ô đỏ là trọng số âm. Mỗi lần sửa, lớp phân loại được huấn luyện lại ngay.",
-  tulam='''
-  <div class="card"><div class="chart-head"><b><i data-i="sliders"></i> 6 bộ lọc và bản đồ đặc trưng trên chiếc lá hiện tại</b><button class="btn small ghost" id="btnPreset"><i data-i="reset"></i>Khôi phục bộ lọc mẫu</button></div><div class="filters" id="filters"></div></div>
-  <div class="two-col" style="margin-top:18px">
-    <div class="card">
-      <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="layers"></i></span>Dữ liệu & tiền xử lý</h3>
-      <label class="tog" style="display:block;margin:6px 0"><input type="checkbox" id="augBg"><span>Trộn phông nền khi học</span></label>
-      <label class="tog" style="display:block;margin:6px 0 12px"><input type="checkbox" id="norm"><span>Chuẩn hóa độ sáng</span></label>
-      <div id="trainStatus" class="small"></div>
-      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm"><i data-i="checkCircle"></i></span>Ma trận nhầm lẫn (150 lá kiểm tra)</h3>
-      <div class="lab" id="confOut"></div>
-    </div>
-    <div class="card">
-      <div class="chart-head"><b><i data-i="chart"></i> Độ chính xác qua từng vòng học</b><span class="legend"><i class="lg" style="background:var(--violet)"></i>tập học <i class="lg" style="background:var(--mint)"></i>tập kiểm tra</span></div>
-      <canvas id="chart" width="540" height="200"></canvas>
-      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của bộ lọc đang chọn</h3><pre class="code" id="genCode"></pre>
-    </div>
-  </div>''',
-  breaks_h2="Thử thách: hãy làm bác sĩ AI chẩn đoán sai!",
+  real=[("flask", "", "Phòng thí nghiệm, nhà máy nước", "Máy đo màu tự động đọc que thử để theo dõi pH nước hồ bơi, nước sinh hoạt liên tục cả ngày."),
+        ("heart", "mint", "Que thử y tế", "Ứng dụng điện thoại chụp que thử rồi đọc kết quả, giảm nhầm lẫn do mắt mỗi người nhìn màu khác nhau."),
+        ("sun", "amber", "Nông nghiệp", "Đo pH đất bằng dung dịch chỉ thị và camera để biết đất chua hay kiềm, chọn loại phân bón phù hợp.")],
+  breaks_h2="Thử thách: hãy làm máy đọc sai pH!",
+  breaks_guide="Máy chỉ có ba con số màu. Thứ gì làm ba số đó thay đổi đều có thể làm máy đọc sai. Thử xem!",
   breaks=[
-    dict(icon="image", key="shortcut", title="Đường tắt phông nền", p="Khi thu thập dữ liệu, lá khỏe đều chụp trên <b>bàn</b>, còn lá bệnh đều chụp ngoài <b>ruộng</b> trên nền đất.",
-      why="Máy học được rằng \"nền đất = bệnh\" vì như vậy dễ hơn tìm đốm. Bản đồ AI nhìn vào đâu sáng ở <b>phần đất</b> chứ không phải chiếc lá. Bật <b>Trộn phông nền khi học</b>. Ngoài đời: thu thập ảnh ở nhiều nơi, nhiều nền khác nhau."),
-    dict(icon="eye", key="blind", title="Bộ lọc mù màu", p="Cả 6 bộ lọc bị đổi thành <b>làm mờ trên kênh độ sáng</b>.",
-      why="Bộ lọc làm mờ không phát hiện được đốm, còn kênh độ sáng không phân biệt được vàng với xanh. Lớp phân loại học giỏi đến đâu cũng không cứu được khi đặc trưng đầu vào không chứa thông tin. Bấm <b>Khôi phục bộ lọc mẫu</b>, hoặc tự thiết kế lại."),
-    dict(icon="sun", key="dark", title="Chụp lúc trời tối", p="Ảnh kiểm tra được chụp lúc <b>chạng vạng</b>, tối hơn hẳn ảnh lúc học, và bước chuẩn hóa độ sáng bị tắt.",
-      why="Màu vàng úa trở nên tối, giống màu lá khỏe, nên máy nhầm. Bật <b>Chuẩn hóa độ sáng</b>: mọi ảnh được đưa về cùng mức sáng trước khi tính. Đây là bước <b>tiền xử lý</b>, quan trọng không kém mô hình."),
+    dict(icon="sun", key="warm", title="Chụp dưới đèn vàng", p="Máy chụp giấy chỉ thị dưới <b>bóng đèn vàng</b>, lại bị tắt <b>cân bằng trắng</b>. Thử với nước xà phòng (pH 10).",
+      why="Đèn vàng làm tăng phần đỏ, giảm phần xanh dương của mọi màu, nên giấy xanh dương (bazơ) trông ngả xanh lá và máy đọc nhầm pH thấp hơn. Bật <b>Cân bằng trắng nhờ ô giấy trắng</b>: máy chia màu giấy cho màu của ô trắng, đưa màu về như dưới đèn trắng."),
+    dict(icon="eye", key="fade", title="Giấy bị nhạt màu", p="Giấy chỉ thị nhúng quá lâu nên <b>bị nhạt</b>, màu loang gần như trắng. Thử với giấm ăn (pH 3).",
+      why="Màu nhạt có ba số gần với màu trắng, nên khoảng cách tới màu mẫu sáng nhất (vàng, xanh lá vàng) lại nhỏ nhất: giấm bị đọc thành gần trung tính. Bật <b>Chỉ so sắc màu</b>: máy chỉ xét giấy ngả về màu nào (sắc màu), bỏ qua đậm hay nhạt."),
+    dict(icon="layers", key="coarse", title="Bảng mẫu quá thô", p="Bảng mẫu chỉ có <b>3 màu</b>: đỏ (pH 1), xanh lá (pH 7), tím (pH 13). Thử với nước cam (pH 4).",
+      why="Máy chỉ chọn được trong 3 đáp án nên pH 4 bị làm tròn thành 1 hoặc 7: sai rất xa. Bảng mẫu (dữ liệu tham chiếu) càng chi tiết thì máy đọc càng chính xác. Bật lại <b>Dùng đủ 14 màu mẫu</b>."),
   ],
-  real_h2="Mạng tích chập đang được dùng ở đâu?",
-  real=[("camera", "", "Nông nghiệp", "Ứng dụng chụp lá để nhận diện bệnh lúa, cà phê, sầu riêng; máy bay không người lái chụp cả cánh đồng để tìm vùng bị bệnh."),
-        ("heart", "mint", "Y tế", "Hỗ trợ bác sĩ đọc ảnh X-quang, ảnh da liễu, ảnh võng mạc để phát hiện bệnh sớm."),
-        ("figure", "amber", "Mọi dự án trước", "Mô hình dáng người, bàn tay, khuôn mặt ở Cấp 1 đều có mạng tích chập bên trong.")],
-  ethics=["Ứng dụng nói lá bị bệnh và khuyên phun thuốc, nhưng nó sai. Ai chịu thiệt hại? Ứng dụng nên nói gì khi không chắc chắn?",
-          "Nếu dữ liệu học chỉ có giống lúa ở một vùng, ứng dụng có công bằng với nông dân ở vùng khác không?",
-          "Vì sao một mô hình y tế cần cho bác sĩ xem \"máy đang nhìn vào đâu\" chứ không chỉ đưa ra kết luận?"],
-  badge="Bác Sĩ Thị Giác", badge_p="Em đã mở khóa 4 thẻ kiến thức: Phép tích chập · Gộp · Mạng tích chập · Đường tắt & giải thích được.",
-  dev_h2="Từ bác sĩ lá cây đến dự án của riêng em",
-  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Bộ lọc của riêng em", "Thiết kế một bộ lọc mới phát hiện vết rách hoặc lỗ thủng trên lá, thêm lớp \"lá rách\" vào bộ tạo dữ liệu.", "Xong khi", "độ chính xác với 4 lớp vẫn trên 80%."),
-       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "Bác sĩ lá thật với Teachable Machine", "Chụp 50–100 ảnh lá thật mỗi loại (khỏe, bệnh) ở vườn trường, dạy một mạng tích chập có sẵn bằng học chuyển giao.", "Xong khi", "kiểm tra trên ảnh mới chụp ở chỗ khác, và báo cáo cả những lần đoán sai."),
-       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Phát hiện sớm bệnh trên cây trồng địa phương", "Hợp tác với cán bộ khuyến nông, xây bộ ảnh bệnh của một loại cây ở địa phương, so sánh mô hình với chẩn đoán chuyên gia.", "Đo kết quả", "độ chính xác, số ca bỏ sót bệnh, và kiểm tra bằng bản đồ che khuất xem mô hình có học đường tắt không.")],
-  cur="14 · Lá cây", next=[("15 · Cử chỉ chuyển động", "chuỗi theo thời gian"), ("19 · Xe tự lái tiến hóa", "mạng nơ-ron học bằng tiến hóa"), ("20 · Trợ lý hỏi đáp SGK", "AI có trích dẫn nguồn")],
-  khkt=[("Vấn đề", "Nông dân thường phát hiện bệnh lá khi đã lan rộng."), ("Câu hỏi nghiên cứu", "Mạng tích chập trên điện thoại có phát hiện bệnh sớm chính xác như cán bộ khuyến nông không?"), ("Giả thuyết", "Độ chính xác trên 85% với ảnh chụp theo hướng dẫn chuẩn."), ("Lưu ý đạo đức", "Ứng dụng chỉ gợi ý, không thay chuyên gia; báo rõ khi không chắc chắn.")],
-  prev=("13-phan-cum", "13"), nextp=("15-thu-ngu", "15"),
+  badge="Nhà Hóa Học Số", badge_p="Em đã mở khóa 3 thẻ kiến thức: Thang pH và chất chỉ thị · Màu là ba con số, so với mẫu · Ánh sáng đánh lừa máy.",
+  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Chất chỉ thị từ bắp cải tím", "Cùng người lớn đun bắp cải tím lấy nước màu tím, nhỏ vào nước chanh, giấm, nước vôi trong (đeo găng). Chụp ảnh các màu và dùng chế độ camera để máy đọc."),
+       (2, "DỰ ÁN NHÓM · 1 TUẦN", "Bảng màu của nhóm", "Chụp giấy chỉ thị với 8 dung dịch dưới đèn trắng và đèn vàng. Ghi ba số R, G, B, so sánh và giải thích vì sao cần cân bằng trắng."),
+       (3, "Ý TƯỞNG KHKT", "Máy theo dõi nước bể cá", "Dùng camera đọc que thử pH đặt trong bể cá mỗi ngày, cảnh báo khi nước quá chua hoặc quá kiềm.")],
+  res=[("layers", "", "Phiếu học tập", "Đọc pH từ bảng màu, tính khoảng cách màu, cân bằng trắng.", "phieu.html"),
+       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, an toàn hóa chất, đáp án.", "giao-vien.html"),
+       ("rocket", "amber", "Học lên: Dự án 33", "Máy gom các màu giống nhau thành nhóm.", "../33-phan-cum/index.html")],
+  prev=("13-no-ron", "13"), nextp=("15-chatbot", "15"),
 )

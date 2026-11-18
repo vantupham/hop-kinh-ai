@@ -1,81 +1,98 @@
 D = dict(
-  out="du-an/31-cay-dau/index.html", num="31", grade="8", title="Dự án 31 · Đường thẳng dự đoán cây đậu lớn",
-  scripts=["line.js"],
-  h1='Một <span class="hl-word">đường thẳng</span> dự đoán cây đậu lớn',
-  lead="Lớp em gieo hạt đậu và đo chiều cao mỗi ngày trong hai tuần. Từ 15 chấm số liệu, em và máy sẽ tìm một hàm số bậc nhất y = ax + b đi gần các chấm nhất, đo sai số, rồi dùng nó để dự đoán. Đây là mô hình học máy đơn giản nhất, và cũng là nơi dễ thấy nhất vì sao mô hình có lúc sai rất xa.",
-  play='''
+  out="du-an/31-chu-so/index.html", num="31", level="3", title="Dự án 31 · Đọc chữ số viết tay",
+  scripts=["digit-gen.js", "digits.js"],
+  h1='Đọc <span class="hl-word">chữ số viết tay</span>',
+  lead="Vẽ một chữ số bằng chuột hoặc ngón tay, và xem bộ não nhân tạo đọc nó: 256 ô ảnh chảy qua các nơ-ron, từng nơ-ron sáng lên, rồi 10 đầu ra \"bỏ phiếu\". Lần đầu tiên, em mở hẳn một mạng nơ-ron ra để xem bên trong!",
+  moi='''
   <div class="playground">
     <div class="stage-col">
-      <div class="stage vf"><canvas id="stage" class="touch" width="880" height="440" aria-label="Mặt phẳng tọa độ với số liệu chiều cao cây đậu và đường thẳng dự đoán"></canvas><div class="stage-tag"><span class="live-dot"></span><span id="stageTag">y = ax + b</span></div></div>
-      <div class="play-panel"><p class="ask" id="askText" aria-live="polite"></p>
-        <div class="btn-row"><button class="btn small accent" id="btnFit"><i data-i="cpu"></i>Máy tự tìm đường thẳng</button><button class="btn small ghost" id="btnReset"><i data-i="reset"></i>Đặt lại đường thẳng</button><button class="btn small ghost" id="btnFuture"><i data-i="eye"></i>Xem số đo các ngày sau</button></div></div>
-      {{GUIDE}}
-      <div class="two-col" style="margin-top:6px">
-        <div class="card">
-          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="sliders"></i></span>Hàm số của em</h2>
-          <label class="ctl"><span>Hệ số a (cây cao thêm mỗi ngày, cm)</span><b id="aV"></b><input type="range" id="a" min="-1" max="5" step="0.05"></label>
-          <label class="ctl"><span>Hệ số b (chiều cao lúc đầu, cm)</span><b id="bV"></b><input type="range" id="b" min="-10" max="20" step="0.1"></label>
-          <p class="small muted" style="margin:8px 0 0">Hoặc kéo hai nút tròn trên đường thẳng.</p>
-        </div>
-        <div class="card">
-          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm amber"><i data-i="target"></i></span>Dự đoán</h2>
-          <label class="ctl"><span>Ngày muốn dự đoán</span><b id="dayV"></b><input type="range" id="day" min="0" max="30" step="1"></label>
-          <label class="ctl"><span>Độ uốn lượn của đường (1 = thẳng)</span><b id="degV"></b><input type="range" id="deg" min="1" max="8" step="1"></label>
-        </div>
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Bảng vẽ chữ số và sơ đồ mạng nơ-ron"></canvas><div class="stage-tag"><span class="live-dot"></span><span>MẠNG NƠ-RON</span></div></div>
+      <div class="toolbar">
+        <div class="seg"><button class="btn small ghost" id="btnClear"><i data-i="reset"></i>Xóa bảng</button><button class="btn small" id="btnDemo" aria-pressed="true"><i data-i="play"></i>Máy tự viết mẫu</button></div>
+        <span class="muted small"><i data-i="bulb"></i> Bấm vào chấm tròn ở cột giữa để chọn nơ-ron</span>
       </div>
+      <div class="game"><span class="small muted">Dạy thêm: chữ em vừa vẽ là số</span><div class="btn-row" id="labelBtns"></div></div>
+      <p class="small muted" id="ownInfo" style="margin:8px 0 0"></p>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não của máy</div>
-      <div class="metric-row"><div class="metric"><span>HÀM SỐ</span><b id="bEq" style="font-size:.92rem">—</b></div><div class="metric"><span>SAI SỐ TRUNG BÌNH</span><b id="bErr">—</b></div></div>
-      <div class="metric-row"><div class="metric"><span>DỰ ĐOÁN</span><b id="bPred">—</b></div><div class="metric"><span>SAI SỐ VỚI SỐ ĐO MỚI</span><b id="bTest">—</b></div></div>
-      <div class="lbl" style="margin-top:12px">SỐ LIỆU ĐO (BẤM CHẤM ĐỂ BỎ / LẤY LẠI)</div><div id="bData" class="kw"></div>
-      <p class="small" style="color:#c3c7f0;margin-top:12px">Mỗi <b style="color:#ff8f6b">đoạn đỏ</b> là sai số của một chấm: khoảng cách theo chiều dọc giữa số đo thật và đường thẳng. Máy chỉnh a, b để các đoạn đỏ ngắn nhất.</p>
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result" id="bResult"><small>AI ĐỌC ĐƯỢC</small>—</div>
+      <div class="lbl" style="margin-top:12px">XÁC SUẤT 10 ĐẦU RA</div>
+      <div class="bars" id="bProbs"></div>
+      <div class="metric-row"><div class="metric"><span>ĐỘ CHÍNH XÁC KIỂM TRA</span><b id="bTest">—</b></div><div class="metric"><span>SỐ TRỌNG SỐ</span><b id="nParams">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">TRẠNG THÁI</div><div id="trainStatus" style="color:#fff"></div>
     </aside>
-  </div>
-  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Sai số trung bình sau mỗi lần chỉnh</b></div><canvas id="chart" width="1100" height="220"></canvas></div>''',
-  play_guide="Kéo thanh <b>a</b> và <b>b</b> (hoặc hai nút tròn) để đường thẳng đi sát các chấm nhất có thể. Nhìn con số <b>sai số trung bình</b>: càng nhỏ càng tốt!",
-  lessons=["Toán 8 · Hàm số bậc nhất y = ax + b", "Toán 8 · Đồ thị hàm số bậc nhất, hệ số góc", "KHTN 8 · Sinh trưởng ở thực vật"],
-  mission_h2="Dùng hàm số bậc nhất làm một mô hình dự đoán",
-  mission_q="Ngày thứ 30 cây đậu cao bao nhiêu? Đường thẳng có trả lời đúng không?",
-  mission_p="Em sẽ <b>tự đặt</b> một đường thẳng, đo <b>sai số</b>, xem máy <b>tự chỉnh</b> a và b, dùng hàm số để <b>dự đoán</b>, rồi tìm hiểu ba cách một mô hình có thể sai: dự đoán quá xa, số đo nhầm và đường quá uốn lượn.",
-  minutes="45 phút · 1 tiết học",
-  checklist=[("manual", "Tự đặt đường thẳng có sai số dưới 1,5 cm"), ("fit", "Xem máy tự tìm đường thẳng"), ("pred", "Dùng hàm số dự đoán một ngày"), ("soi", "Soi tới bước Máy tự chỉnh"), ("broke", "Làm mô hình dự đoán sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Máy tìm đường thẳng như thế nào? 6 bước",
-  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Hình minh họa dùng số liệu và đường thẳng hiện tại.",
-  soi_guide="\"Học\" ở đây nghĩa là <b>tìm hai con số a và b</b> làm sai số nhỏ nhất. Cùng xem máy làm từng bước!",
-  cards=[
-    dict(no="T1", tag="Toán học", title="Mô hình là một hàm số",
-      svg='<path d="M20 100V14M20 100h220" class="s-ink" stroke-width="2"/>' + ''.join(f'<circle cx="{30+i*16}" cy="{94-i*5.5+((i*37)%7-3)}" r="4" class="f-violet"/>' for i in range(13)) + '<path d="M24 96L236 26" class="s-mint" stroke-width="3"/><text x="140" y="96" font-size="13" class="t-mono f-mint">y = ax + b</text>',
-      p="Một <b>mô hình</b> là một quy tắc đơn giản mô tả dữ liệu. Ở đây: chiều cao <b>y</b> = <b>a</b> × số ngày <b>x</b> + <b>b</b>. Hệ số <b>a</b> cho biết mỗi ngày cây cao thêm bao nhiêu, <b>b</b> là chiều cao lúc bắt đầu.",
-      ex="Tiền taxi = giá mỗi km × số km + giá mở cửa: cũng là một hàm số bậc nhất."),
-    dict(no="T2", tag="Học máy", cls="amber", title="Sai số và tự chỉnh",
-      svg='<path d="M20 90L240 30" class="s-mint" stroke-width="3"/>' + ''.join(f'<path d="M{x} {y1}V{y2}" class="s-coral" stroke-width="2.5"/><circle cx="{x}" cy="{y1}" r="4.5" class="f-violet"/>' for x, y1, y2 in [(50, 70, 82), (90, 84, 71), (130, 50, 60), (170, 62, 49), (210, 30, 38)]),
-      p="<b>Sai số</b> là khoảng cách giữa số đo thật và giá trị đường thẳng dự đoán. Máy tính sai số trung bình, rồi <b>nhích a và b từng chút</b> theo hướng làm sai số nhỏ đi, lặp lại hàng chục lần. Đó là \"học\".",
-      ex="Chỉnh vòi nước cho vừa ấm: nóng quá thì vặn bớt, lạnh quá thì vặn thêm, mỗi lần một chút."),
-    dict(no="T3", tag="Giới hạn", cls="coral", title="Khi mô hình sai xa",
-      svg='<path d="M20 100V14M20 100h220" class="s-ink" stroke-width="2"/><path d="M20 96L240 12" class="s-mint" stroke-width="2.5" stroke-dasharray="6 4"/><path d="M20 96C90 70 120 40 240 36" fill="none" class="s-coral" stroke-width="3"/><text x="150" y="70" font-size="10" class="t-mono f-coral">thật: chậm lại</text><text x="160" y="24" font-size="10" class="t-mono f-mint">đường thẳng</text>',
-      p="Mô hình chỉ đáng tin <b>trong khoảng có dữ liệu</b>: cây không lớn mãi theo đường thẳng. Một <b>số đo nhầm</b> kéo lệch cả đường. Đường <b>quá uốn lượn</b> đi qua đúng mọi chấm nhưng dự đoán số đo mới rất tệ.",
-      ex="Em cao thêm 6 cm năm lớp 7 không có nghĩa là 30 năm nữa em cao thêm 180 cm!"),
+  </div>''',
+  mission_h2="Mở một mạng nơ-ron ra và xem nó tự học cách đọc chữ",
+  mission_q="Không ai viết luật \"số 8 có hai vòng tròn\". Vậy làm sao mạng nơ-ron biết?",
+  mission_p="Em sẽ xem từng <b>nơ-ron</b> tính toán, hiểu vì sao cần <b>hàm kích hoạt</b>, và thấy các nơ-ron ẩn <b>tự học</b> ra những nét đặc trưng. Cuối cùng là <b>lan truyền ngược</b>: cách cả mạng học từ sai lầm của mình.",
+  minutes="60–75 phút",
+  checklist=[("draw", "Tự vẽ ít nhất 3 chữ số và xem AI đọc"), ("neuron", "Xem bên trong một nơ-ron"), ("train", "Huấn luyện lại mạng với số nơ-ron khác"), ("broke", "Làm mạng đọc sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="Từ nét vẽ tới con số: 6 bước bên trong mạng nơ-ron",
+  soi_p="Hình bên dưới dùng đúng chữ số đang có trên bảng vẽ ở phần Mồi.",
+  theory=[
+    dict(no="41", tag="Mạng nơ-ron", title="Nơ-ron nhân tạo",
+      svg='<g class="f-mint"><circle cx="30" cy="30" r="8"/><circle cx="30" cy="60" r="8"/><circle cx="30" cy="90" r="8"/></g><g class="s-line" stroke-width="2"><path d="M38 30 118 60M38 60 118 60M38 90 118 60"/></g><text x="64" y="34" font-size="10" class="t-mono f-coral">w₁</text><text x="64" y="56" font-size="10" class="t-mono f-coral">w₂</text><text x="64" y="86" font-size="10" class="t-mono f-coral">w₃</text><circle cx="134" cy="60" r="18" class="f-violet"/><text x="134" y="65" text-anchor="middle" font-size="14" fill="#fff">Σ</text><path d="M152 60h30" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><text x="190" y="64" font-size="11" class="t-mono f-ink">f(Σ)</text>',
+      p="Một nơ-ron nhận nhiều số đầu vào, nhân mỗi số với một <b>trọng số</b> (độ quan trọng), cộng lại, rồi cho qua một hàm. Đơn giản vậy thôi! Sức mạnh đến từ việc ghép <b>rất nhiều</b> nơ-ron lại với nhau.",
+      deep="Ý tưởng này lấy cảm hứng từ tế bào thần kinh, nhưng nơ-ron nhân tạo đơn giản hơn rất nhiều. Mạng trong dự án này có vài nghìn trọng số; các mô hình ngôn ngữ lớn có tới hàng trăm tỉ."),
+    dict(no="42", tag="Toán + AI", title="Hàm kích hoạt",
+      svg='<path d="M20 90H240M130 20v90" class="s-line" stroke-width="1"/><path d="M20 90 130 90 230 24" fill="none" class="s-violet" stroke-width="3"/><text x="150" y="104" font-size="11" class="t-mono f-violet">ReLU(z) = max(0, z)</text><text x="24" y="80" font-size="10" class="t-mono f-muted">âm → tắt</text><text x="180" y="60" font-size="10" class="t-mono f-muted">dương → sáng</text>',
+      p="Sau khi cộng, nơ-ron quyết định có \"sáng\" hay không. <b>ReLU</b> giữ số dương và biến số âm thành 0. Nếu bỏ bước này, nhiều lớp nơ-ron ghép lại cũng chỉ bằng một phép tính thẳng, không học được điều phức tạp.",
+      deep="Sigmoid (hình chữ S) từng rất phổ biến nhưng học chậm khi mạng sâu. ReLU đơn giản hơn và giúp mạng sâu học tốt, nên trở thành lựa chọn mặc định. Em có thể đổi hàm kích hoạt trong Bàn thí nghiệm để so sánh."),
+    dict(no="43", tag="Học máy", cls="coral", title="Đặc trưng tự học",
+      svg='<g><rect x="20" y="30" width="56" height="56" rx="6" class="f-soft"/><path d="M36 46a12 12 0 1 0 24 0a12 12 0 1 0-24 0" fill="none" stroke="#ff7d5f" stroke-width="5"/></g><g><rect x="100" y="30" width="56" height="56" rx="6" class="f-soft"/><path d="M140 36v44" stroke="#ff7d5f" stroke-width="5"/></g><g><rect x="180" y="30" width="56" height="56" rx="6" class="f-soft"/><path d="M188 76h40" stroke="#ff7d5f" stroke-width="5"/></g><text x="22" y="106" font-size="10" class="t-mono f-muted">vòng trên · nét dọc · nét ngang</text>',
+      p="Ở Dự án 22 và 26, <b>con người</b> chọn đặc trưng. Ở đây, mỗi nơ-ron ẩn <b>tự học</b> ra một mẫu nét có ích, như vòng tròn phía trên hay nét dọc bên phải. Lớp sau ghép các nét đó lại để nhận ra chữ số.",
+      deep="Mạng càng nhiều lớp thì đặc trưng càng trừu tượng: lớp đầu thấy nét, lớp sau thấy hình, lớp sau nữa thấy vật. Đây là lý do có tên \"học sâu\" (deep learning)."),
+    dict(no="44", tag="Thuật toán", cls="amber", title="Lan truyền ngược",
+      svg='<g class="f-violet"><circle cx="40" cy="60" r="12"/><circle cx="130" cy="40" r="12"/><circle cx="130" cy="80" r="12"/><circle cx="220" cy="60" r="12"/></g><g class="s-line" stroke-width="1.5"><path d="M52 60 118 40M52 60 118 80M142 40 208 60M142 80 208 60"/></g><path d="M208 72 150 92" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><path d="M118 92 58 74" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><text x="150" y="112" font-size="10" class="t-mono f-coral">sai số chảy ngược</text>',
+      p="Khi mạng đoán sai, ta đo <b>sai số</b> ở đầu ra rồi truyền nó <b>ngược</b> về từng lớp để biết mỗi trọng số đã góp bao nhiêu vào cái sai. Mỗi trọng số được chỉnh một chút theo hướng làm sai số nhỏ đi.",
+      deep="Toán học đằng sau là <b>quy tắc đạo hàm của hàm hợp</b> (chain rule). Lan truyền ngược cộng với gradient descent (Dự án 27) là cách gần như mọi mạng nơ-ron hiện đại được huấn luyện."),
   ],
-  real=[("chart", "", "Dự báo doanh số, dân số", "Người ta tìm đường thẳng hoặc đường cong đi sát số liệu các năm trước để dự đoán năm tới, và luôn ghi rõ dự báo có thể sai."),
-        ("sun", "mint", "Nông nghiệp thông minh", "Máy học mối liên hệ giữa lượng nước, ánh sáng và tốc độ lớn của cây để tưới vừa đủ."),
-        ("cpu", "amber", "Mạng nơ-ron", "Các AI lớn cũng \"học\" bằng cách nhích hàng tỉ con số giống a và b theo hướng làm sai số nhỏ đi.")],
-  breaks_h2="Thử thách: hãy làm mô hình dự đoán sai!",
-  breaks_guide="Một đường thẳng vẽ đẹp vẫn có thể dự đoán sai bét. Thử ba cách làm hỏng mô hình nhé!",
+  tulam_h2="Bàn thí nghiệm: xây và huấn luyện bộ não của em",
+  tulam_p="Chọn số nơ-ron, hàm kích hoạt, tốc độ học, rồi bấm Huấn luyện. Bên dưới là \"mẫu nét\" mà từng nơ-ron ẩn tự học được: đỏ là thích, xanh là ghét.",
+  tulam='''
+  <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Độ chính xác qua từng vòng học</b><span class="legend"><i class="lg sm"></i>tập học <i class="lg" style="background:var(--mint)"></i>tập kiểm tra</span></div><canvas id="chart" width="1100" height="220"></canvas></div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Kiến trúc & cách học</h3>
+      <label class="ctl"><span>Số nơ-ron lớp ẩn</span><b id="HV"></b><input type="range" id="H" min="2" max="64" step="1"></label>
+      <div class="lbl muted small" style="margin:6px 0">HÀM KÍCH HOẠT</div>
+      <div class="btn-row" id="actBtns"><button class="btn small ghost" data-a="relu">ReLU</button><button class="btn small ghost" data-a="sigmoid">Sigmoid</button><button class="btn small ghost" data-a="linear">Không có</button></div>
+      <label class="ctl" style="margin-top:12px"><span>Tốc độ học</span><b id="lrV"></b><input type="range" id="lr" min="0.005" max="3" step="0.005"></label>
+      <label class="ctl"><span>Số vòng học</span><b id="epochsV"></b><input type="range" id="epochs" min="1" max="40" step="1"></label>
+      <label class="tog" style="display:inline-block;margin:6px 0 10px"><input type="checkbox" id="norm"><span>Căn giữa & phóng vừa chữ số</span></label>
+      <div><button class="btn small accent" id="btnTrain"><i data-i="play"></i>Huấn luyện</button></div>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm coral"><i data-i="checkCircle"></i></span>Ma trận nhầm lẫn (200 chữ số kiểm tra)</h3>
+      <div class="lab" id="confOut"></div>
+    </div>
+    <div class="card canvas-card">
+      <h3 class="h-ic"><span class="ico-box sm amber"><i data-i="eye"></i></span>Mẫu nét mỗi nơ-ron ẩn đã tự học</h3>
+      <canvas id="weights" width="680" height="350"></canvas>
+      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của mạng</h3><pre class="code" id="genCode"></pre>
+    </div>
+  </div>''',
+  breaks_h2="Thử thách: hãy làm mạng nơ-ron đọc sai!",
   breaks=[
-    dict(icon="arrowR", key="far", title="Dự đoán quá xa", p="Dùng đường thẳng học từ 2 tuần đầu để dự đoán chiều cao cây vào <b>ngày thứ 30</b>.",
-      why="Đường thẳng giả định cây lớn đều mãi mãi. Thật ra sau khoảng 3 tuần cây lớn chậm lại (các chấm xanh mới). Dự đoán xa ngoài khoảng dữ liệu gọi là <b>ngoại suy</b>, rất dễ sai. Kéo <b>Ngày muốn dự đoán</b> về trong khoảng 0–14 ngày, hoặc phải đo thêm và dùng mô hình khác."),
-    dict(icon="alert", key="typo", title="Số đo bị ghi nhầm", p="Ngày thứ 10, bạn ghi nhầm <b>15 cm thành 51 cm</b>.",
-      why="Máy cố làm sai số trung bình nhỏ nhất nên bị chấm sai kéo cả đường thẳng lên, mọi dự đoán đều lệch. Bấm vào chấm bất thường (ở khung Bộ não hoặc trên hình) để bỏ nó, rồi cho máy tìm lại."),
-    dict(icon="activity", key="wiggle", title="Đường quá uốn lượn", p="Cho đường được <b>uốn lượn</b> thật nhiều để đi qua sát từng chấm.",
-      why="Sai số trên số liệu cũ gần bằng 0, nhưng với <b>số đo mới</b> của nhóm bạn (chấm vàng), sai số lại rất lớn: đường đã \"học thuộc lòng\" cả những dao động ngẫu nhiên. Kéo <b>Độ uốn lượn</b> về 1: đơn giản mà dự đoán tốt hơn."),
+    dict(icon="cpu", key="tiny", title="Bộ não tí hon", p="Lớp ẩn chỉ còn <b>2 nơ-ron</b>. Liệu 2 nơ-ron có đủ để phân biệt 10 chữ số?",
+      why="Hai nơ-ron chỉ học được hai \"mẫu nét\", quá ít để phân biệt 10 chữ số. Xem độ chính xác và ma trận nhầm lẫn. Tăng lên 16–32 nơ-ron. Nhưng nhiều quá cũng không tốt: tốn thời gian và dễ quá khớp (Dự án 26)."),
+    dict(icon="bolt", key="lr", title="Tốc độ học quá lớn", p="Tốc độ học tăng vọt lên <b>2,5</b>. Mỗi lần học, các trọng số bị đẩy đi quá xa.",
+      why="Giống viên bi ở Dự án 27, các trọng số nhảy lung tung và không bao giờ ổn định, thậm chí nhiều nơ-ron \"chết\" (luôn ra 0 với ReLU). Giảm tốc độ học xuống khoảng 0,05."),
+    dict(icon="crosshair", key="small", title="Chữ nhỏ trong góc", p="Máy viết mẫu bắt đầu viết chữ <b>rất nhỏ ở góc</b> bảng, và bước <b>căn giữa</b> bị tắt.",
+      why="Mạng chỉ từng thấy chữ số to và ở giữa, nên chữ nhỏ ở góc trông như một thứ hoàn toàn khác. Bật <b>Căn giữa & phóng vừa</b> rồi huấn luyện lại. Mạng tích chập ở Dự án 34 giải quyết vấn đề này theo cách thông minh hơn."),
   ],
-  badge="Nhà Dự Báo Nhí", badge_p="Em đã mở khóa 3 thẻ kiến thức: Mô hình là một hàm số · Sai số và tự chỉnh · Khi mô hình sai xa.",
-  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Trồng đậu thật", "Gieo 3 hạt đậu trong cốc, đo chiều cao mỗi ngày trong 3 tuần. Nhập số liệu thay cho số liệu mẫu (bằng giấy kẻ ô) và tìm hệ số a của cây em."),
-       (2, "DỰ ÁN NHÓM · 1 TUẦN", "Ánh sáng và tốc độ lớn", "Hai nhóm trồng đậu ở chỗ sáng và chỗ tối. So hệ số a của hai đường thẳng: chỗ nào cây lớn nhanh hơn?"),
-       (3, "Ý TƯỞNG KHKT", "Dự báo mực nước bể", "Đo mực nước bể chứa mỗi giờ, tìm hàm số mô tả, dự báo khi nào bể cạn để bật máy bơm kịp thời.")],
-  res=[("layers", "", "Phiếu học tập", "Vẽ đường thẳng, tính sai số, dự đoán bằng hàm số.", "phieu.html"),
-       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, câu hỏi thảo luận, đáp án.", "giao-vien.html"),
-       ("rocket", "amber", "Học lên: Dự án 7", "Máy dự đoán điểm thi từ nhiều yếu tố cùng lúc.", "../07-diem-thi/index.html")],
-  prev=("30-toc-do-chay", "30"), nextp=("32-trai-cay", "32"),
+  real_h2="Mạng nơ-ron đọc chữ đang được dùng ở đâu?",
+  real=[("send", "", "Phân loại thư", "Bưu điện dùng máy đọc mã bưu chính viết tay trên phong bì từ nhiều chục năm nay; đây là một trong những ứng dụng đầu tiên của mạng nơ-ron."),
+        ("camera", "mint", "Quét chữ bằng điện thoại", "Ứng dụng chụp ảnh và chuyển chữ in hoặc chữ viết tay thành văn bản, kể cả tiếng Việt có dấu."),
+        ("checkCircle", "amber", "Chấm bài trắc nghiệm", "Máy quét phiếu trả lời trắc nghiệm, đọc số báo danh và mã đề viết tay của thí sinh.")],
+  ethics=["Nếu máy chấm thi đọc nhầm số báo danh của một bạn, ai chịu trách nhiệm? Làm sao để phát hiện lỗi?",
+          "Máy học từ chữ viết của học sinh thành phố có đọc tốt chữ của người lớn tuổi, hay chữ viết bằng tay trái không?",
+          "Mạng nơ-ron có hàng nghìn trọng số, khó giải thích hơn cây quyết định (Dự án 30). Khi nào ta chấp nhận dùng một mô hình khó giải thích?"],
+  badge="Kỹ Sư Nơ-ron", badge_p="Em đã mở khóa 4 thẻ kiến thức: Nơ-ron nhân tạo · Hàm kích hoạt · Đặc trưng tự học · Lan truyền ngược.",
+  dev_h2="Từ đọc chữ số đến dự án của riêng em",
+  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Thêm chữ cái và dấu", "Thêm các lớp mới như +, −, × hoặc vài chữ cái. Mỗi lớp vẽ 20–30 mẫu bằng tay của cả nhóm và tăng số đầu ra của mạng.", "Xong khi", "đọc đúng trên 80% với mẫu của bạn ngoài nhóm."),
+       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "Máy tính bỏ túi viết tay", "Cắt dòng chữ thành từng ký tự (tách theo cột trống), đọc từng ký tự rồi tính kết quả, ví dụ \"12+7\" thành 19.", "Xong khi", "giải đúng 8/10 phép tính viết tay."),
+       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Đọc chữ viết tay tiếng Việt có dấu", "Xây bộ dữ liệu chữ cái tiếng Việt viết tay của học sinh. Nghiên cứu cách tách và nhận dạng riêng phần dấu (sắc, huyền, hỏi, ngã, nặng) với phần chữ.", "Đo kết quả", "độ chính xác theo từng loại dấu, so sánh giữa nhận dạng gộp và nhận dạng tách riêng.")],
+  cur="31 · Chữ số", next=[("32 · Phông nền ảo", "phân loại từng điểm ảnh"), ("34 · Bác sĩ lá cây", "mạng tích chập"), ("36 · Đoán chữ tiếp theo", "mạng cho ngôn ngữ")],
+  khkt=[("Vấn đề", "Chữ viết tay tiếng Việt có dấu khó nhận dạng hơn chữ tiếng Anh."), ("Câu hỏi nghiên cứu", "Tách nhận dạng dấu riêng có cải thiện độ chính xác so với nhận dạng cả chữ không?"), ("Giả thuyết", "Tách dấu giúp tăng độ chính xác với các chữ cùng gốc như a, á, à, ả, ã, ạ."), ("Lưu ý đạo đức", "Thu thập chữ viết có sự đồng ý; không ghi tên người viết vào dữ liệu.")],
+  prev=("30-tu-the-ngoi", "30"), nextp=("32-phong-nen", "32"),
 )

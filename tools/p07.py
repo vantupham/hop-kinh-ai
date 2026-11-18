@@ -1,98 +1,80 @@
 D = dict(
-  out="du-an/07-diem-thi/index.html", num="07", level="2", title="Dự án 7 · Dự đoán điểm thi",
-  scripts=["regress.js"],
-  h1='Dự đoán <span class="hl-word">điểm thi</span>',
-  lead="Học thêm một giờ mỗi tuần thì được thêm bao nhiêu điểm? Hãy kéo một đường thẳng sao cho khớp nhất với dữ liệu của 30 bạn, rồi xem máy tự tìm đường thẳng bằng cách \"lăn bi xuống dốc\". Đây là thuật toán đứng sau gần như mọi AI hiện đại.",
-  moi='''
+  out="du-an/07-tham-tu-du-lieu/index.html", num="7", grade="7", title="Dự án 7 · Thám tử dữ liệu lớp học",
+  scripts=["survey.js"],
+  h1='Thám tử dữ liệu: <span class="hl-word">hỏi ai</span> mới đúng?',
+  lead="Trường có 480 bạn. Thầy hiệu trưởng muốn biết môn thể thao nào được yêu thích nhất để mua dụng cụ, và nhờ một chiếc máy tính toán từ kết quả khảo sát. Không thể hỏi hết cả trường, em sẽ hỏi một nhóm nhỏ. Nhưng hỏi nhóm nào? Chọn sai nhóm, cả em và chiếc máy đều kết luận sai.",
+  play='''
   <div class="playground">
     <div class="stage-col">
-      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Biểu đồ giờ học và điểm thi, kéo hai chấm tròn trên đường thẳng"></canvas><div class="stage-tag"><span class="live-dot"></span><span>DỮ LIỆU 30 BẠN</span></div></div>
-      <p class="muted small" style="margin:10px 0 0"><i data-i="bulb"></i> <b>Kéo hai chấm tròn trắng</b> trên đường thẳng để làm sai số (các đoạn cam) nhỏ nhất. Hình vuông cam càng nhỏ thì đường càng khớp.</p>
-      <div class="toolbar">
-        <div class="seg"><button class="btn small accent" id="btnRun"></button><button class="btn small ghost" id="btnStep1"><i data-i="skip"></i>1 bước</button><button class="btn small ghost" id="btnReset"><i data-i="reset"></i>Đặt lại</button></div>
-        <div class="seg"><button class="btn small ghost" id="btnEdit" aria-pressed="false"><i data-i="figure"></i>Thêm / xóa bạn</button><button class="btn small ghost" id="btnNewData"><i data-i="sparkle"></i>Lớp khác</button></div>
+      <div class="stage vf"><canvas id="stage" class="touch" width="880" height="440" aria-label="Sân trường giờ ra chơi với 480 học sinh, bấm vào một bạn để hỏi"></canvas><div class="stage-tag"><span class="live-dot"></span><span id="stageTag">GIỜ RA CHƠI</span></div></div>
+      <div class="play-panel"><p class="ask" id="askText" aria-live="polite"></p>
+        <div class="btn-row"><button class="btn small accent" id="btnRandom"><i data-i="sparkle"></i>Hỏi ngẫu nhiên</button><button class="btn small" id="btnField"><i data-i="map"></i>Hỏi ở sân bóng</button><button class="btn small" id="btnClass"><i data-i="layers"></i>Hỏi một lớp</button><button class="btn small ghost" id="btnClear"><i data-i="reset"></i>Xóa câu trả lời</button><button class="btn small mint" id="btnReveal"><i data-i="eye"></i>Công bố kết quả toàn trường</button></div></div>
+      {{GUIDE}}
+      <div class="two-col" style="margin-top:6px">
+        <div class="card">
+          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="sliders"></i></span>Bàn thí nghiệm</h2>
+          <label class="ctl"><span>Mỗi lần bấm nút hỏi: hỏi bao nhiêu bạn</span><b id="nV"></b><input type="range" id="n" min="5" max="200" step="5"></label>
+          <div class="toggles"><label class="tog"><input type="checkbox" id="optLead"><span>Hỏi kiểu gợi ý: "Bạn thích bóng đá đúng không?"</span></label></div>
+        </div>
+        <div class="card">
+          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm amber"><i data-i="cpu"></i></span>Máy mua dụng cụ</h2>
+          <p class="small" style="margin:0 0 8px">Máy chia <b>20 bộ dụng cụ</b> theo đúng tỉ lệ trong khảo sát của em:</p>
+          <div id="buy" class="buy"></div>
+        </div>
       </div>
-      <div class="panel-ctl"><label class="ctl"><span>Dự đoán cho bạn học</span><b id="predXV"></b><input type="range" id="predX" min="0" max="60" step="1"></label></div>
-      <div class="toggles"><label class="tog"><input type="checkbox" id="showSq" checked><span>Hình vuông sai số</span></label></div>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
-      <div class="lbl">ĐỘ SAI TRUNG BÌNH (MSE)</div>
-      <div class="score-big" id="bMse">—</div>
-      <div class="lbl" style="margin-top:12px">ĐƯỜNG DỰ ĐOÁN</div>
-      <div id="bEq" style="color:#fff;font-size:1rem"></div>
-      <div class="metric-row">
-        <div class="metric"><span>w (ĐỘ DỐC)</span><b id="bW">—</b></div>
-        <div class="metric"><span>b (ĐIỂM GỐC)</span><b id="bB">—</b></div>
-        <div class="metric"><span>MSE TỐT NHẤT CÓ THỂ</span><b id="bBest">—</b></div>
-        <div class="metric"><span>SỐ BƯỚC ĐÃ ĐI</span><b id="bStep">0</b></div>
-      </div>
+      <div class="lab-h"><span class="live-dot"></span>Sổ tay thám tử</div>
+      <div class="metric-row"><div class="metric"><span>ĐÃ HỎI</span><b id="bN">0</b></div><div class="metric"><span>NHIỀU NHẤT TRONG MẪU</span><b id="bTop" style="font-size:.95rem">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">BẢNG KIỂM ĐẾM</div><div class="conf" id="bTally"></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>MẪU ĐẾN TỪ</span><b id="bFrom" style="font-size:.9rem">—</b></div><div class="metric"><span>LỆCH SO VỚI TOÀN TRƯỜNG</span><b id="bErr">?</b></div></div>
+      <p class="small" style="color:#c3c7f0;margin-top:12px">Mỗi chấm là một bạn. Chấm xám là bạn chưa được hỏi. Bấm vào chấm để hỏi từng bạn, hoặc dùng các nút hỏi nhanh.</p>
     </aside>
-  </div>''',
-  mission_h2="Hiểu cách máy \"học\": tìm con số làm sai số nhỏ nhất",
-  mission_q="Máy tính không biết suy nghĩ. Vậy làm sao nó tự tìm ra đường thẳng khớp nhất?",
-  mission_p="Em sẽ biến \"khớp\" thành một con số (<b>hàm mất mát</b>), vẽ ra cả một <b>thung lũng sai số</b>, rồi thả một viên bi lăn xuống đáy. Mạng nơ-ron khổng lồ như ChatGPT cũng học theo đúng nguyên lý này, chỉ là với hàng tỉ con số thay vì 2.",
-  minutes="45–60 phút",
-  checklist=[("drag", "Tự kéo đường thẳng sao cho MSE nhỏ hơn 1,0"), ("gd", "Cho máy tự học bằng gradient descent"), ("surface", "Bấm lên bản đồ thung lũng để chọn điểm xuất phát"), ("broke", "Làm máy học hỏng ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Từ 30 chấm điểm tới đường thẳng tốt nhất: 6 bước",
-  soi_p="Hình bên dưới chạy trực tiếp theo đường thẳng ở phần Mồi. Thử bấm \"Cho máy tự học\" rồi quay lại xem bước 5 và 6.",
-  theory=[
-    dict(no="25", tag="Học máy", title="Hồi quy tuyến tính",
-      svg='<g class="f-mint"><circle cx="30" cy="96" r="4"/><circle cx="56" cy="84" r="4"/><circle cx="80" cy="88" r="4"/><circle cx="104" cy="70" r="4"/><circle cx="130" cy="64" r="4"/><circle cx="156" cy="58" r="4"/><circle cx="182" cy="40" r="4"/><circle cx="210" cy="36" r="4"/><circle cx="236" cy="22" r="4"/></g><path d="M20 100 246 20" class="s-violet" stroke-width="3"/>',
-      p="<b>Hồi quy</b> là dự đoán một <b>con số</b> (điểm thi, giá nhà, nhiệt độ), khác với phân loại là dự đoán một <b>nhóm</b>. Dạng đơn giản nhất là vẽ một đường thẳng đi qua \"giữa\" đám dữ liệu: y = w × x + b.",
-      deep="Khi có nhiều yếu tố (giờ học, giờ ngủ, giờ chơi game), công thức thành y = w₁x₁ + w₂x₂ + w₃x₃ + b. Nhìn kỹ, mỗi nơ-ron trong mạng nơ-ron cũng chính là một phép tính như vậy, cộng thêm một bước \"uốn cong\"."),
-    dict(no="26", tag="Toán + AI", title="Hàm mất mát (MSE)",
-      svg='<path d="M20 100 240 30" class="s-violet" stroke-width="2.5"/><g><rect x="60" y="52" width="34" height="34" class="f-cs s-coral"/><rect x="150" y="40" width="20" height="20" class="f-cs s-coral"/><rect x="200" y="44" width="14" height="14" class="f-cs s-coral"/></g><g class="f-mint"><circle cx="60" cy="52" r="4"/><circle cx="150" cy="40" r="4"/><circle cx="200" cy="58" r="4"/></g>',
-      p="Để máy biết đường nào \"tốt hơn\", ta cần một con số đo độ sai: lấy từng sai số, <b>bình phương</b> lên (là diện tích hình vuông cam), rồi lấy <b>trung bình</b>. Đó là MSE. Học máy chính là đi tìm cách làm con số này nhỏ nhất.",
-      deep="Bình phương giúp sai số âm và dương không triệt tiêu nhau, đồng thời phạt nặng những lần sai nhiều. Nhược điểm là một vài điểm \"ngoại lai\" có thể kéo lệch cả đường thẳng (thử sự cố 2)."),
-    dict(no="27", tag="Thuật toán", cls="coral", title="Gradient descent: lăn bi xuống dốc",
-      svg='<path d="M14 24 C60 24 80 100 130 100 S200 24 246 24" fill="none" class="s-ink" stroke-width="2.5"/><g class="f-amber"><circle cx="44" cy="34" r="6"/><circle cx="72" cy="66" r="5" opacity=".7"/><circle cx="96" cy="88" r="5" opacity=".5"/><circle cx="118" cy="98" r="5" opacity=".35"/></g><text x="150" y="70" font-size="11" class="t-mono f-muted">bước = tốc độ học</text><text x="150" y="86" font-size="11" class="t-mono f-muted">× độ dốc</text>',
-      p="Hãy tưởng tượng em đứng trên đồi trong sương mù, muốn xuống thung lũng. Em dò xem chân đang dốc về hướng nào, rồi bước <b>ngược hướng dốc</b>. Lặp lại mãi là tới đáy. Máy làm y hệt, với \"độ dốc\" tính bằng <b>đạo hàm</b>.",
-      deep="Đạo hàm của MSE theo w là trung bình của 2 × sai × giờ, theo b là trung bình của 2 × sai. Em sẽ học đạo hàm ở lớp 11, nhưng ý tưởng thì đơn giản: đo xem nếu nhích w một chút thì MSE tăng hay giảm."),
-    dict(no="28", tag="Tư duy phản biện", cls="amber", title="Tương quan ≠ nhân quả · Ngoại suy",
-      svg='<g class="f-mint"><circle cx="40" cy="90" r="4"/><circle cx="70" cy="78" r="4"/><circle cx="100" cy="66" r="4"/><circle cx="130" cy="58" r="4"/></g><path d="M30 94 250 6" class="s-violet" stroke-width="2.5" stroke-dasharray="0"/><rect x="150" y="6" width="100" height="108" class="f-as"/><text x="160" y="104" font-size="11" class="t-mono f-amber" font-weight="700">ngoài vùng dữ liệu</text>',
-      p="Hai thứ cùng tăng không có nghĩa thứ này <b>gây ra</b> thứ kia. Và đường thẳng chỉ đáng tin <b>trong vùng dữ liệu</b> đã thấy: học 50 giờ một tuần không làm em được 20 điểm!",
-      deep="Mùa hè, bán được nhiều kem và cũng nhiều vụ đuối nước, nhưng kem không gây đuối nước: cả hai đều do trời nóng. Khi đọc một kết quả AI hay một bài báo dùng số liệu, hãy luôn hỏi: còn yếu tố nào khác không?"),
-  ],
-  tulam_h2="Bàn thí nghiệm: thả viên bi vào thung lũng sai số",
-  tulam_p="Mỗi điểm trên bản đồ bên trái là một đường thẳng (w, b). Màu tím tối là MSE nhỏ, màu sáng là MSE lớn, ngôi sao vàng là đáy thung lũng. Bấm vào bản đồ để đặt viên bi, rồi cho máy tự học và xem đường đi.",
-  tulam='''
-  <div class="two-col">
-    <div class="card canvas-card">
-      <h3 class="h-ic"><span class="ico-box sm"><i data-i="map"></i></span>Bản đồ thung lũng sai số</h3>
-      <canvas id="surface" class="touch" width="420" height="300" style="cursor:crosshair"></canvas>
-      <label class="ctl" style="margin-top:12px"><span>Tốc độ học (độ dài mỗi bước)</span><b id="lrV"></b><input type="range" id="lr" min="0.0005" max="0.0140" step="0.0005"></label>
-      <p class="muted small">Gợi ý: với tốc độ quá nhỏ, viên bi đi rất chậm. Với tốc độ quá lớn, nó nhảy qua lại và văng ra ngoài.</p>
-    </div>
-    <div class="card"><h3 class="h-ic"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của gradient descent</h3><pre class="code" id="genCode"></pre></div>
   </div>
-  <div class="card chart-card" style="margin-top:18px">
-    <div class="chart-head"><b><i data-i="chart"></i> Độ sai (MSE) sau mỗi bước</b><span class="legend"><i class="lg sm"></i>MSE hiện tại <i class="lg" style="background:var(--amber)"></i>đáy thung lũng</span></div>
-    <canvas id="chart" width="1100" height="220"></canvas>
-  </div>''',
-  breaks_h2="Thử thách: hãy làm máy học hỏng!",
-  breaks=[
-    dict(icon="bolt", key="lr", title="Tốc độ học quá lớn", p="Đặt tốc độ học là <b>0,0125</b> rồi cho máy tự học. Xem viên bi trên bản đồ thung lũng.",
-      why="Mỗi bước quá dài nên viên bi nhảy vượt qua đáy sang sườn bên kia, cao hơn chỗ cũ, rồi càng ngày càng văng xa: MSE <b>bùng nổ</b>. Hãy giảm tốc độ học xuống khoảng 0,004. Chọn tốc độ học là một trong những việc khó nhất khi huấn luyện AI thật."),
-    dict(icon="alert", key="outlier", title="Hai bạn \"ngoại lai\"", p="Thêm hai bạn học rất nhiều giờ nhưng điểm cực thấp (có thể bị ốm hôm thi, hoặc nhập nhầm dữ liệu). Chấm vàng là hai bạn ấy.",
-      why="MSE bình phương sai số, nên hai điểm sai rất nhiều có \"tiếng nói\" cực lớn và kéo cả đường thẳng nghiêng xuống. Bật <b>Thêm / xóa bạn</b> rồi bấm vào chấm vàng để xóa, nhưng chỉ xóa khi chắc chắn đó là lỗi nhập liệu, đừng xóa chỉ vì nó \"không đẹp\"."),
-    dict(icon="arrowR", key="extra", title="Dự đoán quá xa", p="Hỏi máy: một bạn học <b>50 giờ mỗi tuần</b> sẽ được bao nhiêu điểm? Đường thẳng tự tin trả lời… hơn 10 điểm!",
-      why="Dữ liệu chỉ có các bạn học 1–19 giờ. Ngoài vùng đó, máy chỉ đơn giản kéo dài đường thẳng ra, gọi là <b>ngoại suy</b>, và có thể cho kết quả vô lý. Mọi mô hình AI đều chỉ đáng tin trong phạm vi dữ liệu nó đã học."),
+  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Tỉ lệ yêu thích mỗi môn: trong mẫu em hỏi và trong toàn trường</b></div><canvas id="chart" width="1100" height="230"></canvas></div>''',
+  play_guide="Bấm vào vài chấm trên sân trường để hỏi từng bạn. Rồi thử các nút hỏi nhanh: <b>ngẫu nhiên</b>, <b>ở sân bóng</b>, <b>một lớp</b>. Kết quả có giống nhau không?",
+  lessons=["Toán 7 · Thu thập, phân loại dữ liệu", "Toán 7 · Biểu đồ cột, biểu đồ hình quạt", "Tin học 7 · Bảng tính, xử lý dữ liệu"],
+  mission_h2="Thu thập dữ liệu sao cho đáng tin",
+  mission_q="Hỏi 30 bạn có đủ biết ý kiến của 480 bạn không?",
+  mission_p="Em sẽ <b>khảo sát</b> trên sân trường, <b>kiểm đếm</b>, vẽ <b>biểu đồ</b>, so với kết quả toàn trường, và xem một chiếc máy <b>học từ mẫu lệch</b> sẽ đưa ra quyết định sai ra sao.",
+  minutes="45 phút · 1 tiết học",
+  checklist=[("click", "Tự bấm hỏi ít nhất 10 bạn"), ("random", "Hỏi ngẫu nhiên ít nhất 100 bạn"), ("reveal", "Công bố và so với kết quả toàn trường"), ("soi", "Soi tới bước Mẫu bị lệch"), ("broke", "Làm khảo sát sai lệch ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="Làm một cuộc khảo sát đáng tin: 6 bước",
+  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Số liệu dùng đúng cuộc khảo sát em vừa làm.",
+  soi_guide="Dữ liệu tốt không tự nhiên mà có. Thám tử phải <b>hỏi đúng câu</b> và <b>hỏi đúng người</b>!",
+  cards=[
+    dict(no="T1", tag="Dữ liệu", title="Tổng thể và mẫu",
+      svg=''.join(f'<circle cx="{20+(i%16)*14}" cy="{18+(i//16)*14}" r="4.5" class="{"f-violet" if i in (3,9,18,27,36,44,53,61,70,75) else "f-line"}" opacity="{1 if i in (3,9,18,27,36,44,53,61,70,75) else .5}"/>' for i in range(96)) + '<text x="20" y="114" font-size="10" class="t-mono f-violet">10 bạn được chọn ngẫu nhiên</text>',
+      p="<b>Tổng thể</b> là tất cả những người ta muốn biết ý kiến (480 bạn). <b>Mẫu</b> là nhóm nhỏ ta thật sự hỏi. Mẫu tốt phải <b>giống tổng thể thu nhỏ</b>: chọn <b>ngẫu nhiên</b> và đủ nhiều.",
+      ex="Nếm một thìa canh để biết cả nồi đã vừa chưa: phải khuấy đều trước, nếu không thìa đầu chỉ toàn nước."),
+    dict(no="T2", tag="Toán học", cls="amber", title="Mẫu bị lệch",
+      svg='<rect x="16" y="30" width="40" height="70" rx="4" class="f-mint"/><rect x="62" y="70" width="40" height="30" rx="4" class="f-violet"/><rect x="108" y="80" width="40" height="20" rx="4" class="f-amber"/><text x="16" y="22" font-size="10" class="t-mono f-coral">chỉ hỏi ở sân bóng</text><rect x="170" y="56" width="20" height="44" rx="3" class="f-mint" opacity=".6"/><rect x="194" y="46" width="20" height="54" rx="3" class="f-violet" opacity=".6"/><rect x="218" y="64" width="20" height="36" rx="3" class="f-amber" opacity=".6"/><text x="168" y="22" font-size="10" class="t-mono f-mint">toàn trường</text>',
+      p="Chỉ hỏi ở sân bóng, chỉ hỏi đội bóng, hỏi quá ít người hay đặt <b>câu hỏi gợi ý</b> đều làm mẫu <b>không giống tổng thể</b>. Biểu đồ vẽ đẹp đến đâu cũng cho kết luận sai.",
+      ex="Hỏi ở cửa hàng bánh ngọt \"Bạn có thích đồ ngọt không?\" thì gần như ai cũng trả lời có."),
+    dict(no="T3", tag="Học máy", cls="coral", title="Máy học từ dữ liệu lệch",
+      svg='<rect x="16" y="30" width="80" height="60" rx="10" class="f-coral" opacity=".25"/><text x="24" y="58" font-size="11" class="f-coral" font-weight="700">dữ liệu lệch</text><text x="24" y="76" font-size="10" class="f-ink">90% bóng đá</text><path d="M104 60h30" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><rect x="142" y="30" width="100" height="60" rx="10" class="f-violet" opacity=".25"/><text x="150" y="58" font-size="11" class="f-violet" font-weight="700">máy quyết định</text><text x="150" y="76" font-size="10" class="f-ink">mua 18 quả bóng</text>',
+      p="AI học từ dữ liệu con người thu thập. Dữ liệu lệch thì máy học lệch và đưa ra <b>quyết định không công bằng</b>, mà máy không hề biết mình sai. Người thu thập dữ liệu phải chịu trách nhiệm kiểm tra.",
+      ex="Một máy nhận dạng giọng nói chỉ được học từ giọng người lớn sẽ nghe trẻ em nói kém hơn hẳn."),
   ],
-  fix="Về dữ liệu chuẩn",
-  real_h2="Hồi quy và gradient descent đang ở đâu quanh em?",
-  real=[("sun", "", "Dự báo thời tiết & nhu cầu điện", "Dự đoán nhiệt độ ngày mai, hay lượng điện thành phố sẽ dùng, từ dữ liệu của những ngày trước."),
-        ("chart", "mint", "Ước tính giá cả", "Ước tính giá nhà từ diện tích, vị trí, số phòng; hay giá một chiếc xe cũ từ tuổi và số km đã chạy."),
-        ("cpu", "amber", "Huấn luyện mọi mạng nơ-ron", "Mạng nhận diện ảnh, dịch thuật, trò chuyện… đều học bằng gradient descent, chỉ với hàng tỉ \"w\" thay vì một.")],
-  ethics=["Một trường dùng mô hình dự đoán điểm để xếp học sinh vào lớp \"giỏi\" và lớp \"thường\" ngay từ đầu năm. Điều gì có thể đi sai? Dự đoán có trở thành \"số phận\" không?",
-          "Mô hình nói học nhiều giờ thì điểm cao. Vậy ép mọi bạn học 20 giờ một tuần có đúng không? Còn những yếu tố nào khác?",
-          "Khi dữ liệu có lỗi nhập liệu, ai nên được quyền sửa hay xóa dữ liệu? Làm sao để không \"chỉnh\" dữ liệu cho đẹp?"],
-  badge="Người Lăn Bi Xuống Dốc", badge_p="Em đã mở khóa 4 thẻ kiến thức: Hồi quy tuyến tính · Hàm mất mát · Gradient descent · Tương quan ≠ nhân quả.",
-  dev_h2="Từ dự đoán điểm thi đến dự án của riêng em",
-  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Thêm yếu tố giờ ngủ", "Thu thập (ẩn danh) số giờ tự học và số giờ ngủ của các bạn trong lớp. Dùng công thức điểm = w₁ × giờ học + w₂ × giờ ngủ + b và gradient descent cho cả 3 con số.", "Xong khi", "MSE trên dữ liệu mới nhỏ hơn mô hình chỉ có giờ học."),
-       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "Dự đoán nhiệt độ ngày mai", "Ghi nhiệt độ mỗi sáng trong 1 tháng, rồi dự đoán nhiệt độ ngày mai từ nhiệt độ 3 ngày trước. So sánh với dự báo của đài khí tượng.", "Xong khi", "sai số trung bình của em dưới 2°C trong 1 tuần kiểm tra."),
-       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Đường cong hay đường thẳng?", "Thử thay đường thẳng bằng đường cong (đa thức bậc 2, 3, 10…). Bậc càng cao thì khớp dữ liệu học càng tốt, nhưng dự đoán dữ liệu mới thế nào? Liên hệ với hiện tượng quá khớp ở Dự án 6.", "Đo kết quả", "MSE trên tập học và tập kiểm tra theo từng bậc đa thức.")],
-  cur="07 · Điểm thi", next=[("10 · Tư thế ngồi học", "một cách học khác: cây"), ("11 · Đọc chữ số", "gradient descent trong mạng"), ("16 · Đoán chữ tiếp theo", "dự đoán ở quy mô lớn")],
-  khkt=[("Vấn đề", "Học sinh khó biết thói quen nào ảnh hưởng nhiều nhất tới kết quả học tập."), ("Câu hỏi nghiên cứu", "Trong giờ tự học, giờ ngủ và giờ dùng điện thoại, yếu tố nào có trọng số lớn nhất khi dự đoán điểm?"), ("Giả thuyết", "Giờ ngủ có ảnh hưởng tương đương giờ tự học."), ("Lưu ý đạo đức", "Khảo sát ẩn danh, có sự đồng ý; nhắc rõ đây là tương quan, không phải nhân quả.")],
-  prev=("06-thung-rac", "06"), nextp=("08-am-thanh", "08"),
+  real=[("chart", "", "Thăm dò ý kiến", "Các cuộc thăm dò dư luận chọn mẫu ngẫu nhiên vài nghìn người để ước đoán ý kiến của hàng triệu người."),
+        ("cpu", "mint", "AI học từ dữ liệu", "Ảnh, chữ, giọng nói dùng để huấn luyện AI phải đủ đa dạng, nếu không AI sẽ làm kém với những nhóm người ít xuất hiện."),
+        ("shield", "amber", "Kiểm tra chất lượng", "Nhà máy lấy ngẫu nhiên vài sản phẩm trong lô để kiểm tra, thay vì mở tất cả.")],
+  breaks_h2="Thử thách: hãy làm cuộc khảo sát sai lệch!",
+  breaks_guide="Mỗi sự cố là một lỗi thật mà người lớn vẫn hay mắc khi thu thập dữ liệu. Thử và xem chiếc máy mua dụng cụ quyết định ra sao!",
+  breaks=[
+    dict(icon="target", key="team", title="Chỉ hỏi đội bóng", p="Để nhanh, bạn lớp trưởng chỉ hỏi <b>20 bạn trong đội bóng</b> của trường.",
+      why="Cả đội bóng đều thích bóng đá, nên mẫu cho 100% bóng đá và máy đặt mua toàn quả bóng. Mẫu này chỉ đại diện cho đội bóng, không đại diện cho cả trường. Bấm <b>Xóa câu trả lời</b> rồi <b>Hỏi ngẫu nhiên</b> 100 bạn."),
+    dict(icon="clock", key="few", title="Hỏi quá ít", p="Chỉ hỏi <b>5 bạn</b> ngẫu nhiên rồi kết luận cho cả 480 bạn.",
+      why="Với 5 bạn, chỉ cần một vài bạn tình cờ cùng thích một môn là tỉ lệ lệch hẳn. Hãy bấm hỏi lại vài lần: mỗi lần ra một kết quả khác. Kéo thanh lên 100 rồi hỏi lại: kết quả ổn định và gần toàn trường hơn."),
+    dict(icon="msg", key="lead", title="Câu hỏi gợi ý", p="Người khảo sát hỏi: <b>\"Bạn thích bóng đá đúng không?\"</b> thay vì hỏi bạn thích môn nào.",
+      why="Câu hỏi gợi ý làm một số bạn <b>gật đầu theo</b>, dù họ thích môn khác. Mẫu chọn ngẫu nhiên vẫn bị lệch vì <b>câu hỏi</b> lệch. Tắt <b>Hỏi kiểu gợi ý</b>, xóa câu trả lời và hỏi lại."),
+  ],
+  badge="Thám Tử Dữ Liệu", badge_p="Em đã mở khóa 3 thẻ kiến thức: Tổng thể và mẫu · Mẫu bị lệch · Máy học từ dữ liệu lệch.",
+  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Món ăn sáng yêu thích", "Hỏi 10 người trong khu phố về món ăn sáng yêu thích. Nhóm người em hỏi có giống cả khu phố không? Ghi lại vì sao."),
+       (2, "DỰ ÁN NHÓM · 1 TUẦN", "Khảo sát thật của lớp", "Thiết kế câu hỏi không gợi ý, chọn ngẫu nhiên 30 bạn trong trường bằng cách bốc thăm số thứ tự, vẽ biểu đồ và so với khi chỉ hỏi bạn thân."),
+       (3, "Ý TƯỞNG KHKT", "Kiểm tra dữ liệu huấn luyện", "Xây bộ ảnh lá cây để dạy máy nhận dạng, kiểm tra xem bộ ảnh có đủ các loại lá, đủ điều kiện ánh sáng chưa, và đo máy làm kém ở nhóm nào.")],
+  res=[("layers", "", "Phiếu học tập", "Bốc thăm mẫu ngẫu nhiên, kiểm đếm, vẽ biểu đồ, tìm lỗi khảo sát.", "phieu.html"),
+       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, câu hỏi thảo luận, đáp án.", "giao-vien.html"),
+       ("rocket", "amber", "Học lên: Dự án 27", "Máy học dự đoán điểm thi từ dữ liệu học sinh.", "../27-diem-thi/index.html")],
+  prev=("06-doan-hinh", "6"), nextp=("08-nghe-not-nhac", "8"),
 )

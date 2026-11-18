@@ -1,96 +1,78 @@
 D = dict(
-  out="du-an/18-me-cung/index.html", num="18", level="4", title="Dự án 18 · Robot thoát mê cung",
-  scripts=["rl.js"],
-  h1='Robot <span class="hl-word">thoát mê cung</span>',
-  lead="Không ai chỉ đường cho chú robot này. Nó chỉ biết mình đang đứng ở ô nào, được thưởng khi tới đích và bị phạt khi rơi bẫy. Ban đầu nó đi lung tung, nhưng sau vài trăm lượt, em sẽ thấy \"giá trị\" của đích lan dần khắp mê cung như một tấm bản đồ nhiệt, và robot tìm ra đường.",
-  moi='''
+  out="du-an/18-hoc-bong/index.html", num="18", grade="9", title="Dự án 18 · Ai được nhận học bổng?",
+  scripts=["data.js", "hb.js"],
+  h1='Ai được nhận <span class="hl-word">học bổng</span>? Khi máy học cả sự thiên vị',
+  lead="Một trường muốn dùng AI xếp hạng 80 hồ sơ xin học bổng, nên cho máy học từ 240 quyết định của hội đồng những năm trước. Nghe rất khách quan, nhưng nếu quyết định cũ đã thiên vị thì sao? Em sẽ soi xem máy học được gì, đo tỉ lệ được chọn của từng nhóm, thử đổi nơi ở của một bạn, và tìm cách làm cho máy công bằng.",
+  play='''
   <div class="playground">
     <div class="stage-col">
-      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Mê cung với bản đồ giá trị và robot"></canvas><div class="stage-tag"><span class="live-dot"></span><span>HỌC TĂNG CƯỜNG</span></div></div>
-      <div class="toolbar">
-        <div class="seg"><button class="btn small" id="btnRun"></button><button class="btn small ghost" id="btnStep"><i data-i="skip"></i>1 bước</button><button class="btn small ghost" id="btnFast"><i data-i="bolt"></i>Học nhanh 200 lượt</button></div>
-        <div class="seg"><button class="btn small ghost" id="btnPath"><i data-i="arrowR"></i>Đường đi tốt nhất</button><button class="btn small ghost" id="btnFour"><i data-i="blocks"></i>4 giá trị Q</button></div>
+      <div class="stage vf"><canvas id="stage" class="touch" width="880" height="460" aria-label="Biểu đồ 80 hồ sơ: trục ngang điểm trung bình, trục dọc giờ hoạt động. Hình tròn là Phường Đông, tam giác là Xã Tây, hình tô kín là được chọn. Bấm vào một hồ sơ để kiểm tra."></canvas><div class="stage-tag"><span class="live-dot"></span>80 HỒ SƠ NĂM NAY</div></div>
+      <div class="play-panel"><div class="legend-row"><span><em class="lg lg-dot"></em>Phường Đông</span><span><em class="lg lg-tri"></em>Xã Tây</span><span><em class="lg lg-fill"></em>Được chọn</span><span><em class="lg lg-miss"></em>Xứng đáng nhưng bị loại</span></div></div>
+      <p class="ask" id="askText" aria-live="polite" style="margin:12px 0 0;font-size:1.02rem"></p>
+      {{GUIDE}}
+      <div class="two-col" style="margin-top:6px">
+        <div class="card">
+          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm amber"><i data-i="sliders"></i></span>Bàn thí nghiệm</h2>
+          <label class="ctl"><span>Số suất học bổng năm nay</span><b id="kV"></b><input type="range" id="k" min="10" max="40" step="2"></label>
+          <p class="small" style="margin:6px 0 0">Máy chấm điểm từng hồ sơ rồi chọn những hồ sơ điểm cao nhất.</p>
+        </div>
+        <div class="card">
+          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="cpu"></i></span>Máy được biết gì, học từ đâu?</h2>
+          <div class="toggles"><label class="tog"><input type="checkbox" id="optZone"><span>Cho máy biết bạn ở khu nào</span></label><label class="tog"><input type="checkbox" id="optDist"><span>Cho máy biết khoảng cách đến trường</span></label><label class="tog"><input type="checkbox" id="optFix"><span>Học từ dữ liệu đã được xét lại công bằng</span></label></div>
+        </div>
       </div>
-      <div class="game"><span class="small muted">Vẽ lên mê cung</span><div class="btn-row" id="toolBtns"><button class="btn small" data-t="#">Tường</button><button class="btn small ghost" data-t="X">Bẫy</button><button class="btn small ghost" data-t="$">Xu</button><button class="btn small ghost" data-t="G">Đích</button><button class="btn small ghost" data-t=".">Xóa</button><button class="btn small ghost" data-t="S">Chỗ xuất phát</button></div></div>
-      <div class="game"><span class="small muted">Mê cung</span><div class="btn-row" id="mapBtns"><button class="btn small ghost" data-m="mau">Mê cung mẫu</button><button class="btn small ghost" data-m="trong">Sân trống</button><button class="btn small ghost" id="btnReset"><i data-i="reset"></i>Xóa trí nhớ robot</button></div></div>
-      <p class="small muted" style="margin:8px 0 0"><i data-i="bulb"></i> Màu ô: vàng sáng là ô có giá trị cao (gần đích), tím là ô nguy hiểm. Mũi tên là hướng robot cho là tốt nhất.</p>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
-      <div class="metric-row"><div class="metric"><span>LƯỢT CHƠI</span><b id="bEp">0</b></div><div class="metric"><span>BƯỚC TRONG LƯỢT</span><b id="bStep">0</b></div></div>
-      <div class="metric-row"><div class="metric"><span>SỐ LẦN TỚI ĐÍCH</span><b id="bWin">0</b></div><div class="metric"><span>TỚI ĐÍCH / 20 LƯỢT GẦN NHẤT</span><b id="bRate">—</b></div></div>
-      <div class="lbl" style="margin-top:12px">NƯỚC ĐI VỪA RỒI</div><div id="bAct" style="color:#fff"></div>
-      <div class="lbl" style="margin-top:12px">BẢNG Q CỦA Ô ĐANG ĐỨNG</div><div class="bars" id="bQ"></div>
+      <div class="lab-h"><span class="live-dot"></span>Bộ não của máy xét học bổng</div>
+      <div class="lbl">MÁY HỌC ĐƯỢC TRỌNG SỐ</div><div id="bW" class="wbars"></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>KHỚP DỮ LIỆU ĐÃ HỌC</span><b id="bAgree">—</b></div><div class="metric"><span>BỊ ĐỔI KẾT QUẢ CHỈ VÌ NƠI Ở</span><b id="bFlip">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">HỒ SƠ EM ĐANG KIỂM TRA</div><div id="bCard" class="calc">Bấm vào một hồ sơ trên biểu đồ.</div>
     </aside>
-  </div>''',
-  mission_h2="Dạy robot bằng phần thưởng thay vì đáp án",
-  mission_q="Không có bản đồ, không có người chỉ đường. Robot học bằng cách nào?",
-  mission_p="Em sẽ thấy robot <b>thử và sai</b>, nhận <b>phần thưởng</b>, ghi kinh nghiệm vào <b>bảng Q</b>, cân bằng giữa <b>khám phá</b> và <b>khai thác</b>, rồi tự vẽ mê cung để thử thách nó. Cuối cùng là bài học quan trọng nhất: thưởng sai thì robot học sai.",
-  minutes="45–60 phút",
-  checklist=[("win", "Xem robot tới đích ít nhất 3 lần"), ("fast", "Cho robot học nhanh 200 lượt"), ("path", "Bật Đường đi tốt nhất"), ("soi", "Soi tới bước Cập nhật bảng Q"), ("edit", "Tự vẽ thêm tường, bẫy hoặc xu"), ("broke", "Làm robot học hỏng ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Một bước học của robot: 6 bước",
-  soi_p="Hình bên dưới dùng đúng bước vừa diễn ra ở phần Mồi. Tạm dừng rồi bấm \"1 bước\" để xem chậm.",
-  theory=[
-    dict(no="69", tag="Học máy", title="Học tăng cường",
-      svg='<rect x="20" y="40" width="70" height="44" rx="10" class="f-violet"/><text x="34" y="67" font-size="12" fill="#fff">Robot</text><rect x="170" y="40" width="74" height="44" rx="10" class="f-soft"/><text x="178" y="67" font-size="12" class="f-ink">Mê cung</text><path d="M92 52h74" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><path d="M168 74H96" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><text x="106" y="44" font-size="10" class="t-mono f-violet">hành động</text><text x="100" y="98" font-size="10" class="t-mono f-coral">thưởng, ô mới</text>',
-      p="Trong <b>học tăng cường</b>, không ai đưa đáp án. Robot (tác tử) <b>hành động</b>, môi trường trả lại <b>phần thưởng</b> và trạng thái mới. Mục tiêu: tìm cách hành động để tổng phần thưởng lớn nhất.",
-      deep="Đây là cách AI học chơi cờ vây, điều khiển robot đi bộ, và một phần cách huấn luyện chatbot (học từ đánh giá của con người)."),
-    dict(no="70", tag="Thuật toán", cls="amber", title="Bảng Q",
-      svg='<g class="s-line" stroke-width="1"><rect x="80" y="20" width="90" height="90" fill="none"/><path d="M80 20l90 90M170 20l-90 90"/></g><g font-size="12" class="t-mono"><text x="114" y="44" class="f-mint">2.1</text><text x="140" y="70" class="f-mint">6.4</text><text x="114" y="98" class="f-coral">-3</text><text x="86" y="70" class="f-ink">0.5</text></g><text x="20" y="124" font-size="10" class="t-mono f-muted">4 giá trị cho 4 hướng của một ô</text>',
-      p="Mỗi ô có 4 con số <b>Q</b>, một cho mỗi hướng: \"nếu ở đây mà đi hướng này thì sau cùng được bao nhiêu điểm?\". Sau mỗi bước, robot sửa con số của nước vừa đi theo những gì vừa xảy ra.",
-      deep="Công thức cập nhật dùng <b>α</b> (tốc độ học) và <b>γ</b> (mức coi trọng tương lai). Khi trò chơi quá lớn để có bảng, người ta thay bảng bằng mạng nơ-ron: đó là <b>Deep Q-Network</b>."),
-    dict(no="71", tag="Chiến lược", cls="coral", title="Khám phá & khai thác",
-      svg='<circle cx="70" cy="64" r="34" class="f-soft"/><path d="M70 64 70 30A34 34 0 0 1 99 81Z" class="f-coral"/><text x="80" y="54" font-size="10" fill="#fff">ε</text><text x="120" y="50" font-size="12" class="f-coral">khám phá: thử hướng lạ</text><text x="120" y="80" font-size="12" class="f-violet">khai thác: đi hướng tốt nhất</text>',
-      p="Chỉ đi đường quen thì không bao giờ tìm được đường tốt hơn; chỉ thử lung tung thì không tận dụng được kinh nghiệm. Với xác suất <b>ε</b>, robot thử ngẫu nhiên, còn lại nó đi theo bảng Q.",
-      deep="Con người cũng gặp thế cân bằng này hằng ngày: gọi món quen hay món mới, đi đường quen hay thử đường khác."),
-    dict(no="72", tag="Đạo đức", cls="mint", title="Thưởng sai, học sai",
-      svg='<circle cx="60" cy="64" r="16" fill="#ffd84d"/><path d="M90 50c20-20 40-20 60 0M150 78c-20 20-40 20-60 0" fill="none" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><path d="M216 50l8 18 18 2-14 12 4 18-16-10-16 10 4-18-14-12 18-2z" class="f-amber" opacity=".35"/><text x="170" y="120" font-size="10" class="t-mono f-coral">đích bị bỏ quên</text>',
-      p="Robot làm đúng điều <b>được thưởng</b>, chưa chắc là điều <b>ta muốn</b>. Nếu nhặt xu được điểm mãi, nó sẽ nhặt xu mãi thay vì về đích. Đây gọi là <b>lách luật phần thưởng</b>.",
-      deep="Đã có AI chơi game đua thuyền chạy vòng tròn mãi để ăn điểm thưởng thay vì về đích. Với AI mạnh hơn, đặt đúng mục tiêu là vấn đề an toàn rất quan trọng."),
+  </div>
+  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Tần số tương đối: tỉ lệ được máy chọn và tỉ lệ xứng đáng theo năng lực, ở từng khu</b></div><canvas id="chart" width="1100" height="240"></canvas></div>''',
+  play_guide="Mỗi hình là một hồ sơ. <b>Bấm vào một hồ sơ</b> để xem máy chấm thế nào, và kết quả có đổi không nếu bạn ấy sống ở khu kia.",
+  lessons=["Toán 9 · Tần số, tần số tương đối", "GDCD 9 · Khách quan và công bằng", "Tin học 9 · Đạo đức và văn hóa khi dùng công nghệ"],
+  mission_h2="Kiểm tra xem máy có công bằng không, và sửa khi nó thiên vị",
+  mission_q="Máy chỉ học từ số liệu, vậy máy có thể thiên vị được không?",
+  mission_p="Em sẽ xem máy chọn ai, đo <b>tần số tương đối</b> được chọn của học sinh Phường Đông và Xã Tây, làm phép thử <b>\"nếu bạn ấy ở khu kia thì sao?\"</b>, rồi phá máy bằng <b>dữ liệu cũ thiên vị</b>, <b>thông tin đại diện</b> và <b>độ chính xác đánh lừa</b>.",
+  minutes="45 phút · 1 tiết học",
+  checklist=[("click", "Kiểm tra một hồ sơ: nếu đổi nơi ở thì sao?"), ("k", "Thay đổi số suất học bổng"), ("fair", "Sửa máy sau sự cố để không bạn nào bị đổi kết quả chỉ vì nơi ở"), ("soi", "Soi tới bước Kiểm tra công bằng"), ("broke", "Làm máy thiên vị ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="Máy xét học bổng làm việc thế nào? 6 bước",
+  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Hình minh họa dùng đúng cài đặt máy em đang chọn.",
+  soi_guide="Máy không có ý xấu. Nó chỉ <b>bắt chước</b> dữ liệu nó được học. Cùng soi nhé!",
+  cards=[
+    dict(no="T1", tag="Toán 9", title="Tần số tương đối theo nhóm",
+      svg='<rect x="30" y="40" width="40" height="66" class="f-violet"/><rect x="74" y="64" width="40" height="42" class="f-mint" opacity=".7"/><rect x="150" y="80" width="40" height="26" class="f-amber"/><rect x="194" y="58" width="40" height="48" class="f-mint" opacity=".7"/><text x="40" y="30" font-size="11" class="f-ink" font-weight="700">Đông 32%</text><text x="150" y="30" font-size="11" class="f-ink" font-weight="700">Tây 13%</text>',
+      p="<b>Tần số tương đối</b> = số bạn được chọn ÷ số bạn trong nhóm. So tần số tương đối giữa các nhóm là cách đơn giản để phát hiện máy có thể đang thiên vị. Nhưng cần so với tỉ lệ <b>xứng đáng thật</b> của mỗi nhóm.",
+      ex="Phường Đông 16 trên 50 bạn được chọn (32%), Xã Tây 4 trên 30 bạn (13%), dù năng lực hai nhóm như nhau."),
+    dict(no="T2", tag="Dữ liệu", cls="amber", title="Thiên kiến từ dữ liệu cũ",
+      svg='<rect x="14" y="20" width="100" height="80" rx="10" class="f-amber" opacity=".25"/><text x="24" y="44" font-size="11" class="f-ink" font-weight="700">Quyết định cũ</text><text x="24" y="66" font-size="11" class="f-coral" font-weight="700">khắt khe với</text><text x="24" y="84" font-size="11" class="f-coral" font-weight="700">Xã Tây</text><path d="M120 60h20" class="s-violet" stroke-width="3" marker-end="url(#arV)"/><rect x="146" y="20" width="100" height="80" rx="10" class="f-violet" opacity=".25"/><text x="160" y="56" font-size="11" class="f-ink" font-weight="700">Máy học</text><text x="160" y="76" font-size="11" class="f-coral" font-weight="700">y hệt</text>',
+      p="Máy học bằng cách <b>bắt chước</b> quyết định trong dữ liệu. Nếu hội đồng cũ đòi học sinh Xã Tây phải giỏi hơn mới được nhận, máy sẽ học đúng điều đó. Đó là <b>thiên kiến</b> (định kiến) đi từ dữ liệu vào máy.",
+      ex="Bỏ cột \"khu\" chưa đủ: khoảng cách đến trường tiết lộ gần như chắc chắn bạn ở khu nào."),
+    dict(no="T3", tag="Công bằng", cls="coral", title="Kiểm tra và sửa cho công bằng",
+      svg='<circle cx="70" cy="60" r="26" fill="none" class="s-violet" stroke-width="3"/><text x="56" y="66" font-size="16" class="f-ink" font-weight="800">?</text><path d="M100 60h50" class="s-violet" stroke-width="3" marker-end="url(#arV)"/><text x="160" y="52" font-size="11" class="f-ink" font-weight="700">Đổi nơi ở</text><text x="160" y="72" font-size="11" class="f-mint" font-weight="700">kết quả giữ nguyên?</text>',
+      p="Ba cách kiểm tra: so <b>tần số tương đối</b> giữa các nhóm; thử <b>đổi một đặc điểm không liên quan</b> (nơi ở) xem kết quả có đổi không; đừng chỉ nhìn <b>độ chính xác</b>. Cách sửa tận gốc là <b>làm sạch dữ liệu</b>, và để <b>con người</b> xem lại quyết định.",
+      ex="Nhiều nước yêu cầu hệ thống AI dùng cho tuyển dụng, xét tuyển phải được kiểm tra công bằng trước khi dùng."),
   ],
-  tulam_h2="Bàn thí nghiệm: chỉnh cách học và luật thưởng",
-  tulam_p="Mọi thay đổi có hiệu lực ngay với robot ở phần Mồi. Biểu đồ: mỗi chấm là tổng điểm một lượt (xanh: tới đích, cam: không), đường tím là trung bình 10 lượt gần nhất.",
-  tulam='''
-  <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Tổng phần thưởng mỗi lượt</b><span class="legend"><i class="lg" style="background:var(--mint)"></i>tới đích <i class="lg" style="background:var(--coral)"></i>không tới <i class="lg" style="background:var(--violet)"></i>trung bình</span></div><canvas id="chart" width="1100" height="220"></canvas></div>
-  <div class="two-col" style="margin-top:18px">
-    <div class="card">
-      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Cách học</h3>
-      <label class="ctl"><span>α · tốc độ học</span><b id="alphaV"></b><input type="range" id="alpha" min="0.05" max="1" step="0.05"></label>
-      <label class="ctl"><span>γ · coi trọng tương lai</span><b id="gammaV"></b><input type="range" id="gamma" min="0" max="0.99" step="0.01"></label>
-      <label class="ctl"><span>ε · tỉ lệ khám phá</span><b id="epsV"></b><input type="range" id="eps" min="0" max="1" step="0.05"></label>
-      <label class="ctl"><span>Tốc độ chạy</span><b id="speedV"></b><input type="range" id="speed" min="1" max="60" step="1"></label>
-    </div>
-    <div class="card">
-      <h3 class="h-ic"><span class="ico-box sm amber"><i data-i="award"></i></span>Luật thưởng</h3>
-      <p class="small muted">Tới đích: <b>+10</b> · Rơi bẫy: <b>−10</b></p>
-      <label class="ctl"><span>Mỗi bước đi</span><b id="rStepV"></b><input type="range" id="rStep" min="-1" max="0" step="0.1"></label>
-      <label class="ctl"><span>Nhặt một đồng xu</span><b id="rCoinV"></b><input type="range" id="rCoin" min="0" max="5" step="0.5"></label>
-      <label class="tog" style="display:block;margin:8px 0"><input type="checkbox" id="coinRespawn"><span>Xu mọc lại ngay sau khi nhặt</span></label>
-      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật</h3><pre class="code" id="genCode"></pre>
-    </div>
-  </div>''',
-  breaks_h2="Thử thách: hãy làm robot học hỏng!",
+  real=[("award", "", "Tuyển dụng", "Một số hệ thống lọc hồ sơ xin việc từng bị phát hiện chấm thấp một nhóm người vì học từ quyết định tuyển cũ."),
+        ("shield", "mint", "Cho vay, bảo hiểm", "Máy chấm điểm tín dụng cần được kiểm tra để không đối xử khác nhau chỉ vì nơi ở hay giới tính."),
+        ("book", "amber", "Giáo dục", "Khi dùng AI hỗ trợ xét tuyển, nhà trường cần công khai tiêu chí và cho phép học sinh đề nghị xem xét lại.")],
+  breaks_h2="Thử thách: hãy làm máy thiên vị!",
+  breaks_guide="Máy học từ quyết định cũ, vốn khắt khe với học sinh Xã Tây. Thử ba cách để sự thiên vị lọt vào máy!",
   breaks=[
-    dict(icon="lock", key="noexp", title="Không dám thử", p="Robot có trí nhớ trắng tinh, <b>ε = 0</b> (không bao giờ khám phá), và đi thêm bước cũng không bị trừ điểm.",
-      why="Mọi hướng đều có Q bằng 0, robot luôn chọn hướng đầu tiên là \"lên\", đụng tường, không mất gì, nên chọn lại đúng hướng đó mãi mãi. Nó không bao giờ biết đích tồn tại (biểu đồ toàn chấm cam). Sửa bằng hai việc: tăng ε lên 0,2 và đặt lại phạt mỗi bước −0,1. Phạt mỗi bước khiến hướng đã thử mất điểm, nên robot tự chuyển sang thử hướng khác. Chỉ tăng ε thôi thì robot đi lang thang rất lâu mới tình cờ gặp đích."),
-    dict(icon="eye", key="myopic", title="Cận thị", p="<b>γ = 0</b>: robot chỉ quan tâm phần thưởng ngay ở bước tiếp theo.",
-      why="Giá trị của đích không lan ngược ra xa được: chỉ những ô sát đích mới sáng, còn lại tối đen, nên robot ở xa không biết đi đâu. Tăng γ lên khoảng 0,9 và xem bản đồ nhiệt lan ra."),
-    dict(icon="award", key="coin", title="Ham xu", p="Có một <b>đồng xu +2 mọc lại mãi</b> ngay gần chỗ xuất phát.",
-      why="Bước qua bước lại để nhặt xu được nhiều điểm hơn đi một quãng xa về đích, nên robot học cách \"cày xu\" mãi mãi (bật Đường đi tốt nhất để thấy). Robot không sai: nó làm đúng điều ta thưởng. Tắt <b>Xu mọc lại</b> hoặc giảm thưởng xu, rồi Xóa trí nhớ robot."),
+    dict(icon="map", key="zone", title="Dữ liệu cũ thiên vị", p="Cho máy biết <b>bạn ở khu nào</b> và học từ quyết định cũ.",
+      why="Máy phát hiện \"ở Xã Tây thì ít được chọn\" trong dữ liệu cũ và học <b>trọng số âm</b> cho Xã Tây. 16 bạn bị đổi kết quả chỉ vì nơi ở. Tắt <b>Cho máy biết bạn ở khu nào</b>, hoặc bật <b>Học từ dữ liệu đã được xét lại công bằng</b>."),
+    dict(icon="crosshair", key="proxy", title="Thông tin đại diện", p="Đã giấu khu vực, nhưng cho máy biết <b>khoảng cách đến trường</b>.",
+      why="Học sinh Xã Tây ở xa trường, nên khoảng cách \"tố\" nơi ở. Máy học trọng số âm cho khoảng cách và thiên vị y như cũ. Tắt <b>khoảng cách đến trường</b>, hoặc học từ <b>dữ liệu đã xét lại</b>."),
+    dict(icon="target", key="acc", title="Chính xác mà bất công", p="Cho máy biết cả khu vực và khoảng cách. Độ <b>khớp với quyết định cũ</b> tăng lên!",
+      why="Máy khớp quyết định cũ tốt hơn chính là vì nó <b>bắt chước giỏi hơn</b> cả sự thiên vị. Chính xác so với dữ liệu sai không có nghĩa là đúng. Bật <b>Học từ dữ liệu đã được xét lại công bằng</b>: trọng số của nơi ở về gần 0."),
   ],
-  real_h2="Học tăng cường đang được dùng ở đâu?",
-  real=[("gamepad", "", "Trò chơi", "AI tự học chơi cờ vây, cờ vua và trò chơi điện tử tới mức vượt nhà vô địch, chỉ từ luật chơi và điểm số."),
-        ("robot", "mint", "Robot", "Robot học đi, cầm nắm đồ vật trong mô phỏng trước khi chạy ngoài đời thật."),
-        ("bolt", "amber", "Tiết kiệm năng lượng", "Điều khiển làm mát trung tâm dữ liệu, đèn giao thông thông minh tự điều chỉnh theo lưu lượng xe.")],
-  ethics=["Một ứng dụng mạng xã hội được \"thưởng\" khi em xem lâu hơn. Nó có thể học những cách nào để giữ chân em? Điều đó có tốt cho em không?",
-          "Vì sao robot trong thế giới thật nên học trong mô phỏng trước? Học bằng thử và sai ngoài đời có thể gây nguy hiểm gì?",
-          "Khi đặt mục tiêu cho một AI mạnh, làm sao chắc rằng nó không \"lách luật\" như robot ham xu?"],
-  badge="Huấn Luyện Viên Robot", badge_p="Em đã mở khóa 4 thẻ kiến thức: Học tăng cường · Bảng Q · Khám phá & khai thác · Thưởng sai, học sai.",
-  dev_h2="Từ robot mê cung đến dự án của riêng em",
-  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Mê cung có cửa và chìa khóa", "Thêm ô chìa khóa: robot phải lấy chìa trước khi qua cửa. Trạng thái giờ gồm cả vị trí và \"đã có chìa chưa\".", "Xong khi", "robot học được thứ tự lấy chìa rồi mới về đích."),
-       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "AI chơi trò chim vỗ cánh", "Tự viết trò chơi né ống nước đơn giản, chia khoảng cách tới ống thành vài ô, dùng bảng Q để AI học khi nào vỗ cánh.", "Xong khi", "AI vượt được 50 ống liên tiếp."),
-       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Đèn giao thông tự học ở ngã tư gần trường", "Mô phỏng ngã tư với lưu lượng xe đo thực tế giờ tan học, dùng học tăng cường để điều khiển đèn, so sánh với đèn chu kỳ cố định.", "Đo kết quả", "thời gian chờ trung bình, độ dài hàng xe, và kiểm tra AI có \"bỏ đói\" một hướng không.")],
-  cur="18 · Mê cung", next=[("19 · Xe tự lái tiến hóa", "học bằng tiến hóa thay vì phần thưởng từng bước"), ("7 · Dự đoán điểm thi", "tốc độ học α"), ("20 · Trợ lý hỏi đáp SGK", "AI có trách nhiệm")],
-  khkt=[("Vấn đề", "Ùn tắc ở ngã tư gần trường giờ tan học, đèn chu kỳ cố định không linh hoạt."), ("Câu hỏi nghiên cứu", "Đèn điều khiển bằng học tăng cường có giảm thời gian chờ trong mô phỏng không?"), ("Giả thuyết", "Giảm ít nhất 15% thời gian chờ trung bình so với chu kỳ cố định."), ("Lưu ý đạo đức", "Chỉ thử trong mô phỏng; ưu tiên an toàn người đi bộ hơn tốc độ xe.")],
-  prev=("17-cam-xuc", "17"), nextp=("19-xe-tu-lai", "19"),
+  badge="Người Gác Công Bằng", badge_p="Em đã mở khóa 3 thẻ kiến thức: Tần số tương đối theo nhóm · Thiên kiến từ dữ liệu cũ · Kiểm tra và sửa cho công bằng.",
+  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Bộ tiêu chí công bằng", "Viết 5 tiêu chí xét học bổng của lớp em. Với mỗi tiêu chí, tự hỏi: nó có vô tình bất lợi cho nhóm bạn nào không (nhà xa, không có máy tính…)?"),
+       (2, "DỰ ÁN NHÓM · 1 TUẦN", "Kiểm tra bảng số liệu", "Dùng bảng tính với số liệu tự tạo (không dùng thông tin thật của bạn bè): tính tần số tương đối theo nhóm, vẽ biểu đồ, viết nhận xét về công bằng."),
+       (3, "Ý TƯỞNG KHKT", "Bộ công cụ kiểm tra thiên kiến", "Xây công cụ đơn giản nhập bảng quyết định, tự tính tỉ lệ theo nhóm và phép thử đổi đặc điểm, giúp thầy cô kiểm tra trước khi dùng AI.")],
+  res=[("layers", "", "Phiếu học tập", "Tính tần số tương đối, phép thử đổi nơi ở, viết tiêu chí công bằng.", "phieu.html"),
+       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, câu hỏi thảo luận, đáp án.", "giao-vien.html"),
+       ("rocket", "amber", "Học lên: Dự án 37", "Máy học cả định kiến ẩn trong ngôn ngữ.", "../37-cam-xuc/index.html")],
+  prev=("17-may-dich", "17"), nextp=("19-anh-that", "19"),
 )

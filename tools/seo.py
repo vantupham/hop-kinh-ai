@@ -27,7 +27,8 @@ person = {"@type": "Person", "name": AUTHOR}
 
 
 def text(s):
-    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", s))).strip()
+    t = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", s))).strip()
+    return re.sub(r"\s+([:?!,.])", r"\1", t)
 
 
 def clip(s, n=158):
@@ -41,7 +42,9 @@ def url(rel):
     return BASE + rel if BASE else ""
 
 
-pages = [("index.html", "")] + [(p, p[: -len("index.html")]) for p in sorted(x.replace(os.sep, "/") for x in glob.glob(os.path.join("du-an", "*", "index.html"), root_dir=ROOT))]  # luôn dùng "/" (kể cả trên Windows)
+def is_redirect(rel):  # trang chuyển hướng từ đường dẫn cũ (trước khi đánh số lại)
+    return 'http-equiv="refresh"' in open(os.path.join(ROOT, rel), encoding="utf-8").read()
+pages = [("index.html", "")] + [(p, p[: -len("index.html")]) for p in sorted(x.replace(os.sep, "/") for x in glob.glob(os.path.join("du-an", "*", "index.html"), root_dir=ROOT) if not is_redirect(x))]  # luôn dùng "/" (kể cả trên Windows)
 projects = []
 for path, folder in pages[1:]:
     s = open(os.path.join(ROOT, path), encoding="utf-8").read()
@@ -152,7 +155,7 @@ for path, folder in pages:
     open(fp, "w", encoding="utf-8").write(s)
 
 # trang phụ của nhánh THCS: hướng dẫn giáo viên, phiếu học tập
-EXTRA = sorted(x.replace(os.sep, "/") for pat in ("giao-vien.html", "phieu.html") for x in glob.glob(os.path.join("du-an", "*", pat), root_dir=ROOT))
+EXTRA = sorted(x.replace(os.sep, "/") for pat in ("giao-vien.html", "phieu.html") for x in glob.glob(os.path.join("du-an", "*", pat), root_dir=ROOT) if not is_redirect(x))
 for path in EXTRA:
     fp = os.path.join(ROOT, path); s = open(fp, encoding="utf-8").read(); folder = path.rsplit("/", 1)[0] + "/"
     s = re.sub(r"\n?<!--seo:start-->.*?<!--seo:end-->", "", s, flags=re.S)

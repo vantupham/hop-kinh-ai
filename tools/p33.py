@@ -1,80 +1,98 @@
 D = dict(
-  out="du-an/33-no-ron/index.html", num="33", grade="8", title="Dự án 33 · Nơ-ron đầu tiên: có nên đi chơi?",
-  scripts=["neuron.js"],
-  h1='Nơ-ron đầu tiên: <span class="hl-word">có nên đi chơi?</span>',
-  lead="Chiều thứ bảy, em quyết định có đi chơi hay không dựa vào ba điều: trời có nắng, có bạn đi cùng, đã làm xong bài tập chưa. Một nơ-ron nhân tạo làm đúng việc đó: nhân mỗi điều với một trọng số, cộng lại, so với một ngưỡng. Em sẽ chỉnh nơ-ron bằng tay, cho nó tự học theo quy tắc của mẹ, rồi gặp bài toán nổi tiếng mà một nơ-ron không bao giờ học được.",
-  play='''
+  out="du-an/33-phan-cum/index.html", num="33", level="3", title="Dự án 33 · Bảng màu thông minh",
+  scripts=["kmeans.js"],
+  h1='Bảng màu <span class="hl-word">thông minh</span>',
+  lead="Một bức ảnh có hàng chục nghìn màu. Nếu chỉ được giữ 5 màu, nên giữ màu nào? Không ai chỉ cho máy đáp án: nó tự thả từng điểm ảnh vào một khối màu 3 chiều, rồi tự gom chúng thành nhóm. Chào mừng em đến với học không giám sát!",
+  moi='''
+  <style>.pal{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.sw{display:flex;align-items:center;gap:6px;font:11px "JetBrains Mono",monospace;color:#c3c7f0;min-width:0}.sw i{width:22px;height:22px;border-radius:6px;flex:none;border:1px solid rgba(255,255,255,.25)}.sw b{margin-left:auto;color:#fff}.file-btn{position:relative;overflow:hidden}.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}</style>
   <div class="playground">
     <div class="stage-col">
-      <div class="toolbar" style="margin:0 0 10px"><div class="seg" id="ruleBtns"><button class="btn small" data-r="mom">Quy tắc của mẹ</button><button class="btn small ghost" data-r="and">VÀ</button><button class="btn small ghost" data-r="or">HOẶC</button><button class="btn small ghost" data-r="xor">Chỉ một trong hai</button></div></div>
-      <div class="stage vf"><canvas id="stage" class="touch" width="880" height="440" aria-label="Sơ đồ nơ-ron với ba đầu vào, trọng số, tổng, ngưỡng và bảng chân trị"></canvas><div class="stage-tag"><span class="live-dot"></span><span id="stageTag">MỘT NƠ-RON</span></div></div>
-      <div class="play-panel"><p class="ask" id="askText" aria-live="polite"></p>
-        <div class="btn-row"><button class="btn small accent" id="btnLearn"><i data-i="cpu"></i>Cho nơ-ron tự học</button><button class="btn small ghost" id="btnZero"><i data-i="reset"></i>Xóa trọng số về 0</button></div>
-        <p class="small muted" style="margin:8px 0 0">Bấm vào ba vòng tròn đầu vào để bật, tắt. Bấm vào cột <b>Đúng ra</b> trong bảng để tự đặt quy tắc riêng.</p></div>
-      {{GUIDE}}
-      <div class="card" style="margin-top:6px">
-        <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="sliders"></i></span>Trọng số và ngưỡng</h2>
-        <div class="grid g2" style="gap:6px 22px">
-          <label class="ctl"><span>w₁: trời nắng</span><b id="w1V"></b><input type="range" id="w1" min="-3" max="3" step="0.5"></label>
-          <label class="ctl"><span>w₂: có bạn đi cùng</span><b id="w2V"></b><input type="range" id="w2" min="-3" max="3" step="0.5"></label>
-          <label class="ctl"><span>w₃: đã làm xong bài</span><b id="w3V"></b><input type="range" id="w3" min="-3" max="3" step="0.5"></label>
-          <label class="ctl"><span>Ngưỡng θ</span><b id="thV"></b><input type="range" id="th" min="-3" max="6" step="0.5"></label>
-        </div>
-        <div class="toggles"><label class="tog"><input type="checkbox" id="optHidden"><span>Dùng mạng 2 lớp (thêm 2 nơ-ron ẩn)</span></label></div>
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Ảnh gốc và ảnh sau khi gom màu, kéo để so sánh"></canvas><div class="stage-tag"><span class="live-dot"></span><span>K-MEANS</span></div></div>
+      <div class="toolbar">
+        <div class="seg"><button class="btn small" id="btnRun"></button><button class="btn small ghost" id="btnStep"><i data-i="skip"></i>Bước tiếp</button></div>
+        <span class="muted small"><i data-i="bulb"></i> Kéo vạch trắng trên ảnh để so sánh</span>
       </div>
+      <div class="game"><span class="small muted">Ảnh</span><div class="btn-row" id="imgBtns"><button class="btn small ghost" data-m="vuon-hoa">Vườn hoa</button><button class="btn small ghost" data-m="hoang-hon">Hoàng hôn</button><button class="btn small ghost" data-m="den-long">Đèn lồng</button><button class="btn small ghost" data-m="cau-vong">Dải màu</button><label class="btn small ghost file-btn" data-m="upload"><i data-i="upload"></i>Ảnh của em<input type="file" id="fileIn" accept="image/*"></label></div></div>
+      <div class="game"><span class="small muted">Số màu K</span><div class="btn-row" id="kBtns"><button class="btn small ghost" data-k="2">2</button><button class="btn small ghost" data-k="3">3</button><button class="btn small ghost" data-k="5">5</button><button class="btn small ghost" data-k="8">8</button><button class="btn small ghost" data-k="12">12</button></div></div>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não của nơ-ron</div>
-      <div class="metric-row"><div class="metric"><span>QUYẾT ĐỊNH</span><b id="bOut">—</b></div><div class="metric"><span>ĐÚNG / SỐ DÒNG</span><b id="bAcc">—</b></div></div>
-      <div class="lbl" style="margin-top:12px">PHÉP TÍNH</div><div id="bCalc" class="calc"></div>
-      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>VÒNG HỌC</span><b id="bEp">0</b></div><div class="metric"><span>LẦN CHỈNH</span><b id="bUpd">0</b></div></div>
-      <p class="small" style="color:#c3c7f0;margin-top:12px">Mỗi đầu vào là <b style="color:#5ef2d6">1</b> (có) hoặc <b>0</b> (không). Nơ-ron trả lời <b style="color:#5ef2d6">1: đi chơi</b> khi tổng có trọng số đạt ngưỡng.</p>
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="lbl">BẢNG MÀU MÁY TỰ TÌM</div><div class="pal" id="bPal"></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>VÒNG LẶP</span><b id="bIter">0</b></div><div class="metric"><span>SAI LỆCH MÀU TB</span><b id="bErr">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>TÂM KHÔNG CÓ ĐIỂM</span><b id="bEmpty">0</b></div><div class="metric"><span>BIT MỖI ĐIỂM ẢNH</span><b id="bBits">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">TRẠNG THÁI</div><div id="bStatus" style="color:#fff"></div>
     </aside>
+  </div>''',
+  mission_h2="Để máy tự tìm ra bảng màu của một bức ảnh",
+  mission_q="Không có đáp án, không có nhãn. Máy dựa vào đâu để chia nhóm?",
+  mission_p="Em sẽ thấy mỗi điểm ảnh biến thành một <b>điểm trong không gian màu</b>, xem thuật toán <b>K-means</b> gán và dời tâm từng vòng, tự chọn <b>K</b> bằng biểu đồ <b>khuỷu tay</b>, và hiểu vì sao điểm xuất phát lại quan trọng.",
+  minutes="45–60 phút",
+  checklist=[("run", "Xem K-means chạy tới khi hội tụ"), ("soi", "Soi tới bước Dời tâm"), ("k", "Thử ít nhất 3 giá trị K khác nhau"), ("upload", "Thử với một ảnh của em"), ("broke", "Làm K-means cho kết quả tệ ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="K-means từng bước trong khối màu 3D",
+  soi_p="Khối màu dùng đúng bức ảnh và đúng lần chạy ở phần Mồi. Kéo để xoay khối.",
+  theory=[
+    dict(no="49", tag="Học máy", title="Học không giám sát",
+      svg='<g class="f-violet"><circle cx="40" cy="40" r="5"/><circle cx="52" cy="50" r="5"/><circle cx="34" cy="56" r="5"/><circle cx="48" cy="34" r="5"/></g><g class="f-mint"><circle cx="190" cy="40" r="5"/><circle cx="204" cy="52" r="5"/><circle cx="196" cy="30" r="5"/><circle cx="214" cy="38" r="5"/></g><g class="f-coral"><circle cx="120" cy="90" r="5"/><circle cx="132" cy="96" r="5"/><circle cx="112" cy="102" r="5"/></g><text x="64" y="118" font-size="11" class="t-mono f-muted">không nhãn → tự thành nhóm</text>',
+      p="Từ đầu khóa, ta luôn cho máy <b>đáp án</b> để học (học có giám sát). <b>Học không giám sát</b> thì khác: máy chỉ có dữ liệu và phải tự tìm ra cấu trúc bên trong, ví dụ những nhóm điểm nằm gần nhau.",
+      deep="Gom cụm (clustering) là dạng phổ biến nhất của học không giám sát. Ngoài ra còn có giảm số chiều, phát hiện điểm bất thường… Phần lớn dữ liệu trên đời không có nhãn, nên học không giám sát rất quan trọng."),
+    dict(no="50", tag="Toán + AI", cls="amber", title="Màu là một điểm trong không gian",
+      svg='<path d="M70 100V30M70 100l70 0M70 100l-40 20" class="s-line" stroke-width="2"/><text x="60" y="24" font-size="11" class="t-mono f-mint">G</text><text x="146" y="104" font-size="11" class="t-mono f-coral">R</text><text x="18" y="124" font-size="11" class="t-mono f-violet">B</text><circle cx="120" cy="56" r="7" fill="#e88a3a"/><circle cx="196" cy="56" r="7" fill="#e8963f"/><path d="M127 56h62" class="s-line" stroke-dasharray="4 4"/><text x="134" y="48" font-size="10" class="t-mono f-muted">gần nhau</text>',
+      p="Một màu gồm 3 số (đỏ, lục, lam), giống tọa độ (x, y, z) trong không gian. Hai màu <b>giống nhau</b> thì nằm <b>gần nhau</b>. Khoảng cách được tính bằng định lý Py-ta-go mở rộng cho 3 chiều.",
+      deep="Đây là ý tưởng xuyên suốt AI: biến mọi thứ (màu, âm thanh, chữ, khuôn mặt) thành các điểm trong một không gian, rồi dùng khoảng cách để đo độ giống nhau. Em đã gặp nó ở KNN (Dự án 22) và sẽ gặp lại ở Dự án 36."),
+    dict(no="51", tag="Thuật toán", cls="coral", title="Thuật toán K-means",
+      svg='<rect x="20" y="40" width="90" height="40" rx="10" class="f-soft"/><text x="65" y="65" text-anchor="middle" font-size="12" class="f-ink">1. Gán</text><rect x="150" y="40" width="90" height="40" rx="10" class="f-soft"/><text x="195" y="65" text-anchor="middle" font-size="12" class="f-ink">2. Dời tâm</text><path d="M112 52h34" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><path d="M195 82c0 30-130 30-130 0" fill="none" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><text x="104" y="118" font-size="10" class="t-mono f-coral">lặp lại</text>',
+      p="Chỉ hai bước lặp đi lặp lại: <b>gán</b> mỗi điểm về tâm gần nhất, rồi <b>dời</b> mỗi tâm về trung bình của đội mình. Mỗi vòng, tổng sai lệch chỉ giảm chứ không tăng, nên chắc chắn sẽ dừng.",
+      deep="Nhưng K-means chỉ tìm được lời giải tốt <b>gần chỗ xuất phát</b>, chưa chắc là tốt nhất. Vì vậy người ta chạy nhiều lần với tâm xuất phát khác nhau, hoặc dùng <b>K-means++</b> để chọn tâm xuất phát trải đều."),
+    dict(no="52", tag="Đánh giá", cls="mint", title="Chọn K: biểu đồ khuỷu tay",
+      svg='<path d="M30 20V100H240" class="s-line" stroke-width="1.5"/><path d="M40 26 70 70 100 86 140 92 180 95 230 97" fill="none" class="s-violet" stroke-width="3"/><circle cx="100" cy="86" r="10" fill="none" class="s-mint" stroke-width="2.5" stroke-dasharray="4 3"/><text x="110" y="72" font-size="10" class="t-mono f-mint">khuỷu tay</text>',
+      p="K càng lớn thì sai lệch càng nhỏ, nhưng lợi ích giảm dần. Vẽ sai lệch theo K, tìm chỗ đường cong <b>gãy</b> như khuỷu tay: thêm nhóm sau chỗ đó không còn đáng.",
+      deep="Không phải dữ liệu nào cũng có khuỷu rõ ràng. Khi đó việc chọn K phụ thuộc vào <b>mục đích</b>: in tranh 4 màu thì K = 4, dù dữ liệu \"muốn\" nhiều hơn."),
+  ],
+  tulam_h2="Bàn thí nghiệm: khối màu, tâm xuất phát và biểu đồ khuỷu tay",
+  tulam_p="Kéo khối màu để xoay. Mỗi thay đổi sẽ chạy lại K-means ngay trên sân khấu phần Mồi.",
+  tulam='''
+  <div class="two-col">
+    <div class="card canvas-card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="blocks"></i></span>Khối màu RGB · trực tiếp</h3>
+      <canvas id="cube" class="touch" width="560" height="420" aria-label="Khối màu RGB 3D, kéo để xoay"></canvas>
+      <div class="btn-row" id="colorBtns" style="margin-top:8px"><button class="btn small ghost" data-c="that">Tô màu thật</button><button class="btn small ghost" data-c="cum">Tô theo đội</button></div>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="sliders"></i></span>Điều chỉnh</h3>
+      <label class="ctl"><span>Số màu K</span><b id="KV"></b><input type="range" id="K" min="1" max="16" step="1"></label>
+      <div class="lbl muted small" style="margin:6px 0">CÁCH CHỌN TÂM XUẤT PHÁT</div>
+      <div class="btn-row" id="initBtns"><button class="btn small ghost" data-n="random">Ngẫu nhiên</button><button class="btn small ghost" data-n="kpp">K-means++</button><button class="btn small ghost" data-n="bad">Dồn vào góc</button></div>
+      <label class="ctl" style="margin-top:12px"><span>Thời gian mỗi vòng</span><b id="speedV"></b><input type="range" id="speed" min="50" max="1500" step="50"></label>
+      <button class="btn small ghost" id="btnSeed"><i data-i="reset"></i>Chạy lại với xuất phát khác</button>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của K-means</h3><pre class="code" id="genCode"></pre>
+    </div>
   </div>
-  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Số dòng nơ-ron trả lời sai sau mỗi vòng học</b></div><canvas id="chart" width="1100" height="220"></canvas></div>''',
-  play_guide="Bấm vào ba vòng tròn bên trái để đổi tình huống. Kéo các <b>trọng số</b> và <b>ngưỡng</b> sao cho cột <b>Nơ-ron</b> trong bảng khớp hết với cột <b>Đúng ra</b>.",
-  lessons=["Tin học 8 · Biểu thức logic: VÀ, HOẶC, KHÔNG", "Tin học 8 · Cấu trúc rẽ nhánh", "Toán 8 · Biểu thức, giá trị của biểu thức"],
-  mission_h2="Hiểu viên gạch nhỏ nhất của trí tuệ nhân tạo",
-  mission_q="Một phép nhân, một phép cộng, một phép so sánh: như vậy đã \"thông minh\" chưa?",
-  mission_p="Em sẽ <b>tự chỉnh</b> trọng số và ngưỡng để nơ-ron làm phép VÀ, HOẶC và quy tắc của mẹ, xem nơ-ron <b>tự học</b> từ bảng ví dụ, rồi khám phá vì sao một nơ-ron không học được phép \"chỉ một trong hai\" và mạng nhiều nơ-ron giải quyết thế nào.",
-  minutes="45 phút · 1 tiết học",
-  checklist=[("hand", "Tự chỉnh nơ-ron đúng cả 8 dòng một quy tắc"), ("learn", "Xem nơ-ron tự học tới khi đúng hết"), ("custom", "Tự đặt một quy tắc riêng trong bảng"), ("soi", "Soi tới bước So với ngưỡng"), ("broke", "Gặp một bài nơ-ron không học được"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Một nơ-ron suy nghĩ như thế nào? 6 bước",
-  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Hình minh họa dùng đúng trọng số và tình huống hiện tại.",
-  soi_guide="Một nơ-ron chỉ làm <b>nhân, cộng, so sánh</b>. Hàng tỉ nơ-ron như thế ghép lại thành những AI lớn!",
-  cards=[
-    dict(no="T1", tag="Học máy", title="Trọng số, tổng và ngưỡng",
-      svg='<circle cx="30" cy="30" r="14" class="f-mint"/><circle cx="30" cy="62" r="14" class="f-line"/><circle cx="30" cy="94" r="14" class="f-mint"/><path d="M44 30L130 62M44 62L130 62M44 94L130 62" class="s-violet" stroke-width="3"/><text x="70" y="36" font-size="10" class="t-mono f-violet">×1</text><text x="70" y="98" font-size="10" class="t-mono f-violet">×2</text><circle cx="150" cy="62" r="24" class="f-violet"/><text x="140" y="67" font-size="13" fill="#fff" font-weight="800">Σ=3</text><path d="M174 62h30" class="s-ink" stroke-width="2.5" marker-end="url(#arV)"/><text x="206" y="58" font-size="11" class="f-mint" font-weight="800">≥ 3 → 1</text>',
-      p="Mỗi đầu vào (0 hoặc 1) được nhân với một <b>trọng số</b>: điều quan trọng có trọng số lớn, điều làm em không muốn đi có trọng số âm. Nơ-ron <b>cộng</b> lại rồi so với <b>ngưỡng</b>: đạt ngưỡng thì trả lời 1.",
-      ex="Chấm thi đỗ: điểm Toán nhân 2, điểm Văn nhân 2, điểm Anh nhân 1, cộng lại từ 24 trở lên thì đỗ."),
-    dict(no="T2", tag="Học máy", cls="amber", title="Tự học bằng cách sửa sai",
-      svg='<rect x="16" y="20" width="96" height="26" rx="6" class="f-coral" opacity=".85"/><text x="24" y="38" font-size="11" fill="#fff">trả lời 0, đúng ra 1</text><path d="M120 33h24" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><rect x="150" y="20" width="96" height="26" rx="6" class="f-mint" opacity=".85"/><text x="158" y="38" font-size="11" fill="#062b27">tăng w, giảm θ</text><text x="16" y="80" font-size="11" class="f-ink">lặp qua bảng ví dụ tới khi không còn sai</text>',
-      p="Nơ-ron xem từng dòng trong bảng ví dụ. Nếu trả lời <b>0 mà đúng ra là 1</b>, nó tăng trọng số của các đầu vào đang bật và hạ ngưỡng; nếu ngược lại thì làm ngược lại. Lặp tới khi không còn dòng sai.",
-      ex="Tập ném bóng vào rổ: ném thiếu thì lần sau ném mạnh hơn, ném quá thì nhẹ tay hơn."),
-    dict(no="T3", tag="Giới hạn", cls="coral", title="Một nơ-ron chỉ vẽ được đường thẳng",
-      svg='<circle cx="40" cy="90" r="8" class="f-coral"/><circle cx="160" cy="30" r="8" class="f-coral"/><circle cx="40" cy="30" r="8" class="f-mint"/><circle cx="160" cy="90" r="8" class="f-mint"/><path d="M20 70L190 20" class="s-violet" stroke-width="2.5" stroke-dasharray="5 4"/><text x="196" y="64" font-size="12" class="f-coral" font-weight="800">?</text>',
-      p="Một nơ-ron chia các tình huống bằng <b>một đường thẳng</b>. Phép \"chỉ một trong hai\" (gọi là XOR) cần hai đường nên một nơ-ron không học được. Ghép <b>nhiều nơ-ron thành nhiều lớp</b> thì làm được: đó là <b>mạng nơ-ron</b>.",
-      ex="Một chiếc kéo cắt thẳng một nhát không thể tách bốn ô cờ đen trắng xen kẽ; cần nhiều nhát cắt."),
-  ],
-  real=[("cpu", "", "Mạng nơ-ron sâu", "Nhận dạng ảnh, dịch tiếng nói, trò chuyện… đều do hàng triệu tới hàng tỉ nơ-ron như thế này ghép thành nhiều lớp."),
-        ("heart", "mint", "Lấy cảm hứng từ não", "Nơ-ron thần kinh nhận tín hiệu qua nhiều nhánh, đủ mạnh thì phát tín hiệu đi: nơ-ron nhân tạo bắt chước ý tưởng này."),
-        ("code", "amber", "Từ biểu thức logic tới AI", "Phép VÀ, HOẶC em viết trong lệnh nếu… thì… cũng làm được bằng một nơ-ron với trọng số phù hợp.")],
-  breaks_h2="Thử thách: tìm bài nơ-ron không học được!",
-  breaks_guide="Không phải bài nào một nơ-ron cũng học được. Thử ba tình huống này và xem biểu đồ số dòng sai!",
+  <div class="two-col" style="margin-top:18px">
+    <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Sai lệch qua từng vòng lặp</b></div><canvas id="chartConv" width="540" height="220"></canvas></div>
+    <div class="card chart-card"><div class="chart-head"><b><i data-i="activity"></i> Biểu đồ khuỷu tay: sai lệch theo K</b></div><canvas id="chartElbow" width="540" height="220"></canvas></div>
+  </div>''',
+  breaks_h2="Thử thách: hãy làm bảng màu thông minh trở nên ngớ ngẩn!",
   breaks=[
-    dict(icon="repeat", key="xor", title="Chỉ một trong hai", p="Quy tắc mới: đi chơi khi <b>trời nắng</b> hoặc <b>có bạn</b>, nhưng <b>không phải cả hai</b> (cả hai thì đông quá!).",
-      why="Trên mặt phẳng, hai tình huống \"đi\" nằm ở hai góc chéo nhau, hai tình huống \"không đi\" ở hai góc còn lại. <b>Không đường thẳng nào</b> tách được, nên nơ-ron học mãi vẫn sai (biểu đồ không về 0). Bật <b>Dùng mạng 2 lớp</b>: hai nơ-ron ẩn mỗi cái vẽ một đường, nơ-ron cuối ghép lại."),
-    dict(icon="alert", key="conflict", title="Dữ liệu mâu thuẫn", p="Cùng một tình huống (nắng, có bạn, làm xong bài) nhưng <b>mẹ nói đi</b>, <b>bố nói không</b>. Cả hai dòng đều vào bảng ví dụ.",
-      why="Cùng đầu vào mà hai đáp án khác nhau thì không nơ-ron nào đúng được cả hai: luôn còn ít nhất 1 dòng sai. Trước khi dạy máy, phải thống nhất dữ liệu. Bấm <b>Tắt mọi sự cố</b> để bỏ dòng của bố."),
-    dict(icon="eye", key="missing", title="Thiếu thông tin", p="Nơ-ron <b>không được hỏi</b> \"đã làm xong bài chưa\" (đầu vào thứ ba bị ngắt), nhưng quy tắc của mẹ lại phụ thuộc vào điều đó.",
-      why="Hai tình huống giống hệt nhau ở hai đầu vào còn lại nhưng đáp án khác nhau, nên nơ-ron không thể phân biệt. Máy không học được điều mà dữ liệu không cho nó biết. Nối lại đầu vào bằng <b>Tắt mọi sự cố</b>."),
+    dict(icon="layers", key="few", title="Chỉ 2 màu", p="Bức vườn hoa rực rỡ chỉ được giữ lại <b>2 màu</b>.",
+      why="Hai tâm phải chia nhau cả bầu trời, cỏ và hoa, nên hoa đỏ, vàng, tím biến mất vào màu trung bình. Nhìn biểu đồ khuỷu tay để chọn K hợp lý hơn. K quá nhỏ là <b>chưa khớp</b>, giống Dự án 27."),
+    dict(icon="target", key="init", title="Xuất phát tồi", p="Tất cả 8 tâm bị <b>dồn vào góc đen</b> của khối màu trước khi chạy, với ảnh đèn lồng.",
+      why="Ở lượt gán đầu tiên, gần như mọi điểm chọn cùng một tâm; các tâm còn lại không có ai và <b>đứng yên mãi mãi</b> (xem ô \"Tâm không có điểm\"). Chuyển sang <b>K-means++</b> hoặc Ngẫu nhiên. Bài học: K-means chỉ tìm được lời giải gần chỗ xuất phát."),
+    dict(icon="activity", key="smooth", title="Dữ liệu không có nhóm", p="Ảnh là một <b>dải màu chuyển mượt</b>, không có nhóm màu nào tách biệt.",
+      why="K-means vẫn ngoan ngoãn trả về đúng 6 nhóm, tạo ra các <b>vệt sọc</b> trên ảnh. Biểu đồ khuỷu tay không có chỗ gãy. Thuật toán không bao giờ nói \"dữ liệu này không có nhóm\": việc kiểm tra các nhóm có ý nghĩa hay không là của con người."),
   ],
-  badge="Kỹ Sư Nơ-ron", badge_p="Em đã mở khóa 3 thẻ kiến thức: Trọng số, tổng và ngưỡng · Tự học bằng cách sửa sai · Một nơ-ron chỉ vẽ được đường thẳng.",
-  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Nơ-ron chọn món ăn", "Chọn 3 điều (đói không, trời lạnh không, có tiền không) và tự đặt trọng số, ngưỡng để quyết định có ăn phở không. Thử với 8 tình huống."),
-       (2, "DỰ ÁN NHÓM · 1 TUẦN", "Nơ-ron bằng Scratch hoặc Python", "Viết chương trình nhận 3 số 0/1, tính tổng có trọng số và in ra quyết định. Thêm vòng lặp để nơ-ron tự học từ bảng ví dụ."),
-       (3, "Ý TƯỞNG KHKT", "Nơ-ron tưới cây", "Dùng cảm biến độ ẩm đất, ánh sáng, giờ trong ngày làm đầu vào cho một nơ-ron quyết định bật máy bơm, cho nó tự học từ nhật ký tưới của em.")],
-  res=[("layers", "", "Phiếu học tập", "Tính tổng có trọng số, tìm trọng số cho phép VÀ, HOẶC, thử XOR.", "phieu.html"),
-       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, câu hỏi thảo luận, đáp án.", "giao-vien.html"),
-       ("rocket", "amber", "Học lên: Dự án 11", "Mạng nơ-ron nhiều lớp nhận dạng chữ số viết tay.", "../11-chu-so/index.html")],
-  prev=("32-trai-cay", "32"), nextp=("34-giay-quy", "34"),
+  real_h2="Gom cụm đang được dùng ở đâu?",
+  real=[("image", "", "Nén ảnh và in ấn", "Ảnh GIF, ảnh pixel trong trò chơi và in lụa đều cần giảm số màu; gom cụm chọn ra bảng màu đẹp nhất."),
+        ("globe", "mint", "Ảnh vệ tinh", "Gom các điểm ảnh vệ tinh thành nhóm đất, rừng, nước, đô thị mà không cần ai tô nhãn trước."),
+        ("chart", "amber", "Nhóm khách hàng", "Cửa hàng gom khách có thói quen mua giống nhau để gợi ý sản phẩm phù hợp.")],
+  ethics=["Một ứng dụng gom học sinh thành nhóm \"giỏi\", \"trung bình\", \"yếu\" chỉ từ điểm số. Điều gì có thể bị bỏ qua?",
+          "Gom cụm khách hàng có thể dẫn tới việc mỗi nhóm thấy giá khác nhau. Như vậy có công bằng không?",
+          "Máy luôn trả về K nhóm. Khi một nhóm do máy \"cắt\" ra được đặt tên và dùng để đối xử với con người, ai phải kiểm tra?"],
+  badge="Thợ Pha Màu", badge_p="Em đã mở khóa 4 thẻ kiến thức: Học không giám sát · Màu là một điểm · Thuật toán K-means · Chọn K bằng khuỷu tay.",
+  dev_h2="Từ bảng màu thông minh đến dự án của riêng em",
+  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Biến ảnh thành tranh pixel", "Thu nhỏ ảnh còn 32×32, gom thành 8 màu rồi phóng to không làm mờ: em có ngay tranh kiểu trò chơi cổ điển.", "Xong khi", "xuất được ảnh tranh pixel và bảng màu kèm mã màu."),
+       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "Gom nhóm thói quen ngủ của lớp", "Thu (ẩn danh, có đồng ý) giờ ngủ, giờ dậy, thời gian dùng điện thoại; gom thành nhóm rồi tìm hiểu đặc điểm mỗi nhóm.", "Xong khi", "mô tả được từng nhóm bằng lời và kiểm tra lại với chính các bạn."),
+       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Theo dõi mặt nước ao hồ bằng ảnh", "Chụp ảnh mặt ao định kỳ, gom màu điểm ảnh để ước lượng tỉ lệ rêu tảo xanh theo thời gian.", "Đo kết quả", "tương quan giữa tỉ lệ cụm màu xanh tảo và đo đạc thực tế (độ trong, bộ test nước).")],
+  cur="33 · Bảng màu", next=[("34 · Bác sĩ lá cây", "mạng tích chập"), ("36 · Đoán chữ tiếp theo", "không gian từ ngữ"), ("37 · Cảm xúc câu nói", "bản đồ vector của từ")],
+  khkt=[("Vấn đề", "Tảo nở hoa làm ô nhiễm ao hồ nhưng khó theo dõi thường xuyên."), ("Câu hỏi nghiên cứu", "Gom cụm màu ảnh chụp có ước lượng được mức độ tảo không?"), ("Giả thuyết", "Tỉ lệ cụm màu xanh lục đậm tăng cùng mật độ tảo đo bằng bộ test."), ("Lưu ý đạo đức", "Không tự ý vào khu vực nguy hiểm; hỏi phép chủ ao.")],
+  prev=("32-phong-nen", "32"), nextp=("34-la-cay", "34"),
 )

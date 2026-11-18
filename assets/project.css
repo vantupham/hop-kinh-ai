@@ -1,4 +1,4 @@
-/* Dự án 01 · giao diện riêng */
+/* Dự án 21 · giao diện riêng */
 .steps{position:sticky;top:62px;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .steps .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
 .steps a{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;text-decoration:none;color:var(--text-2);font-size:.84rem;font-weight:600;padding:7px 12px;border-radius:10px;border:1px solid transparent;transition:background .2s,color .2s}
@@ -153,7 +153,7 @@ details p{margin-top:10px}
 .pipeline .node:focus{outline:none}
 .pipeline .node:focus-visible rect{stroke:var(--mint)!important;stroke-width:3}
 
-/* ---- bổ sung dùng chung cho các dự án 02+ ---- */
+/* ---- bổ sung dùng chung cho các dự án 22+ ---- */
 .stage canvas.touch{cursor:crosshair;touch-action:none}
 .btn-row{display:flex;gap:6px;flex-wrap:wrap}
 .cls-btn{display:inline-flex;align-items:center;gap:8px}

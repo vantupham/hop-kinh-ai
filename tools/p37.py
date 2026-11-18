@@ -1,80 +1,100 @@
 D = dict(
-  out="du-an/37-may-dich/index.html", num="37", grade="9", title="Dự án 37 · Máy dịch ngây ngô",
-  scripts=["dict.js", "mt.js"],
-  h1='Máy dịch <span class="hl-word">ngây ngô</span>: vì sao dịch cần ngữ cảnh?',
-  lead="\"It is raining cats and dogs\" mà dịch thành \"Nó mưa những con mèo và những con chó\" thì thật buồn cười. Em sẽ mở bên trong một máy dịch Anh – Việt nhỏ, xem nó tra từ điển, chọn nghĩa, sắp xếp lại trật tự từ, rồi tự tay dạy nó nhìn ngữ cảnh và hiểu thành ngữ.",
-  play='''
+  out="du-an/37-cam-xuc/index.html", num="37", level="4", title="Dự án 37 · Cảm xúc câu nói",
+  scripts=["emb.js"],
+  h1='Cảm xúc <span class="hl-word">câu nói</span>',
+  lead="Máy tính chỉ hiểu con số. Vậy làm sao nó biết \"tuyệt vời\" là vui còn \"thất vọng\" là buồn? Bí quyết là biến mỗi từ thành một dãy số, sao cho từ gần nghĩa nằm gần nhau trên một tấm bản đồ. Gõ một câu và xem nó \"rơi\" vào đâu trên bản đồ cảm xúc.",
+  moi='''
+  <style>.sent-in{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line-strong);background:var(--surface-solid);color:var(--text);font:inherit;font-size:1.05rem;margin-bottom:10px}
+  .chips{min-height:44px;margin-bottom:10px;line-height:2.1}.tk{display:inline-block;padding:0 8px;margin:0 3px 4px 0;border-radius:7px;color:#11142e;font-weight:600}.tk.oov{background:var(--line-strong);color:var(--muted);text-decoration:line-through dotted}.tk.ng{background:var(--amber)}
+  .gauge{height:16px;border-radius:8px;background:#232866;overflow:hidden;margin:8px 0}.gauge i{display:block;height:100%;border-radius:8px;transition:width .25s}
+  .ana{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}.ana select{min-width:0;flex:1;padding:6px 8px;border-radius:8px;border:1px solid var(--line-strong);background:var(--surface-solid);color:var(--text);font:inherit}.ana b{font-size:1.2rem}</style>
   <div class="playground">
     <div class="stage-col">
-      <div class="stage vf mt-stage"><canvas id="stage" class="touch" width="880" height="420" aria-label="Ba hàng: câu tiếng Anh, nghĩa máy chọn cho từng từ, câu tiếng Việt sau khi sắp xếp. Bấm vào một từ tiếng Anh để xem các nghĩa của nó."></canvas><div class="stage-tag"><span class="live-dot"></span>MÁY DỊCH ANH → VIỆT</div></div>
-      <div class="play-panel"><form class="chatin mt-in" id="mtForm"><label for="mtIn" class="sr-only">Câu tiếng Anh cần dịch</label><input id="mtIn" autocomplete="off" placeholder="Gõ câu tiếng Anh ngắn, ví dụ: I have a red bag"><button class="btn small accent" type="submit"><i data-i="globe"></i>Dịch</button></form>
-        <p class="small" style="margin:10px 0 8px"><b>12 câu thử (bấm để dịch):</b></p><div class="btn-row" id="tests"></div></div>
-      <p class="ask" id="askText" aria-live="polite" style="margin:12px 0 0;font-size:1.02rem"></p>
-      {{GUIDE}}
-      <div class="two-col" style="margin-top:6px">
-        <div class="card">
-          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm amber"><i data-i="sliders"></i></span>Bàn thí nghiệm</h2>
-          <label class="ctl"><span>Độ rộng ngữ cảnh (số từ nhìn mỗi bên)</span><b id="winV"></b><input type="range" id="win" min="0" max="6" step="1"></label>
-          <p class="small" style="margin:6px 0 0">Vùng tô vàng trên hình là những từ máy được \"nhìn\" khi chọn nghĩa cho từ đang xét.</p>
-        </div>
-        <div class="card">
-          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="cpu"></i></span>Máy dịch biết làm gì?</h2>
-          <div class="toggles"><label class="tog"><input type="checkbox" id="optContext" checked><span>Chọn nghĩa theo ngữ cảnh</span></label><label class="tog"><input type="checkbox" id="optIdiom" checked><span>Dùng từ điển thành ngữ</span></label><label class="tog"><input type="checkbox" id="optOrder" checked><span>Sắp xếp lại trật tự từ kiểu tiếng Việt</span></label></div>
-        </div>
-      </div>
+      <input class="sent-in" id="sentIn" aria-label="Câu của em" placeholder="Gõ một câu, ví dụ: trà sữa ở quán này ngon tuyệt vời">
+      <div class="chips" id="chips" aria-live="polite"></div>
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Bản đồ từ: mỗi chấm là một từ"></canvas><div class="stage-tag"><span class="live-dot"></span><span>BẢN ĐỒ TỪ</span></div></div>
+      <div class="toolbar"><div class="seg" id="mapBtns"><button class="btn small" data-m="pca"><i data-i="map"></i>Bản đồ nghĩa</button><button class="btn small ghost" data-m="sent"><i data-i="activity"></i>Trục cảm xúc</button></div><span class="muted small"><i data-i="bulb"></i> Chạm vào một từ để xem từ gần nghĩa</span></div>
+      <div class="game"><span class="small muted">Thử câu</span><div class="btn-row" id="preBtns"></div></div>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não của máy dịch</div>
-      <div class="lbl">BẢN DỊCH</div><div id="bOut" class="mt-out">—</div>
-      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>DỊCH ĐÚNG / 12 CÂU THỬ</span><b id="bAcc">—</b></div><div class="metric"><span>TỪ ĐANG XÉT</span><b id="bWord" style="font-size:.95rem">—</b></div></div>
-      <div class="lbl" style="margin-top:12px">CÁC NGHĨA TRONG TỪ ĐIỂN VÀ ĐIỂM NGỮ CẢNH</div><div id="bSense" class="calc"></div>
-      <p class="small" style="color:#c3c7f0;margin-top:12px">Máy <b>không hiểu</b> câu. Nó chọn nghĩa nhờ đếm <b>từ gợi ý</b> nằm gần, và dùng quy tắc để đổi trật tự từ.</p>
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result"><small>CẢM XÚC CỦA CÂU</small><span id="bLabel">—</span></div>
+      <div class="gauge"><i id="gaugeFill"></i></div><div style="display:flex;justify-content:space-between;font-size:.75rem;color:#c3c7f0"><span>tiêu cực</span><b id="bScore" style="color:#fff">—</b><span>tích cực</span></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>TỪ MÁY CHƯA BIẾT</span><b id="bOov">0</b></div><div class="metric"><span>SỐ TỪ TRONG TỪ ĐIỂN</span><b id="bVoc">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>ĐÚNG VỚI TỪ CHƯA HỌC NHÃN</span><b id="bTest">—</b></div><div class="metric"><span>CÁCH TÍNH CÂU</span><b style="font-size:.9rem">trung bình</b></div></div>
+      <div class="lbl" style="margin-top:12px">TỪ GẦN NGHĨA</div><div id="bNb" class="small" style="color:#c3c7f0;line-height:1.7"></div>
     </aside>
-  </div>
-  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Điểm ngữ cảnh của từng nghĩa (số từ gợi ý tìm thấy trong vùng nhìn)</b></div><canvas id="chart" width="1100" height="220"></canvas></div>''',
-  play_guide="Bấm một câu thử hoặc gõ câu của em. Sau đó <b>bấm vào một từ tiếng Anh</b> trên hình để xem máy chọn nghĩa nào, vì sao.",
-  lessons=["Tiếng Anh 9 · Từ nhiều nghĩa, thành ngữ", "Ngữ văn 9 · Nghĩa của từ trong ngữ cảnh", "Tin học 9 · AI trong đời sống"],
-  mission_h2="Hiểu vì sao máy dịch cần ngữ cảnh, và vì sao vẫn cần người kiểm tra",
-  mission_q="Từ \"bank\" lúc là ngân hàng, lúc là bờ sông. Máy làm sao biết chọn nghĩa nào?",
-  mission_p="Em sẽ dịch 12 câu thử, soi từng bước của máy, chỉnh <b>độ rộng ngữ cảnh</b>, bật tắt <b>từ điển thành ngữ</b> và <b>quy tắc trật tự từ</b>, rồi phá máy bằng thành ngữ, từ nhiều nghĩa và câu nhiều tính từ.",
-  minutes="45 phút · 1 tiết học",
-  checklist=[("try", "Dịch ít nhất 5 câu"), ("click", "Bấm vào một từ để xem các nghĩa của nó"), ("score", "Làm máy dịch đúng cả 12 câu thử"), ("soi", "Soi tới bước Chọn nghĩa theo ngữ cảnh"), ("broke", "Làm máy dịch sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Máy dịch theo quy tắc làm việc thế nào? 6 bước",
-  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Hình minh họa dùng câu em đang dịch.",
-  soi_guide="Máy dịch đơn giản này làm đúng những việc em làm khi dịch bài tập tiếng Anh, chỉ là <b>máy móc</b> hơn. Cùng soi nhé!",
-  cards=[
-    dict(no="T1", tag="Từ vựng", title="Từ nhiều nghĩa và ngữ cảnh",
-      svg='<rect x="80" y="14" width="100" height="30" rx="8" class="f-violet"/><text x="110" y="34" font-size="14" fill="#fff" font-weight="800">bank</text><path d="M110 46 60 76M150 46 200 76" class="s-violet" stroke-width="2.5"/><rect x="14" y="78" width="100" height="28" rx="8" class="f-mint" opacity=".85"/><text x="24" y="97" font-size="12" fill="#062b27" font-weight="800">ngân hàng</text><rect x="146" y="78" width="100" height="28" rx="8" class="f-amber" opacity=".85"/><text x="164" y="97" font-size="12" fill="#1b1f4a" font-weight="800">bờ sông</text>',
-      p="Một từ có thể có nhiều nghĩa. Người đọc chọn nghĩa nhờ <b>ngữ cảnh</b>: những từ xung quanh. Máy đơn giản bắt chước bằng cách đếm <b>từ gợi ý</b> (money, river…) nằm gần từ đó, nghĩa nào nhiều gợi ý hơn thì chọn.",
-      ex="\"Đường\" trong \"đường phố\" và \"đường mía\" cũng khác nghĩa: em đoán được nhờ từ đi kèm."),
-    dict(no="T2", tag="Thành ngữ", cls="amber", title="Cụm từ không dịch từng chữ",
-      svg='<text x="14" y="34" font-size="13" class="f-ink" font-weight="700">a piece of cake</text><text x="14" y="62" font-size="12" class="f-coral" font-weight="700">Sai: một miếng của bánh ngọt</text><text x="14" y="90" font-size="12" class="f-mint" font-weight="700">Đúng: dễ như ăn bánh</text>',
-      p="<b>Thành ngữ</b> có nghĩa chung của cả cụm, không bằng tổng nghĩa từng chữ. Máy cần một <b>từ điển cụm từ</b>: thấy cả cụm thì dịch cả cụm. Thành ngữ nào chưa có trong từ điển, máy sẽ dịch ngây ngô.",
-      ex="\"Ăn cháo đá bát\" dịch từng chữ sang tiếng Anh sẽ khiến người nước ngoài khó hiểu."),
-    dict(no="T3", tag="Ngữ pháp", cls="coral", title="Trật tự từ hai ngôn ngữ",
-      svg='<text x="14" y="34" font-size="13" class="f-ink" font-weight="700">a small black cat</text><path d="M60 42 60 66M100 42 176 66M140 42 140 66M190 42 100 66" class="s-violet" stroke-width="2"/><text x="14" y="84" font-size="13" class="f-mint" font-weight="700">một con mèo đen nhỏ</text>',
-      p="Tiếng Anh đặt tính từ <b>trước</b> danh từ (black cat), tiếng Việt đặt <b>sau</b> (mèo đen). \"My sister\" thành \"chị gái <b>của tôi</b>\". Máy dịch cần <b>quy tắc</b> sắp xếp lại, nếu không câu sẽ lủng củng.",
-      ex="Máy dịch hiện đại học trật tự từ từ hàng triệu cặp câu song ngữ thay vì quy tắc viết tay."),
+  </div>''',
+  mission_h2="Biến từ thành vector và vẽ bản đồ nghĩa",
+  mission_q="Không ai dạy máy \"hạnh phúc\" là từ vui. Vậy sao máy vẫn đoán đúng?",
+  mission_p="Em sẽ thấy máy học <b>vector của từ</b> chỉ bằng cách đếm <b>từ nào hay đứng cạnh từ nào</b>, nhìn các từ tự xếp thành nhóm trên <b>bản đồ</b>, làm <b>phép tính với từ</b>, rồi tìm ra chỗ yếu: phủ định, từ lạ, và định kiến học từ dữ liệu.",
+  minutes="45–60 phút",
+  checklist=[("try", "Thử chấm cảm xúc ít nhất 3 câu"), ("map", "Chạm vào một từ trên bản đồ"), ("soi", "Soi tới bước Nghĩa từ hàng xóm"), ("math", "Làm một phép tính với từ"), ("broke", "Làm máy chấm sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="Từ câu nói tới điểm cảm xúc: 6 bước",
+  soi_p="Hình bên dưới dùng đúng câu em đang gõ ở phần Mồi.",
+  theory=[
+    dict(no="65", tag="Ngôn ngữ", title="Vector của từ",
+      svg='<g font-size="12" class="f-ink"><text x="14" y="40">vui</text><text x="14" y="76">hạnh phúc</text><text x="14" y="112">buồn</text></g><g><rect x="90" y="28" width="30" height="18" class="f-mint"/><rect x="122" y="28" width="30" height="18" class="f-coral" opacity=".4"/><rect x="154" y="28" width="30" height="18" class="f-mint" opacity=".6"/><rect x="90" y="64" width="30" height="18" class="f-mint" opacity=".9"/><rect x="122" y="64" width="30" height="18" class="f-coral" opacity=".3"/><rect x="154" y="64" width="30" height="18" class="f-mint" opacity=".5"/><rect x="90" y="100" width="30" height="18" class="f-coral"/><rect x="122" y="100" width="30" height="18" class="f-mint" opacity=".4"/><rect x="154" y="100" width="30" height="18" class="f-coral" opacity=".6"/></g>',
+      p="Mỗi từ được đổi thành một <b>vector</b>: một dãy số. Từ gần nghĩa có dãy số gần nhau. Nhờ vậy máy đo được độ giống nhau về nghĩa, giống như đo khoảng cách giữa hai điểm.",
+      deep="Các mô hình thật dùng vector vài trăm tới vài nghìn chiều. Trong chatbot, mỗi token cũng có một vector như vậy ở lớp đầu tiên của mạng."),
+    dict(no="66", tag="Học máy", cls="amber", title="Nghĩa từ hàng xóm",
+      svg='<g font-size="12"><text x="10" y="40" class="f-muted">em</text><text x="40" y="40" class="f-mint">mỉm cười</text><text x="104" y="40" class="f-muted">vì phở</text><text x="150" y="40" class="f-ink" font-weight="700">ngon</text><text x="10" y="90" class="f-muted">em</text><text x="40" y="90" class="f-mint">mỉm cười</text><text x="104" y="90" class="f-muted">vì kem</text><text x="150" y="90" class="f-ink" font-weight="700">tuyệt</text></g><path d="M170 46v28" class="s-violet" stroke-width="2" stroke-dasharray="4 3"/><text x="180" y="66" font-size="10" class="t-mono f-violet">gần nghĩa</text>',
+      p="Máy biết nghĩa của một từ qua <b>những từ đứng cạnh nó</b>. Đếm số lần mỗi cặp từ đứng gần nhau, rồi nén bảng đếm khổng lồ thành vector ngắn: từ có hàng xóm giống nhau sẽ có vector giống nhau.",
+      deep="Đây gọi là <b>giả thuyết phân bố</b>. Cách nén ở đây là PPMI và phân tích ma trận (SVD); các phương pháp nổi tiếng khác là word2vec và GloVe."),
+    dict(no="67", tag="Toán + AI", cls="coral", title="Phép tính với từ",
+      svg='<g class="f-violet"><circle cx="40" cy="90" r="6"/><circle cx="40" cy="40" r="6"/></g><g class="f-mint"><circle cx="190" cy="96" r="6"/><circle cx="190" cy="46" r="6"/></g><path d="M40 84V48M190 90V54" class="s-coral" stroke-width="2.5" marker-end="url(#arC)"/><g font-size="11" class="f-ink"><text x="50" y="94">bà</text><text x="50" y="44">ông</text><text x="200" y="100">mẹ</text><text x="200" y="50">bố ?</text></g>',
+      p="Hướng đi từ \"bà\" tới \"ông\" (nữ → nam) gần giống hướng từ \"mẹ\" tới \"bố\". Vì vậy <b>ông − bà + mẹ ≈ bố</b>. Quan hệ về nghĩa trở thành <b>hướng</b> trong không gian vector.",
+      deep="Phép tính này không phải lúc nào cũng đúng, nhất là với dữ liệu ít. Nó cho thấy vector chứa nhiều \"trục nghĩa\" mà không ai dạy trực tiếp: giới tính, tuổi tác, cảm xúc…"),
+    dict(no="68", tag="Đạo đức", cls="mint", title="Định kiến trong vector",
+      svg='<path d="M20 64h220" class="s-line" stroke-width="2"/><text x="14" y="56" font-size="10" class="t-mono f-violet">nam</text><text x="214" y="56" font-size="10" class="t-mono f-coral">nữ</text><circle cx="70" cy="64" r="8" class="f-violet"/><text x="54" y="92" font-size="11" class="f-ink">bác sĩ</text><circle cx="190" cy="64" r="8" class="f-coral"/><text x="178" y="92" font-size="11" class="f-ink">y tá</text>',
+      p="Vector học từ cách con người viết. Nếu dữ liệu toàn viết \"bác sĩ ấy là người đàn ông\", thì vector \"bác sĩ\" sẽ <b>lệch về phía nam</b>, và mọi ứng dụng dùng vector đó mang theo <b>định kiến</b> này.",
+      deep="Đã có hệ thống tuyển dụng tự động bị phát hiện chấm thấp hồ sơ của phụ nữ vì học từ dữ liệu cũ. Cách giảm: cân bằng dữ liệu, đo độ lệch như ở Bàn thí nghiệm, và luôn có con người kiểm tra."),
   ],
-  real=[("globe", "", "Ứng dụng dịch trên điện thoại", "Học từ hàng triệu cặp câu song ngữ, xét cả câu cùng lúc nên dịch tự nhiên hơn nhiều, nhưng vẫn có lúc sai."),
-        ("camera", "mint", "Dịch biển hiệu bằng camera", "Đọc chữ trong ảnh rồi dịch tại chỗ, giúp khách du lịch đọc thực đơn, biển báo."),
-        ("book", "amber", "Hỗ trợ học ngoại ngữ", "Máy dịch giúp tra nghĩa nhanh, nhưng em cần tự kiểm tra: nhất là thành ngữ, tên riêng và câu nhiều nghĩa.")],
-  breaks_h2="Thử thách: hãy làm máy dịch ngây ngô!",
-  breaks_guide="Máy dịch theo quy tắc chỉ giỏi khi có đủ từ điển và quy tắc. Thử ba cách làm nó dịch sai!",
+  tulam_h2="Bàn thí nghiệm: phép tính với từ, đo định kiến, chỉnh cách học",
+  tulam_p="Thay đổi số chiều hoặc cửa sổ làm máy học lại toàn bộ vector (mất chưa tới 1 giây). Xem bản đồ ở phần Mồi thay đổi theo.",
+  tulam='''
+  <div class="card chart-card"><div class="chart-head"><b><i data-i="activity"></i> Cảm xúc thay đổi khi đọc từng từ của câu</b></div><canvas id="chart" width="1100" height="220"></canvas></div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sparkle"></i></span>Phép tính với từ</h3>
+      <div class="ana"><select id="selA" aria-label="Từ A"></select><b>−</b><select id="selB" aria-label="Từ B"></select><b>+</b><select id="selC" aria-label="Từ C"></select><b>≈</b></div>
+      <div class="lab bars" id="anaOut"></div>
+      <div class="btn-row" id="anaBtns" style="margin-top:8px"><button class="btn small ghost" data-q="ông,bà,mẹ">ông − bà + mẹ</button><button class="btn small ghost" data-q="anh_trai,chị_gái,em_gái">anh trai − chị gái + em gái</button><button class="btn small ghost" data-q="bố,mẹ,bà">bố − mẹ + bà</button></div>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm coral"><i data-i="shield"></i></span>Đo độ lệch giới của nghề nghiệp</h3>
+      <div class="lab bars" id="biasOut"></div>
+      <label class="tog" style="display:block;margin:8px 0"><input type="checkbox" id="balance"><span>Dữ liệu cân bằng nam / nữ cho mọi nghề</span></label>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm amber"><i data-i="sliders"></i></span>Cách học vector</h3>
+      <label class="ctl"><span>Số chiều của vector</span><b id="dimV"></b><input type="range" id="dim" min="2" max="16" step="1"></label>
+      <label class="ctl"><span>Cửa sổ hàng xóm</span><b id="winV"></b><input type="range" id="win" min="1" max="4" step="1"></label>
+      <label class="tog" style="display:block;margin:8px 0"><input type="checkbox" id="neg"><span>Hiểu chữ \"không\": đảo nghĩa từ đứng sau</span></label>
+      <button class="btn small ghost" id="btnTeach"><i data-i="book"></i>Dạy từ mới \"xịn\"</button><p class="small muted" id="teachInfo"></p>
+      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật</h3><pre class="code" id="genCode"></pre>
+    </div>
+  </div>''',
+  breaks_h2="Thử thách: hãy làm máy hiểu sai cảm xúc!",
   breaks=[
-    dict(icon="msg", key="idiom", title="Thành ngữ", p="Câu: <b>\"It is raining cats and dogs\"</b>, và máy <b>không dùng</b> từ điển thành ngữ.",
-      why="Máy dịch từng chữ: \"Nó mưa những con mèo và những con chó\". Cả cụm có nghĩa là mưa rất to. Bật <b>Dùng từ điển thành ngữ</b>: máy nhận ra cả cụm và dịch thành \"Trời mưa như trút nước\"."),
-    dict(icon="eye", key="poly", title="Từ nhiều nghĩa", p="Câu: <b>\"We sat on the bank and watched the boats\"</b>, máy chỉ nhìn <b>1 từ</b> mỗi bên.",
-      why="Từ gợi ý \"boats\" nằm cách \"bank\" 4 từ, ngoài vùng nhìn. Không thấy gợi ý nào, máy chọn nghĩa mặc định \"ngân hàng\". Kéo <b>độ rộng ngữ cảnh</b> lên 4: máy thấy \"boats\" và chọn \"bờ sông\"."),
-    dict(icon="layers", key="order", title="Trật tự từ", p="Câu: <b>\"My sister has a small black cat\"</b>, máy <b>không sắp xếp</b> lại trật tự từ.",
-      why="Giữ nguyên trật tự tiếng Anh: \"Của tôi chị gái có một nhỏ đen con mèo\". Bật <b>Sắp xếp lại trật tự từ</b>: tính từ chuyển ra sau danh từ, \"của tôi\" chuyển ra sau \"chị gái\"."),
+    dict(icon="repeat", key="neg", title="Chữ \"không\"", p="Câu: <b>\"bài kiểm tra hôm nay không vui chút nào\"</b>.",
+      why="Máy lấy trung bình vector các từ, nên chữ \"vui\" vẫn kéo câu về phía tích cực; chữ \"không\" thậm chí không có trong từ điển. Bật <b>Hiểu chữ \"không\"</b>: từ đứng sau bị đảo dấu. Đây là cách vá tạm; mô hình hiện đại đọc cả câu theo thứ tự nên hiểu phủ định tốt hơn."),
+    dict(icon="help", key="oov", title="Từ lóng mới", p="Câu: <b>\"trà sữa quán này xịn quá\"</b>. Máy chưa từng gặp chữ \"xịn\".",
+      why="Từ lạ bị bỏ qua (gạch ngang), nên câu chỉ còn \"trà sữa\" trung tính. Bấm <b>Dạy từ mới \"xịn\"</b>: máy đọc thêm vài câu có \"xịn\" đứng cạnh \"mỉm cười\", \"vỗ tay\", và tự xếp \"xịn\" vào nhóm từ vui. Không ai dán nhãn cho \"xịn\" cả!"),
+    dict(icon="shield", key="bias", title="Dữ liệu thiên lệch", p="Kho câu học gần như luôn viết bác sĩ, kỹ sư, đầu bếp là <b>người đàn ông</b>, còn y tá, giáo viên là <b>người phụ nữ</b>.",
+      why="Xem bảng <b>Đo độ lệch giới</b> ở Bàn thí nghiệm: các nghề bị kéo hẳn về một phía. Máy không \"nghĩ\" vậy, nó chỉ phản chiếu dữ liệu. Bật <b>Dữ liệu cân bằng</b> để thấy độ lệch biến mất. Ngoài đời, dữ liệu thật thường có định kiến khó phát hiện hơn nhiều."),
   ],
-  badge="Phiên Dịch Viên Nhí", badge_p="Em đã mở khóa 3 thẻ kiến thức: Từ nhiều nghĩa và ngữ cảnh · Cụm từ không dịch từng chữ · Trật tự từ hai ngôn ngữ.",
-  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Săn lỗi máy dịch", "Dùng một ứng dụng dịch thật để dịch 5 thành ngữ tiếng Việt sang tiếng Anh (như \"nước đổ đầu vịt\"). Ghi lại câu nào máy dịch đúng ý, câu nào ngây ngô."),
-       (2, "DỰ ÁN NHÓM · 1 TUẦN", "Từ điển ngữ cảnh của lớp", "Cả nhóm chọn 10 từ tiếng Anh nhiều nghĩa trong sách giáo khoa, viết từ gợi ý cho từng nghĩa và thử bằng Python hoặc bảng tính."),
-       (3, "Ý TƯỞNG KHKT", "Máy dịch thuật ngữ cho môn học", "Xây bộ từ điển song ngữ thuật ngữ KHTN 9, đo tỉ lệ dịch đúng của máy dịch phổ biến trên 50 câu trong sách, đề xuất cách sửa.")],
-  res=[("layers", "", "Phiếu học tập", "Chọn nghĩa theo ngữ cảnh, dịch thành ngữ, sắp xếp trật tự từ.", "phieu.html"),
-       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, câu hỏi thảo luận, đáp án.", "giao-vien.html"),
-       ("rocket", "amber", "Học lên: Dự án 17", "Máy biểu diễn nghĩa của từ bằng vector số.", "../17-cam-xuc/index.html")],
-  prev=("36-bo-canh-cung", "36"), nextp=("38-hoc-bong", "38"),
+  real_h2="Vector từ và phân tích cảm xúc được dùng ở đâu?",
+  real=[("msg", "", "Đọc bình luận", "Cửa hàng, nhà hàng, ứng dụng dùng máy đọc hàng nghìn bình luận để biết khách hài lòng hay không."),
+        ("scan", "mint", "Tìm kiếm theo nghĩa", "Gõ \"giày chạy bộ\" vẫn tìm được \"giày thể thao\": máy so vector, không chỉ so từng chữ."),
+        ("shield", "amber", "Lọc bình luận độc hại", "Mạng xã hội dùng mô hình ngôn ngữ để phát hiện lời lẽ xúc phạm, bắt nạt trên mạng.")],
+  ethics=["Mỉa mai như \"Hay quá, lại mất điện!\" làm máy hiểu sai. Nếu máy dùng để kiểm duyệt bình luận, ai bị thiệt?",
+          "Máy chấm cảm xúc bài viết của học sinh để \"phát hiện bạn đang buồn\". Có nên không? Cần những điều kiện gì?",
+          "Định kiến trong vector từ có thể ảnh hưởng tới ai khi máy được dùng để lọc hồ sơ xin việc?"],
+  badge="Nhà Bản Đồ Ngôn Từ", badge_p="Em đã mở khóa 4 thẻ kiến thức: Vector của từ · Nghĩa từ hàng xóm · Phép tính với từ · Định kiến trong vector.",
+  dev_h2="Từ cảm xúc câu nói đến dự án của riêng em",
+  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Thêm cảm xúc thứ ba", "Thêm nhóm từ \"ngạc nhiên\" (bất ngờ, không ngờ, ồ…) với ngữ cảnh riêng, đổi phân loại thành 3 lớp.", "Xong khi", "bản đồ có 3 vùng cảm xúc tách rõ."),
+       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "Hộp thư cảm xúc ẩn danh của lớp", "Mỗi tuần cả lớp gửi một câu ẩn danh về việc học; máy vẽ biểu đồ cảm xúc chung của lớp theo thời gian (không theo từng người).", "Xong khi", "có biểu đồ 4 tuần và cả lớp thảo luận cách bảo vệ sự ẩn danh."),
+       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Phát hiện lời lẽ bắt nạt trên mạng bằng tiếng Việt", "Xây bộ câu có nhãn (có đồng ý, ẩn danh), so sánh trung bình vector với mô hình đọc theo thứ tự, đặc biệt với phủ định, mỉa mai và từ lóng.", "Đo kết quả", "tỉ lệ phát hiện đúng, tỉ lệ báo nhầm, và phân tích các câu máy sai.")],
+  cur="37 · Cảm xúc", next=[("36 · Đoán chữ tiếp theo", "mô hình ngôn ngữ"), ("40 · Trợ lý hỏi đáp SGK", "tìm kiếm theo nghĩa"), ("33 · Bảng màu", "không gian vector")],
+  khkt=[("Vấn đề", "Bắt nạt trên mạng bằng tiếng Việt thường dùng từ lóng, viết tắt, khó lọc tự động."), ("Câu hỏi nghiên cứu", "Vector từ học từ bình luận tiếng Việt có giúp phát hiện lời lẽ bắt nạt không?"), ("Giả thuyết", "Mô hình phát hiện tốt lời lẽ trực tiếp nhưng kém với mỉa mai."), ("Lưu ý đạo đức", "Ẩn danh hoàn toàn dữ liệu; không dùng để trừng phạt mà để hỗ trợ.")],
+  prev=("36-doan-chu", "36"), nextp=("38-me-cung", "38"),
 )

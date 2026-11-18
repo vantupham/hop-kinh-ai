@@ -1,5 +1,5 @@
 # Sinh phần thân trang dự án (9 bước) từ một từ điển dữ liệu, rồi ghép head/foot.
-# Dùng: python3 gen.py p06.py  (file p06.py định nghĩa biến D)
+# Dùng: python3 gen.py p26.py  (file p26.py định nghĩa biến D)
 import sys, runpy, html
 D = runpy.run_path(sys.argv[1])["D"]
 MEDAL = '<svg class="medal" viewBox="0 0 80 80" aria-hidden="true"><path d="M26 6h10l8 20-10 4zM54 6H44l-8 20 10 4z" class="f-violet" opacity=".85"/><circle cx="40" cy="48" r="24" class="f-amber"/><circle cx="40" cy="48" r="17" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="m40 36 3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L40 54.6l-7.2 3.8 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#fff"/></svg>'

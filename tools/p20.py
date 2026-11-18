@@ -1,98 +1,80 @@
 D = dict(
-  out="du-an/20-hoi-dap/index.html", num="20", level="4", title="Dự án 20 · Trợ lý hỏi đáp SGK",
-  scripts=["docs.js", "rag.js"],
-  h1='Trợ lý <span class="hl-word">hỏi đáp SGK</span>',
-  lead="Hỏi chatbot một câu về bài học, nó trả lời ngay, rất tự tin, nhưng đúng hay sai? Ở dự án cuối cùng này, em xây một trợ lý biết lật sách trước khi trả lời: tìm đúng đoạn tài liệu, trả lời dựa trên đó, ghi rõ nguồn, và dám nói \"mình không biết\". Rồi em so nó với một trợ lý đóng sách để thấy AI bịa ra sao.",
-  moi='''
-  <style>.q-row{display:flex;gap:8px;margin-bottom:10px}.q-row input,.add input,.add textarea{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);background:var(--surface-solid);color:var(--text);font:inherit}.add input,.add textarea{width:100%;margin-bottom:8px}.add textarea{min-height:80px;resize:vertical}
-  .ans{border-radius:14px;padding:14px 16px;margin-top:12px;border:1.5px solid var(--line-strong);background:var(--surface-solid)}.ans.ok{border-color:var(--mint)}.ans.none{border-color:var(--amber)}.ans.closed{border-color:var(--coral);border-style:dashed}
-  .ans-tag{font:700 .72rem "JetBrains Mono",monospace;letter-spacing:.04em;display:flex;align-items:center;gap:6px;margin-bottom:6px;color:var(--muted)}.ans-tag svg{width:16px;height:16px}.ans p{margin:0;font-size:1.05rem;line-height:1.6}
-  .cite{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:20px;border-radius:6px;border:0;background:var(--violet);color:#fff;font:700 .75rem "JetBrains Mono",monospace;cursor:pointer;margin:0 2px;vertical-align:1px}
-  .src{font-size:.85rem;padding:6px 10px;border-radius:8px;background:color-mix(in srgb,var(--mint) 12%,transparent);margin-top:6px;cursor:pointer}.src.bad{background:color-mix(in srgb,var(--coral) 18%,transparent)}.src span{color:var(--text-2)}
-  .doc-view{margin-top:10px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--violet) 10%,transparent);font-size:.92rem;line-height:1.6}.doc-view mark{background:color-mix(in srgb,var(--amber) 55%,transparent);color:inherit;border-radius:4px;padding:0 2px}</style>
+  out="du-an/20-tro-ly-lop/index.html", num="20", grade="9", title="Dự án 20 · Trợ lý lớp học của em",
+  scripts=["core.js", "assistant.js"],
+  h1='Trợ lý lớp học <span class="hl-word">của em</span>: ghép mọi thứ đã học',
+  lead="Dự án tổng kết: em lắp ráp một trợ lý AI cho lớp 9A từ những khối đã học: hiểu câu hỏi bằng từ khóa, tra sổ tay lớp, lọc thông tin riêng tư, biết nói \"mình không biết\", chia nhóm công bằng. Rồi em tự chấm trợ lý theo bốn tiêu chí: hữu ích, trung thực, riêng tư, công bằng, trước khi \"giao\" nó cho cả lớp.",
+  play='''
   <div class="playground">
     <div class="stage-col">
-      <div class="q-row"><input id="qIn" aria-label="Câu hỏi" placeholder="Hỏi một câu về khoa học tự nhiên hoặc địa lí"><button class="btn small accent" id="btnAsk"><i data-i="send"></i>Hỏi</button></div>
-      <div class="btn-row" id="qBtns" style="margin-bottom:10px"></div>
-      <div class="stage vf"><canvas id="stage" width="640" height="480" aria-label="Bản đồ các đoạn tài liệu và tia nối từ câu hỏi tới nguồn"></canvas><div class="stage-tag"><span class="live-dot"></span><span>TÌM NGUỒN</span></div></div>
-      <div class="toolbar"><div class="seg" id="modeBtns"><button class="btn small" data-m="rag"><i data-i="book"></i>Tra tài liệu</button><button class="btn small ghost" data-m="closed"><i data-i="lock"></i>Đóng sách</button></div></div>
-      <div class="ans" id="ansBox"><div class="ans-tag" id="ansTag"></div><p id="ansText"></p><div id="ansSrc"></div></div>
-      <div class="doc-view" id="docView" hidden></div>
+      <div class="stage vf mt-stage"><canvas id="stage" class="touch" width="880" height="440" aria-label="Sơ đồ trợ lý lớp học: các khối xử lí nối nhau, kết quả từng khối và câu trả lời. Bấm vào khối có công tắc để bật hoặc tắt."></canvas><div class="stage-tag"><span class="live-dot"></span>TRỢ LÝ LỚP 9A</div></div>
+      <div class="play-panel"><form class="chatin mt-in" id="askForm"><label for="askIn" class="sr-only">Câu hỏi cho trợ lý</label><input id="askIn" autocomplete="off" placeholder="Hỏi trợ lý, ví dụ: Tuần này tổ nào trực nhật?"><button class="btn small accent" type="submit"><i data-i="send"></i>Hỏi</button></form>
+        <p class="small" style="margin:10px 0 8px"><b>12 câu hỏi kiểm thử của lớp (bấm để hỏi):</b></p><div class="btn-row" id="tests"></div></div>
+      <p class="ask" id="askText" aria-live="polite" style="margin:12px 0 0;font-size:1.02rem"></p>
+      {{GUIDE}}
+      <div class="two-col" style="margin-top:6px">
+        <div class="card">
+          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm amber"><i data-i="sliders"></i></span>Bàn thí nghiệm</h2>
+          <label class="ctl"><span>Ngưỡng tự tin (dưới ngưỡng thì chuyển cho cô chủ nhiệm)</span><b id="thV"></b><input type="range" id="th" min="0" max="1" step="0.05"></label>
+          <p class="small" style="margin:6px 0 0">Độ tự tin = số từ của câu hỏi khớp với đoạn sổ tay ÷ số từ quan trọng của câu hỏi.</p>
+        </div>
+        <div class="card">
+          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="blocks"></i></span>Các khối có công tắc</h2>
+          <div class="toggles"><label class="tog"><input type="checkbox" id="optPriv" checked><span>Khối lọc riêng tư</span></label><label class="tog"><input type="checkbox" id="optConf" checked><span>Khối kiểm tra độ tự tin</span></label><label class="tog"><input type="checkbox" id="optBal" checked><span>Chia nhóm cân bằng sức học</span></label></div>
+        </div>
+      </div>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
-      <div class="metric-row"><div class="metric"><span>CÁCH TRẢ LỜI</span><b id="bMode">—</b></div><div class="metric"><span>SỐ ĐOẠN TÀI LIỆU</span><b id="bDocs">—</b></div></div>
-      <div class="lbl" style="margin-top:12px">CÁC ĐOẠN LIÊN QUAN NHẤT</div><div class="bars" id="bTop"></div>
-      <p class="small" style="color:#c3c7f0;margin-top:12px">Bấm vào số trích dẫn <b>[1]</b> trong câu trả lời để xem đoạn tài liệu gốc.</p>
+      <div class="lab-h"><span class="live-dot"></span>Bảng tự đánh giá</div>
+      <div class="metric-row"><div class="metric"><span>HỮU ÍCH</span><b id="sHelp">—</b></div><div class="metric"><span>TRUNG THỰC</span><b id="sHonest">—</b></div></div>
+      <div class="metric-row" style="margin-top:10px"><div class="metric"><span>RIÊNG TƯ</span><b id="sPriv">—</b></div><div class="metric"><span>CÔNG BẰNG</span><b id="sFair">—</b></div></div>
+      <div class="lbl" style="margin-top:12px">TRỢ LÝ TRẢ LỜI</div><div id="bAns" class="mt-out" style="font-size:.95rem">—</div>
+      <div class="lbl" style="margin-top:12px">12 CÂU KIỂM THỬ</div><div id="bTests" class="test-dots"></div>
     </aside>
-  </div>''',
-  mission_h2="Xây một trợ lý biết tra cứu và biết nói \"không biết\"",
-  mission_q="Làm sao để AI trả lời dựa trên sách, và em kiểm tra lại được?",
-  mission_p="Em sẽ thấy tài liệu được chia thành <b>đoạn</b>, biến thành <b>vector</b>, trợ lý <b>tìm</b> đoạn gần câu hỏi nhất, <b>trả lời kèm trích dẫn</b>, và dùng <b>ngưỡng</b> để biết khi nào nên từ chối. Em cũng sẽ thấy trợ lý <b>đóng sách</b> bịa ra sao, và vì sao nguồn sai dẫn tới câu trả lời sai.",
-  minutes="45–60 phút",
-  checklist=[("ask", "Hỏi ít nhất 3 câu"), ("cite", "Bấm vào một trích dẫn để xem nguồn"), ("soi", "Soi tới bước Tìm đoạn gần nhất"), ("closed", "Thử chế độ Đóng sách"), ("add", "Thêm một đoạn tài liệu của em"), ("broke", "Làm trợ lý trả lời sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Từ câu hỏi tới câu trả lời có nguồn: 6 bước",
-  soi_p="Hình bên dưới dùng đúng câu hỏi em vừa hỏi ở phần Mồi.",
-  theory=[
-    dict(no="77", tag="Tìm kiếm", title="Tìm kiếm theo từ khóa",
-      svg='<g font-size="12"><text x="14" y="34" class="f-ink">quang hợp</text><text x="14" y="58" class="f-ink">diệp lục</text><text x="14" y="82" class="f-muted">Trái Đất</text><text x="14" y="106" class="f-muted">là</text></g><g><rect x="100" y="24" width="140" height="12" rx="4" class="f-violet"/><rect x="100" y="48" width="120" height="12" rx="4" class="f-violet"/><rect x="100" y="72" width="40" height="12" rx="4" class="f-violet" opacity=".5"/><rect x="100" y="96" width="4" height="12" class="f-violet" opacity=".3"/></g>',
-      p="Câu hỏi và mỗi đoạn tài liệu được biến thành vector từ khóa. Từ <b>hiếm</b> như \"diệp lục\" được tính nặng, từ <b>phổ biến</b> như \"là\" gần như bỏ qua: đó là <b>TF-IDF</b>. Đoạn nào có vector giống câu hỏi nhất là đoạn liên quan nhất.",
-      deep="Trợ lý hiện đại thường dùng vector nghĩa (như Dự án 17) thay vì chỉ từ khóa, nên tìm được cả đoạn dùng từ khác mà cùng ý. Người ta hay kết hợp cả hai cách."),
-    dict(no="78", tag="Mô hình ngôn ngữ", cls="amber", title="RAG: trả lời có tra cứu",
-      svg='<circle cx="30" cy="64" r="14" class="f-amber"/><text x="25" y="69" font-size="13" fill="#11142e" font-weight="800">?</text><path d="M46 64h30" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><g class="f-soft"><rect x="84" y="30" width="56" height="20" rx="4"/><rect x="84" y="56" width="56" height="20" rx="4"/><rect x="84" y="82" width="56" height="20" rx="4"/></g><rect x="84" y="56" width="56" height="20" rx="4" class="f-mint"/><path d="M144 66h30" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><rect x="180" y="46" width="64" height="40" rx="8" class="f-violet"/><text x="190" y="70" font-size="11" fill="#fff">trả lời [2]</text>',
-      p="<b>RAG</b> (Retrieval-Augmented Generation): trước khi trả lời, trợ lý <b>tìm</b> những đoạn tài liệu liên quan, rồi dựa vào đó để trả lời và <b>ghi nguồn</b>. Câu trả lời bám vào tài liệu thay vì trí nhớ mơ hồ của mô hình.",
-      deep="Ở đây trợ lý chép nguyên câu phù hợp nhất. Chatbot thật đưa các đoạn tìm được vào mô hình ngôn ngữ lớn để nó viết lại câu trả lời tự nhiên, kèm trích dẫn."),
-    dict(no="79", tag="Đánh giá", cls="coral", title="Biết mình không biết",
-      svg='<path d="M20 100H240" class="s-line" stroke-width="1"/><g><rect x="30" y="40" width="30" height="60" class="f-mint"/><rect x="70" y="64" width="30" height="36" class="f-violet" opacity=".5"/><rect x="110" y="84" width="30" height="16" class="f-violet" opacity=".4"/></g><path d="M20 70H240" class="s-coral" stroke-width="2" stroke-dasharray="6 4"/><text x="160" y="64" font-size="10" class="t-mono f-coral">ngưỡng liên quan</text>',
-      p="Nếu không đoạn nào đủ liên quan (dưới <b>ngưỡng</b>), trợ lý nên nói \"mình không tìm thấy\" thay vì cố trả lời. Ngưỡng quá thấp: trả lời bừa. Ngưỡng quá cao: từ chối cả câu hỏi trả lời được.",
-      deep="Đây lại là sự đánh đổi giữa báo nhầm và bỏ sót mà em đã gặp từ Dự án 9. Trong giáo dục và y tế, một câu \"không biết\" thường an toàn hơn một câu trả lời sai."),
-    dict(no="80", tag="Đạo đức", cls="mint", title="Rác vào, rác ra",
-      svg='<rect x="20" y="30" width="80" height="64" rx="8" class="f-soft"/><text x="30" y="56" font-size="11" class="f-coral">nguồn sai</text><path d="M104 62h40" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><rect x="150" y="30" width="90" height="64" rx="8" class="f-soft"/><text x="158" y="56" font-size="11" class="f-coral">trả lời sai</text><text x="158" y="76" font-size="11" class="f-violet">kèm trích dẫn</text>',
-      p="Trợ lý chỉ tốt bằng tài liệu nó dựa vào. Nguồn sai cho câu trả lời sai, dù có trích dẫn trông rất đáng tin. Vì vậy em luôn cần <b>bấm vào nguồn</b> và tự hỏi: ai viết, có đáng tin không?",
-      deep="Kỹ năng kiểm tra nguồn tin là kỹ năng quan trọng nhất khi học cùng AI. AI là trợ lý, không phải thầy cô hay sách giáo khoa."),
+  </div>
+  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Bốn tiêu chí tự đánh giá (mục tiêu: cả bốn từ 90% trở lên)</b></div><canvas id="chart" width="1100" height="220"></canvas></div>''',
+  play_guide="Hỏi trợ lý một câu, xem câu hỏi đi qua từng khối trên sơ đồ. <b>Bấm vào khối có công tắc</b> để bật, tắt và xem bảng tự đánh giá thay đổi.",
+  lessons=["Hoạt động trải nghiệm 9 · Dự án phục vụ lớp học", "Tin học 9 · Giải quyết vấn đề với máy tính", "GDCD 9 · Tôn trọng quyền riêng tư, công bằng"],
+  mission_h2="Lắp ráp một trợ lý AI có trách nhiệm cho lớp em",
+  mission_q="Một trợ lý \"trả lời được mọi câu\" có phải là trợ lý tốt không?",
+  mission_p="Em sẽ hỏi trợ lý 12 câu kiểm thử của lớp, theo dõi câu hỏi đi qua từng khối, chỉnh <b>ngưỡng tự tin</b>, bật tắt <b>lọc riêng tư</b> và <b>chia nhóm cân bằng</b>, rồi phá máy để thấy trợ lý có thể làm lộ thông tin bạn bè, trả lời bừa hoặc chia nhóm bất công. Cuối cùng em viết bản thiết kế trợ lý của riêng lớp mình.",
+  minutes="1 tiết học · có dự án nhóm",
+  checklist=[("ask", "Hỏi trợ lý ít nhất 6 câu"), ("module", "Bật hoặc tắt một khối trên sơ đồ"), ("score", "Đạt từ 90% trở lên ở cả bốn tiêu chí"), ("soi", "Soi tới bước Biết nói không biết"), ("broke", "Làm trợ lý mắc lỗi ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="Trợ lý lớp học được ghép từ những gì? 6 bước",
+  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Hình minh họa dùng câu hỏi em vừa hỏi.",
+  soi_guide="Mỗi khối là một điều em đã học trong các dự án trước. Cùng soi nhé!",
+  cards=[
+    dict(no="T1", tag="Thiết kế", title="Ghép khối thành hệ thống",
+      svg='<rect x="10" y="44" width="54" height="34" rx="8" class="f-violet"/><rect x="74" y="44" width="54" height="34" rx="8" class="f-violet"/><rect x="138" y="44" width="54" height="34" rx="8" class="f-amber"/><rect x="202" y="44" width="48" height="34" rx="8" class="f-mint"/><text x="16" y="66" font-size="10" fill="#fff" font-weight="700">Hiểu</text><text x="80" y="66" font-size="10" fill="#fff" font-weight="700">Tra</text><text x="144" y="66" font-size="10" fill="#1b1f4a" font-weight="700">Lọc</text><text x="206" y="66" font-size="10" fill="#062b27" font-weight="700">Đáp</text>',
+      p="Hệ thống AI thật hiếm khi là một mô hình duy nhất. Nó là chuỗi <b>khối</b> nối nhau: hiểu câu hỏi, tìm thông tin, lọc, kiểm tra, rồi mới trả lời. Mỗi khối có thể kiểm thử và sửa riêng.",
+      ex="Trợ lý của em dùng lại: từ khóa (Dự án 15), tìm đoạn văn (Dự án 40), ngưỡng (Dự án 5), công bằng (Dự án 18)."),
+    dict(no="T2", tag="Trách nhiệm", cls="amber", title="Riêng tư và trung thực",
+      svg='<rect x="80" y="30" width="100" height="70" rx="12" class="f-amber" opacity=".3"/><path d="M110 56v-10a20 20 0 0 1 40 0v10" class="s-violet" stroke-width="5" fill="none"/><rect x="100" y="56" width="60" height="38" rx="6" class="f-violet"/>',
+      p="Trợ lý có thể đọc được dữ liệu riêng (số điện thoại, điểm của từng bạn) nhưng <b>không được tiết lộ</b>. Khi không chắc chắn, trợ lý tốt phải <b>nói \"mình không biết\"</b> và chuyển cho người thật, thay vì trả lời bừa.",
+      ex="Nguyên tắc: chỉ đưa vào trợ lý những dữ liệu thật sự cần, và không bao giờ đưa mật khẩu hay thông tin nhạy cảm."),
+    dict(no="T3", tag="Đánh giá", cls="coral", title="Tự đánh giá trước khi dùng",
+      svg='<rect x="20" y="70" width="40" height="36" class="f-mint"/><rect x="74" y="40" width="40" height="66" class="f-mint"/><rect x="128" y="20" width="40" height="86" class="f-mint"/><rect x="182" y="80" width="40" height="26" class="f-coral"/><path d="M14 30h220" stroke-dasharray="6 4" class="s-violet" stroke-width="2"/>',
+      p="Trước khi giao trợ lý cho cả lớp, chấm nó bằng <b>bộ câu kiểm thử</b> theo nhiều tiêu chí: hữu ích, trung thực, riêng tư, công bằng. Một tiêu chí thấp là đủ để chưa được dùng. Sau đó tiếp tục <b>lắng nghe góp ý</b> của các bạn.",
+      ex="Các công ty AI cũng thử nghiệm mô hình với rất nhiều câu hỏi khó trước khi phát hành."),
   ],
-  tulam_h2="Bàn thí nghiệm: chỉnh cách tìm nguồn và tự thêm tài liệu",
-  tulam_p="Biểu đồ cho thấy độ liên quan của từng đoạn với câu hỏi hiện tại. Kéo ngưỡng và xem đoạn nào được dùng.",
-  tulam='''
-  <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Độ liên quan của từng đoạn với câu hỏi</b></div><canvas id="chart" width="1100" height="260"></canvas></div>
-  <div class="two-col" style="margin-top:18px">
-    <div class="card">
-      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Cách tìm nguồn</h3>
-      <label class="ctl"><span>Số đoạn lấy (top-k)</span><b id="kV"></b><input type="range" id="k" min="1" max="5" step="1"></label>
-      <label class="ctl"><span>Ngưỡng liên quan</span><b id="thrV"></b><input type="range" id="thr" min="0" max="0.5" step="0.01"></label>
-      <label class="tog" style="display:block;margin:8px 0"><input type="checkbox" id="bad"><span>Đưa một bài viết sai trên mạng vào kho</span></label>
-      <h3 class="h-ic" style="margin-top:14px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật</h3><pre class="code" id="genCode"></pre>
-    </div>
-    <div class="card add">
-      <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="book"></i></span>Thêm tài liệu của em</h3>
-      <p class="small muted">Chép một đoạn ngắn từ vở ghi của em (môn nào cũng được), rồi đặt câu hỏi về nó ở phần Mồi.</p>
-      <input id="addTitle" aria-label="Tên đoạn" placeholder="Tên đoạn, ví dụ: Hô hấp">
-      <textarea id="addText" aria-label="Nội dung đoạn" placeholder="Hô hấp là quá trình cơ thể lấy khí ôxi và thải khí cacbon điôxít…"></textarea>
-      <button class="btn small accent" id="btnAdd"><i data-i="upload"></i>Thêm vào kho</button><p class="small muted" id="addInfo"></p>
-    </div>
-  </div>''',
-  breaks_h2="Thử thách: hãy làm trợ lý trả lời sai!",
+  real=[("msg", "", "Trợ lý của trường học", "Nhiều trường dùng trợ lý trả lời câu hỏi về lịch học, thủ tục; câu khó vẫn chuyển cho thầy cô."),
+        ("lock", "mint", "Bảo vệ dữ liệu cá nhân", "Thông tin cá nhân như số điện thoại, địa chỉ, điểm số được pháp luật bảo vệ; hệ thống AI phải tuân thủ."),
+        ("award", "amber", "Cuộc thi KHKT", "Dự án trợ lý có kiểm thử, đánh giá công bằng và riêng tư là đề tài phù hợp cho cuộc thi khoa học kĩ thuật cấp trường.")],
+  breaks_h2="Thử thách: hãy làm trợ lý mắc lỗi!",
+  breaks_guide="Mỗi khối có một nhiệm vụ. Tắt hoặc chỉnh sai một khối, trợ lý sẽ mắc lỗi ngay. Thử xem!",
   breaks=[
-    dict(icon="help", key="outside", title="Câu hỏi ngoài sách", p="Hỏi <b>\"Ai là người phát minh ra điện thoại?\"</b>, điều tài liệu không hề nhắc tới, và ngưỡng liên quan bị hạ về <b>0</b>.",
-      why="Không có ngưỡng, trợ lý luôn lấy đoạn \"ít không liên quan nhất\" và trích một câu chẳng ăn nhập gì, kèm cả số trích dẫn. Kéo <b>ngưỡng liên quan</b> lên khoảng 0,1: trợ lý sẽ nói thẳng là không tìm thấy."),
-    dict(icon="alert", key="badsrc", title="Nguồn kém tin cậy", p="Một <b>bài viết sai trên mạng</b> được đưa vào kho, rồi em hỏi \"Vì sao Mặt Trăng sáng?\".",
-      why="Bài viết sai dùng đúng những từ trong câu hỏi nên được xếp hạng cao nhất. Trợ lý đưa câu sai lên đầu, có cả trích dẫn, ngay cạnh câu đúng từ sách: hai nguồn mâu thuẫn nhau mà trợ lý không biết nguồn nào đáng tin. Bấm vào trích dẫn: nguồn là \"trang mạng không rõ tác giả\". Bỏ chọn ô <b>Đưa bài viết sai vào kho</b>. Bài học: luôn kiểm tra nguồn."),
-    dict(icon="lock", key="closed", title="Đóng sách", p="Trợ lý trả lời <b>không tra tài liệu</b>, chỉ dùng một mô hình ngôn ngữ nhỏ (như Dự án 16) đã học từ chính các tài liệu này.",
-      why="Câu trả lời nghe như văn sách giáo khoa nhưng trộn lẫn các ý không liên quan, và không có nguồn nào để kiểm tra. Đây là ảo giác. Bấm <b>Tra tài liệu</b> để trợ lý quay lại dựa vào nguồn."),
+    dict(icon="lock", key="privacy", title="Lộ thông tin riêng", p="Tắt <b>khối lọc riêng tư</b>, rồi hỏi: <b>\"Số điện thoại của bạn Nam là gì?\"</b>",
+      why="Trợ lý đọc được danh bạ lớp và đọc luôn số điện thoại, địa chỉ của bạn Nam (số hư cấu): lộ thông tin cá nhân. Bật lại <b>khối lọc riêng tư</b>: trợ lý từ chối lịch sự và gợi ý hỏi trực tiếp."),
+    dict(icon="help", key="unsure", title="Trả lời bừa", p="Đặt <b>ngưỡng tự tin = 0</b>, rồi hỏi: <b>\"Năm sau trường có xây bể bơi không?\"</b>",
+      why="Sổ tay lớp không có thông tin này, nhưng trợ lý vẫn trả lời bằng đoạn khớp nhất (thời khóa biểu): trả lời <b>sai một cách tự tin</b>. Kéo <b>ngưỡng tự tin</b> lên khoảng 0,4: trợ lý chuyển câu hỏi cho cô chủ nhiệm."),
+    dict(icon="layers", key="fair", title="Chia nhóm bất công", p="Tắt <b>chia nhóm cân bằng</b>, rồi nhờ trợ lý chia lớp thành 4 nhóm.",
+      why="Trợ lý chia theo thứ tự điểm: nhóm 1 toàn bạn điểm cao, nhóm 4 toàn bạn điểm thấp, trung bình chênh gần 3 điểm. Bật <b>chia nhóm cân bằng</b>: trợ lý chia kiểu \"rắn bò\" (1, 2, 3, 4, 4, 3, 2, 1…), các nhóm gần như bằng sức."),
   ],
-  real_h2="Trợ lý có tra cứu đang được dùng ở đâu?",
-  real=[("book", "", "Học tập", "Trợ lý học tập trả lời dựa trên sách giáo khoa và bài giảng của chính lớp em, kèm số trang để tra lại."),
-        ("scan", "mint", "Tìm kiếm thông minh", "Công cụ tìm kiếm có AI tóm tắt câu trả lời từ nhiều trang web và đính kèm đường dẫn nguồn."),
-        ("shield", "amber", "Công việc", "Bác sĩ, luật sư, kỹ sư dùng trợ lý tra cứu trong tài liệu chuyên ngành, nhưng vẫn tự kiểm tra trước khi quyết định.")],
-  ethics=["Một bạn chép câu trả lời của trợ lý vào bài kiểm tra mà không đọc nguồn. Điều gì có thể xảy ra?",
-          "Ai chịu trách nhiệm khi trợ lý trích dẫn đúng một tài liệu nhưng tài liệu đó sai?",
-          "Trợ lý chỉ được nạp tài liệu của một phía trong một vấn đề tranh cãi. Câu trả lời của nó sẽ thế nào?"],
-  badge="Thủ Thư AI", badge_p="Em đã mở khóa 4 thẻ kiến thức: Tìm kiếm theo từ khóa · RAG · Biết mình không biết · Rác vào, rác ra. Chúc mừng em đã hoàn thành cả 20 dự án của Hộp Kính AI!",
-  dev_h2="Từ trợ lý hỏi đáp đến dự án của riêng em",
-  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Trợ lý cho môn em thích", "Nạp 20–30 đoạn ngắn từ vở ghi một môn học (lịch sử, sinh học…), viết 10 câu hỏi và kiểm tra trợ lý trả lời đúng bao nhiêu câu.", "Xong khi", "có bảng 10 câu hỏi với kết quả đúng, sai, \"không biết\"."),
-       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "Máy tạo câu hỏi ôn tập", "Đảo ngược trợ lý: từ mỗi đoạn, chọn câu chứa từ khóa hiếm và đục lỗ từ đó thành câu hỏi điền vào chỗ trống, kèm đáp án và nguồn.", "Xong khi", "tạo được 20 câu hỏi mà bạn cùng lớp thấy hữu ích."),
-       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Gia sư AI biết tự kiểm tra trích dẫn", "So sánh câu trả lời của một chatbot có và không có tra cứu trên 50 câu hỏi sách giáo khoa; xây công cụ tự kiểm tra xem câu trả lời có thật sự nằm trong nguồn được trích không.", "Đo kết quả", "tỉ lệ trả lời đúng, tỉ lệ bịa, tỉ lệ trích dẫn sai nguồn của mỗi cách.")],
-  cur="20 · Hỏi đáp SGK", next=[("16 · Đoán chữ tiếp theo", "mô hình ngôn ngữ đằng sau"), ("17 · Cảm xúc câu nói", "vector nghĩa để tìm kiếm"), ("1 · Squat", "ôn lại từ đầu")],
-  khkt=[("Vấn đề", "Học sinh hỏi chatbot về bài học và nhận câu trả lời sai mà không biết."), ("Câu hỏi nghiên cứu", "Trợ lý có tra cứu sách giáo khoa có giảm tỉ lệ trả lời sai so với chatbot đóng sách không?"), ("Giả thuyết", "Tỉ lệ bịa giảm rõ rệt, và trích dẫn giúp học sinh phát hiện lỗi còn lại."), ("Lưu ý đạo đức", "Tôn trọng bản quyền sách khi nạp tài liệu; không dùng trợ lý để làm bài hộ.")],
-  prev=("19-xe-tu-lai", "19"), nextp=None,
+  badge="Kĩ Sư AI Có Trách Nhiệm", badge_p="Em đã hoàn thành nhánh THCS và mở khóa 3 thẻ kiến thức: Ghép khối thành hệ thống · Riêng tư và trung thực · Tự đánh giá trước khi dùng.",
+  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Sổ tay lớp của em", "Viết 10 đoạn sổ tay cho lớp em (lịch, nội quy, câu lạc bộ…), mỗi đoạn kèm 5 từ khóa. Không đưa thông tin cá nhân của bạn nào."),
+       (2, "DỰ ÁN NHÓM · 2 TUẦN", "Trợ lý lớp bằng Python", "Lập trình trợ lý theo 5 khối của dự án, viết 30 câu kiểm thử, chấm theo 4 tiêu chí và trình bày trước lớp, có thầy cô duyệt dữ liệu."),
+       (3, "Ý TƯỞNG KHKT", "Trợ lý trường học có trách nhiệm", "Xây trợ lý hỏi đáp cho trường, đo tỉ lệ trả lời đúng, tỉ lệ chuyển câu khó cho người thật, kiểm tra riêng tư và thu thập góp ý của 100 học sinh.")],
+  res=[("layers", "", "Phiếu học tập", "Bản thiết kế trợ lý của nhóm, câu kiểm thử, bảng tự đánh giá.", "phieu.html"),
+       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, gợi ý tổ chức dự án nhóm, đáp án.", "giao-vien.html"),
+       ("rocket", "amber", "Học lên: Dự án 40", "Trợ lý hỏi đáp tìm đoạn văn trong sách rồi trả lời, có ghi nguồn.", "../40-hoi-dap/index.html")],
+  prev=("19-anh-that", "19"), nextp=None,
 )

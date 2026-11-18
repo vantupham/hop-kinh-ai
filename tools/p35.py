@@ -1,80 +1,101 @@
 D = dict(
-  out="du-an/35-chatbot/index.html", num="35", grade="8", title="Dự án 35 · Tự làm chatbot theo luật",
-  scripts=["bot.js"],
-  h1='Tự làm <span class="hl-word">chatbot</span> cho thư viện trường',
-  lead="Thư viện trường muốn có một trợ lý trả lời các câu hỏi quen thuộc: mấy giờ mở cửa, mượn sách thế nào, lỡ làm mất sách thì sao. Em sẽ tự làm chatbot đó bằng các luật \"nếu câu hỏi có từ khóa… thì trả lời…\", thử với câu hỏi thật của các bạn, và thấy rõ vì sao chatbot theo luật vừa dễ làm vừa rất dễ \"hỏng\".",
-  play='''
+  out="du-an/35-thu-ngu/index.html", num="35", level="3", title="Dự án 35 · Cử chỉ chuyển động",
+  scripts=["../../assets/sim-hand.js", "gesture.js"],
+  h1='Hiểu <span class="hl-word">cử chỉ chuyển động</span>',
+  lead="Vẫy tay chào, vẽ vòng tròn trong không khí, vuốt lên để lật trang… Những cử chỉ này không nằm trong một khung hình mà trải dài theo thời gian. Đây cũng là bước đầu tiên để máy hiểu được ngôn ngữ ký hiệu. Hãy xem máy cắt, kéo giãn và so khớp từng chuỗi chuyển động.",
+  moi='''
   <div class="playground">
     <div class="stage-col">
-      <div class="chatbox vf" id="chatbox"><div class="phone-top"><span class="live-dot"></span><b>Kính · Trợ lý thư viện</b><span class="spacer"></span><span class="chip" id="ruleChip">7 luật</span></div>
-        <ul class="chatlog" id="log" aria-live="polite"></ul>
-        <form class="chatin" id="chatForm"><label for="msgIn" class="sr-only">Câu hỏi</label><input id="msgIn" autocomplete="off" placeholder="Gõ câu hỏi, ví dụ: Thư viện mở cửa mấy giờ?"><button class="btn small accent" type="submit"><i data-i="send"></i>Gửi</button></form></div>
-      <div class="play-panel"><p class="small" style="margin:0 0 8px"><b>Câu hỏi của các bạn (bấm để gửi thử):</b></p><div class="btn-row" id="tests"></div>
-        <p class="ask" id="askText" aria-live="polite" style="margin:12px 0 0"></p></div>
-      {{GUIDE}}
-      <div class="card" style="margin-top:6px">
-        <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="code"></i></span>Bộ luật của chatbot</h2>
-        <ol class="rules" id="rules"></ol>
-        <form class="addrule" id="addForm"><label class="small">Nếu câu hỏi có từ khóa (cách nhau bằng dấu phẩy)<input id="newKw" placeholder="máy tính, mượn máy tính"></label><label class="small">thì trả lời<input id="newAns" placeholder="Thư viện có 10 máy tính, dùng tại chỗ theo giờ."></label><button class="btn small" type="submit"><i data-i="book"></i>Thêm luật</button></form>
+      <div class="stage vf"><canvas id="stage" class="touch" width="640" height="480" aria-label="Bàn tay làm cử chỉ và bảng so khớp với 5 mẫu"></canvas><video id="video" playsinline muted hidden></video><div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div><div class="stage-msg" id="stageMsg" hidden></div></div>
+      <div class="toolbar">
+        <div class="seg"><button class="btn small" id="srcSim"><i data-i="film"></i>Mô phỏng</button><button class="btn small ghost" id="srcCam"><i data-i="camera"></i>Camera thật</button></div>
+        <div class="seg sim-only" id="modeBtns"><button class="btn small ghost" data-m="auto"><i data-i="play"></i>Máy tự diễn</button><button class="btn small ghost" data-m="mouse"><i data-i="figure"></i>Em tự vẽ</button></div>
       </div>
-      <div class="card" style="margin-top:14px">
-        <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm amber"><i data-i="sliders"></i></span>Bàn thí nghiệm</h2>
-        <label class="ctl"><span>Số từ khóa tối thiểu phải khớp</span><b id="minV"></b><input type="range" id="min" min="1" max="3" step="1"></label>
-        <div class="toggles"><label class="tog"><input type="checkbox" id="optStrip"><span>Bỏ dấu tiếng Việt khi so</span></label><label class="tog"><input type="checkbox" id="optBest" checked><span>Chọn luật khớp nhiều từ khóa nhất (tắt: chọn luật đầu tiên khớp)</span></label></div>
-      </div>
+      <div class="game sim-only"><span class="small muted">Bảo máy diễn</span><div class="btn-row" id="gBtns"></div></div>
+      <p class="small muted" style="margin:8px 0 0"><i data-i="bulb"></i> Giữ chuột (hoặc ngón tay) trên sân khấu và vẽ một trong 5 cử chỉ, rồi thả ra.</p>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não của chatbot</div>
-      <div class="metric-row"><div class="metric"><span>LUẬT ĐƯỢC CHỌN</span><b id="bRule" style="font-size:.92rem">—</b></div><div class="metric"><span>ĐÚNG / 12 CÂU HỎI THỬ</span><b id="bAcc">—</b></div></div>
-      <div class="lbl" style="margin-top:12px">CÂU HỎI SAU KHI CHUẨN HÓA</div><div id="bNorm" class="calc"></div>
-      <div class="lbl" style="margin-top:12px">TỪ KHÓA KHỚP</div><div class="kw" id="bHit"></div>
-      <p class="small" style="color:#c3c7f0;margin-top:12px">Chatbot <b>không hiểu</b> câu hỏi. Nó chỉ tìm xem câu có chứa từ khóa nào, luật nào khớp nhiều nhất thì dùng câu trả lời của luật đó.</p>
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result"><small>CỬ CHỈ VỪA RỒI</small><span id="bRes">—</span></div>
+      <div class="metric-row" style="margin-top:12px"><div class="metric"><span>SỐ KHUNG TRONG ĐOẠN</span><b id="bSeg">—</b></div><div class="metric"><span>KHOẢNG CÁCH GẦN NHẤT</span><b id="bDist">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>ĐÚNG / 20 LẦN GẦN NHẤT</span><b id="bAcc">—</b></div><div class="metric"><span>ĐIỂM MỖI CỬ CHỈ</span><b>32</b></div></div>
+      <p class="small" style="color:#c3c7f0;margin-top:12px">5 cử chỉ ở đây do Hộp Kính AI tự đặt ra để học cách làm, <b>không phải</b> ký hiệu của Ngôn ngữ ký hiệu Việt Nam.</p>
     </aside>
+  </div>''',
+  mission_h2="Dạy máy hiểu một chuyển động, không chỉ một tư thế",
+  mission_q="Cùng một cử chỉ, mỗi lần làm lại nhanh chậm khác nhau. Máy so sánh thế nào?",
+  mission_p="Em sẽ biến bàn tay thành một <b>chuỗi điểm theo thời gian</b>, xem máy <b>cắt đoạn</b> chuyển động, <b>chuẩn hóa</b>, rồi dùng <b>DTW</b> để co giãn thời gian khi so với mẫu. Em còn có thể dạy máy cử chỉ của riêng em.",
+  minutes="60–75 phút",
+  checklist=[("see3", "Để máy nhận đúng ít nhất 3 cử chỉ khác nhau"), ("own", "Tự vẽ một cử chỉ bằng chuột hoặc camera"), ("soi", "Soi tới bước So khớp DTW"), ("save", "Lưu một cử chỉ của em làm mẫu"), ("broke", "Làm máy nhận sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="Từ bàn tay tới cử chỉ: 6 bước",
+  soi_p="Hình bên dưới dùng đúng cử chỉ vừa diễn ra ở phần Mồi.",
+  theory=[
+    dict(no="57", tag="Dữ liệu", title="Chuỗi thời gian",
+      svg='<path d="M20 100H240" class="s-line" stroke-width="1"/><path d="M20 80C50 30 70 30 90 70S140 110 160 60S210 30 240 50" fill="none" class="s-violet" stroke-width="3"/><g class="f-coral"><circle cx="20" cy="80" r="4"/><circle cx="90" cy="70" r="4"/><circle cx="160" cy="60" r="4"/><circle cx="240" cy="50" r="4"/></g><text x="190" y="116" font-size="10" class="t-mono f-muted">thời gian →</text>',
+      p="<b>Chuỗi thời gian</b> là dãy số đo nối tiếp nhau theo thời gian: nhịp tim, nhiệt độ, giá cả, hay vị trí bàn tay mỗi khung hình. Với chuỗi, <b>thứ tự</b> mang ý nghĩa: đảo ngược vuốt lên sẽ thành vuốt xuống.",
+      deep="Em đã gặp chuỗi thời gian ở Dự án 21 (đếm squat theo góc gối), Dự án 28 (âm thanh) và Dự án 30. Ở đây cả chuỗi là một mẫu dữ liệu cần phân loại."),
+    dict(no="58", tag="Xử lý", cls="amber", title="Cắt đoạn & chuẩn hóa",
+      svg='<rect x="20" y="30" width="220" height="60" rx="6" class="f-soft"/><path d="M20 80h40l20-40 20 40 20-40 20 40h100" fill="none" class="s-violet" stroke-width="2.5"/><rect x="60" y="30" width="80" height="60" fill="none" class="s-mint" stroke-width="2.5" stroke-dasharray="5 4"/><text x="62" y="110" font-size="10" class="t-mono f-mint">một cử chỉ</text>',
+      p="Máy phải tự tìm <b>lúc bắt đầu và kết thúc</b> một cử chỉ: dựa vào tốc độ bàn tay. Sau đó đưa đoạn về cùng vị trí và cùng kích thước để chỉ còn lại <b>hình dạng</b> của chuyển động.",
+      deep="Cắt đoạn là phần khó nhất của nhận dạng ngôn ngữ ký hiệu thật, vì người ký hiệu nối các từ liền mạch, không dừng giữa các từ. Các hệ thống hiện đại dùng mạng nơ-ron học luôn cả việc cắt đoạn."),
+    dict(no="59", tag="Thuật toán", cls="coral", title="Co giãn thời gian (DTW)",
+      svg='<path d="M20 40C60 10 80 70 120 40S200 20 240 40" fill="none" class="s-violet" stroke-width="3"/><path d="M20 100C40 70 60 130 100 100S200 80 240 100" fill="none" class="s-coral" stroke-width="3"/><g class="s-line" stroke-width="1"><path d="M20 40 20 100M60 34 40 94M120 40 100 100M180 30 150 94M240 40 240 100"/></g>',
+      p="Hai lần vẫy tay không bao giờ cùng nhịp. <b>DTW</b> (Dynamic Time Warping) tìm cách ghép từng điểm của chuỗi này với điểm tương ứng của chuỗi kia, cho phép <b>kéo giãn</b> hay <b>nén</b> thời gian, sao cho tổng khoảng cách nhỏ nhất.",
+      deep="DTW dùng <b>quy hoạch động</b>: điền dần một bảng, mỗi ô dựa trên 3 ô bên cạnh đã tính. Đây là một kỹ thuật thuật toán quan trọng em sẽ gặp lại trong tin học, ví dụ khi so sánh hai đoạn ADN."),
+    dict(no="60", tag="Đạo đức", cls="mint", title="AI và ngôn ngữ ký hiệu",
+      svg='<circle cx="80" cy="60" r="34" class="f-soft"/><path d="M64 60l10 10 20-22" fill="none" class="s-mint" stroke-width="4"/><circle cx="180" cy="60" r="34" class="f-soft"/><path d="M180 44v18M180 72v4" class="s-coral" stroke-width="5" stroke-linecap="round"/>',
+      p="Ngôn ngữ ký hiệu có ngữ pháp riêng, dùng cả bàn tay, nét mặt và cơ thể. Nhận được vài cử chỉ <b>chưa phải</b> là hiểu ngôn ngữ. Một hệ thống thật phải được xây <b>cùng</b> cộng đồng người Điếc, không chỉ <b>cho</b> họ.",
+      deep="Ngôn ngữ ký hiệu ở mỗi nước, thậm chí mỗi vùng, khác nhau. Dữ liệu phải do người dùng ngôn ngữ đó cung cấp và đồng ý, và họ cần được tham gia đánh giá xem hệ thống có hữu ích, có tôn trọng ngôn ngữ của họ không."),
+  ],
+  tulam_h2="Bàn thí nghiệm: ma trận DTW và cử chỉ của riêng em",
+  tulam_p="Chọn một mẫu để xem ma trận chi phí giữa nó và cử chỉ vừa rồi. Ô sáng là cặp điểm gần nhau; đường vàng là cách ghép tốt nhất.",
+  tulam='''
+  <div class="two-col">
+    <div class="card canvas-card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="blocks"></i></span>Ma trận chi phí DTW</h3>
+      <canvas id="dtwM" width="460" height="400"></canvas>
+      <div class="btn-row" id="tplBtns" style="margin-top:8px"></div>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm coral"><i data-i="sliders"></i></span>Điều chỉnh</h3>
+      <label class="tog" style="display:block;margin:6px 0"><input type="checkbox" id="norm"><span>Chuẩn hóa vị trí & kích thước</span></label>
+      <label class="tog" style="display:block;margin:6px 0 10px"><input type="checkbox" id="dtw"><span>Dùng DTW (tắt = so từng khung theo thời gian thật)</span></label>
+      <label class="ctl"><span>Ngưỡng khoảng cách</span><b id="thrV"></b><input type="range" id="thr" min="0.1" max="1.5" step="0.01"></label>
+      <label class="ctl"><span>Đứng yên bao lâu thì cắt đoạn</span><b id="restV"></b><input type="range" id="rest" min="0.05" max="0.8" step="0.01"></label>
+      <div class="lbl muted small" style="margin:10px 0 4px">NGƯỜI DIỄN MÔ PHỎNG</div>
+      <label class="ctl"><span>Nhịp thất thường</span><b id="warpV"></b><input type="range" id="warp" min="0" max="0.95" step="0.05"></label>
+      <label class="ctl"><span>Tốc độ diễn</span><b id="speedV"></b><input type="range" id="speed" min="0.5" max="2" step="0.1"></label>
+      <div class="btn-row" style="margin-top:8px"><button class="btn small accent" id="btnSave"><i data-i="upload"></i>Lưu cử chỉ vừa rồi làm mẫu</button><button class="btn small ghost" id="btnResetTpl"><i data-i="reset"></i>Về mẫu gốc</button></div>
+      <p class="small muted" style="margin:6px 0 0">Mẫu được lưu vào loại đang chọn bên trái. Hiện có: <b id="tplCount"></b></p>
+    </div>
   </div>
-  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Số từ khóa khớp của từng luật với câu hỏi vừa gửi</b></div><canvas id="chart" width="1100" height="220"></canvas></div>''',
-  play_guide="Gõ một câu hỏi về thư viện, hoặc bấm các câu hỏi thử bên dưới. Xem chatbot chọn <b>luật</b> nào và vì sao.",
-  lessons=["Tin học 8 · Cấu trúc rẽ nhánh nếu… thì…", "Tin học 8 · Xử lý xâu kí tự", "Ngữ văn 8 · Câu hỏi, giao tiếp phù hợp"],
-  mission_h2="Tự xây một chatbot và hiểu giới hạn của nó",
-  mission_q="Chatbot trả lời đúng câu \"mấy giờ mở cửa\". Vậy nó có hiểu tiếng Việt không?",
-  mission_p="Em sẽ thử chatbot với câu hỏi của các bạn, <b>thêm luật mới</b>, chỉnh cách <b>chuẩn hóa</b> và cách <b>chọn luật</b>, rồi phá máy bằng câu lạ, câu không dấu và luật chồng chéo. Cuối cùng em so sánh chatbot theo luật với chatbot học từ dữ liệu.",
-  minutes="45 phút · 1 tiết học",
-  checklist=[("chat", "Gửi ít nhất 5 câu hỏi cho chatbot"), ("rule", "Tự thêm một luật mới"), ("score", "Làm chatbot trả lời đúng ít nhất 11/12 câu thử"), ("soi", "Soi tới bước Chọn luật"), ("broke", "Làm chatbot trả lời sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Chatbot theo luật trả lời như thế nào? 6 bước",
-  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Hình minh họa dùng câu hỏi em vừa gửi.",
-  soi_guide="Bên trong chatbot chỉ là <b>xử lý chữ</b> và <b>nếu… thì…</b> em học ở Tin học. Cùng soi nhé!",
-  cards=[
-    dict(no="T1", tag="Lập trình", title="Luật nếu… thì…",
-      svg='<rect x="14" y="18" width="232" height="30" rx="8" class="f-violet" opacity=".9"/><text x="24" y="38" font-size="12" fill="#fff" font-weight="700">NẾU câu có "mở cửa" hoặc "mấy giờ"</text><rect x="14" y="58" width="232" height="30" rx="8" class="f-mint" opacity=".9"/><text x="24" y="78" font-size="12" fill="#062b27" font-weight="700">THÌ trả lời "Mở cửa 7h–17h"</text><text x="16" y="108" font-size="11" class="f-ink">KHÔNG KHỚP luật nào → "Mình chưa hiểu"</text>',
-      p="Mỗi <b>luật</b> gồm một danh sách <b>từ khóa</b> và một <b>câu trả lời</b> viết sẵn. Chatbot dò xem câu hỏi chứa từ khóa nào, chọn luật khớp nhất. Đó chính là cấu trúc <b>rẽ nhánh</b> em đã học.",
-      ex="Tổng đài tự động \"bấm phím 1 để…, bấm phím 2 để…\" là một hệ thống theo luật rất đơn giản."),
-    dict(no="T2", tag="Xử lý chữ", cls="amber", title="Chuẩn hóa câu hỏi",
-      svg='<text x="14" y="34" font-size="13" class="f-ink" font-weight="700">"Thư viện MỞ CỬA mấy giờ???"</text><path d="M120 42v14" class="s-violet" stroke-width="2.5" marker-end="url(#arV)"/><text x="14" y="78" font-size="13" class="f-mint" font-weight="700">thư viện mở cửa mấy giờ</text><text x="14" y="104" font-size="13" class="f-amber" font-weight="700">thu vien mo cua may gio</text>',
-      p="Người gõ chữ hoa, chữ thường, thêm dấu chấm hỏi, gõ không dấu… Trước khi so, chatbot <b>chuẩn hóa</b>: đổi hết về chữ thường, bỏ dấu câu, có thể bỏ cả dấu tiếng Việt. Nhờ vậy cùng một ý viết khác nhau vẫn khớp được.",
-      ex="Ô tìm kiếm trên mạng vẫn tìm đúng dù em gõ \"thu vien\" thay vì \"thư viện\"."),
-    dict(no="T3", tag="So sánh", cls="coral", title="Chatbot luật và chatbot học máy",
-      svg='<rect x="14" y="18" width="110" height="80" rx="10" class="f-violet" opacity=".2"/><text x="22" y="40" font-size="11" class="f-violet" font-weight="800">Theo luật</text><text x="22" y="60" font-size="10" class="f-ink">dễ hiểu, dễ sửa</text><text x="22" y="78" font-size="10" class="f-coral">câu lạ là bí</text><rect x="136" y="18" width="110" height="80" rx="10" class="f-mint" opacity=".2"/><text x="144" y="40" font-size="11" class="f-mint" font-weight="800">Học từ dữ liệu</text><text x="144" y="60" font-size="10" class="f-ink">linh hoạt hơn</text><text x="144" y="78" font-size="10" class="f-coral">có thể bịa</text>',
-      p="Chatbot theo luật chỉ trả lời được những gì người viết đã nghĩ trước, nhưng <b>luôn biết vì sao</b> nó trả lời như vậy. Chatbot AI học từ rất nhiều văn bản nên trả lời linh hoạt hơn, nhưng có thể <b>trả lời sai một cách tự tin</b>. Dù dùng loại nào, em vẫn cần kiểm tra lại thông tin.",
-      ex="Bảng câu hỏi thường gặp trên trang web là \"luật\"; trợ lý AI trò chuyện là \"học từ dữ liệu\"."),
-  ],
-  real=[("msg", "", "Trợ lý chăm sóc khách hàng", "Nhiều trang web dùng chatbot theo luật cho câu hỏi thường gặp, câu khó thì chuyển cho nhân viên thật."),
-        ("cpu", "mint", "Trợ lý AI trò chuyện", "Học từ lượng văn bản khổng lồ để trả lời tự nhiên, nhưng vẫn cần kiểm tra vì có thể trả lời sai."),
-        ("book", "amber", "Hỏi đáp trong trường học", "Một chatbot nhỏ trả lời lịch thi, thời khóa biểu, quy định thư viện giúp thầy cô bớt phải trả lời lặp lại.")],
-  breaks_h2="Thử thách: hãy làm chatbot trả lời sai!",
-  breaks_guide="Chatbot theo luật không hiểu câu hỏi, nó chỉ dò từ khóa. Thử ba cách làm nó bối rối!",
+  <div class="two-col" style="margin-top:18px">
+    <div class="card chart-card"><div class="chart-head"><b><i data-i="activity"></i> Tốc độ bàn tay (dùng để cắt đoạn)</b></div><canvas id="chart" width="540" height="200"></canvas></div>
+    <div class="card"><div class="chart-head"><b><i data-i="checkCircle"></i> 20 cử chỉ gần nhất của máy diễn · đúng <span id="labAcc">—</span></b></div><canvas id="histV" width="540" height="130"></canvas><p class="small muted" style="margin:4px 0 0">Xanh: đúng · Cam: sai · Xám: Không rõ</p>
+      <h3 class="h-ic" style="margin-top:12px"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật</h3><pre class="code" id="genCode"></pre></div>
+  </div>''',
+  breaks_h2="Thử thách: hãy làm máy hiểu sai cử chỉ!",
   breaks=[
-    dict(icon="help", key="strange", title="Câu hỏi lạ", p="Một bạn hỏi: <b>\"Thư viện có cho mượn máy tính không?\"</b>",
-      why="Câu có từ \"mượn\" nên luật <b>mượn sách</b> khớp và chatbot trả lời về mượn sách, sai hẳn ý. Chatbot không hiểu \"máy tính\" khác \"sách\". Tự <b>thêm một luật</b> với từ khóa \"máy tính, mượn máy tính\" ở ô bên dưới bộ luật, rồi hỏi lại."),
-    dict(icon="code", key="noacc", title="Gõ không dấu", p="Bạn khác gõ vội: <b>\"thu vien mo cua may gio\"</b>.",
-      why="Từ khóa trong luật có dấu (\"mở cửa\", \"mấy giờ\"), câu hỏi không dấu nên không khớp chữ nào, chatbot trả lời \"chưa hiểu\". Bật <b>Bỏ dấu tiếng Việt khi so</b>: cả câu hỏi và từ khóa đều được bỏ dấu trước khi so."),
-    dict(icon="layers", key="overlap", title="Luật chồng chéo", p="Câu hỏi: <b>\"Em làm mất sách thì phải trả bao nhiêu tiền?\"</b>, và chatbot đang <b>chọn luật đầu tiên khớp</b>.",
-      why="Câu có \"trả\" (luật hạn trả sách) và \"làm mất\", \"mất sách\" (luật mất sách). Luật hạn trả đứng trước nên được chọn, trả lời sai. Bật <b>Chọn luật khớp nhiều từ khóa nhất</b>: luật mất sách khớp 3 từ khóa sẽ thắng."),
+    dict(icon="clock", key="speed", title="Nhịp thất thường", p="Người diễn làm cử chỉ <b>chậm hơn mẫu, lại nhanh chỗ này chậm chỗ kia</b>, và máy bị tắt DTW: khung thứ 1 so với khung thứ 1, khung thứ 2 với khung thứ 2…",
+      why="Khi so cứng theo thời gian, lúc mẫu đã vẽ xong thì em mới vẽ được nửa đường, nên máy nhận sai hoặc nói Không rõ. Bật <b>Dùng DTW</b>: máy co giãn thời gian để ghép đúng điểm tương ứng. Xem ma trận: đường vàng không còn là đường chéo thẳng."),
+    dict(icon="scan", key="cut", title="Cắt đoạn vội vàng", p="Chỉ cần bàn tay dừng <b>0,05 giây</b> là máy coi như cử chỉ đã xong.",
+      why="Chữ Z và chữ V có những chỗ tay dừng rất ngắn ở góc. Máy cắt cử chỉ thành nhiều mẩu, mỗi mẩu trông như \"vuốt\" một đường. Tăng <b>thời gian đứng yên</b> lên khoảng 0,3 giây. Đặt quá dài thì hai cử chỉ liền nhau sẽ bị dính vào nhau."),
+    dict(icon="crosshair", key="pos", title="Đứng lệch, ở xa", p="Người diễn đứng ở <b>góc trên bên phải</b>, xa camera nên cử chỉ nhỏ, và bước chuẩn hóa bị tắt.",
+      why="Không chuẩn hóa thì máy so tọa độ thật: cử chỉ nhỏ ở góc cách xa mọi mẫu ở giữa, nên máy chọn mẫu \"ít xa nhất\" một cách vô nghĩa (thường cứ ra một cử chỉ) hoặc nói Không rõ. Bật <b>Chuẩn hóa vị trí & kích thước</b>."),
   ],
-  badge="Nhà Thiết Kế Chatbot", badge_p="Em đã mở khóa 3 thẻ kiến thức: Luật nếu… thì… · Chuẩn hóa câu hỏi · Chatbot luật và chatbot học máy.",
-  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Chatbot gia đình", "Viết 8 luật cho một chatbot trả lời câu hỏi về gia đình em (mấy giờ ăn tối, wifi tên gì…). Nhờ người nhà hỏi thử 10 câu và đếm số câu trả lời đúng."),
-       (2, "DỰ ÁN NHÓM · 1 TUẦN", "Chatbot lớp học bằng Python", "Dùng xâu kí tự và câu lệnh if trong Python để viết chatbot theo luật cho lớp: lịch kiểm tra, trực nhật, câu lạc bộ."),
-       (3, "Ý TƯỞNG KHKT", "Trợ lý thư viện thật", "Thu thập 100 câu hỏi thật của học sinh tại thư viện, xây bộ luật, đo tỉ lệ trả lời đúng và chuyển câu khó cho cô thủ thư.")],
-  res=[("layers", "", "Phiếu học tập", "Viết luật, chuẩn hóa câu, thử chatbot trên giấy.", "phieu.html"),
-       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, câu hỏi thảo luận, đáp án.", "giao-vien.html"),
-       ("rocket", "amber", "Học lên: Dự án 20", "Máy tìm đoạn văn liên quan rồi mới trả lời, có ghi nguồn.", "../20-hoi-dap/index.html")],
-  prev=("34-giay-quy", "34"), nextp=("36-bo-canh-cung", "36"),
+  real_h2="Nhận dạng chuyển động đang được dùng ở đâu?",
+  real=[("msg", "", "Hỗ trợ giao tiếp", "Các dự án nghiên cứu nhận dạng ngôn ngữ ký hiệu từ video, giúp người Điếc và người nghe trao đổi dễ hơn. Đây là bài toán còn rất khó."),
+        ("gamepad", "mint", "Điều khiển không chạm", "Vẫy tay để chuyển bài, xoay tay để chỉnh âm lượng trong ô tô, trò chơi vận động trước màn hình."),
+        ("activity", "amber", "Sức khỏe & thể thao", "So khớp động tác tập phục hồi chức năng với động tác mẫu của bác sĩ, kể cả khi bệnh nhân làm chậm hơn.")],
+  ethics=["Một ứng dụng \"phiên dịch ngôn ngữ ký hiệu\" chỉ biết vài chục từ và hay dịch sai. Quảng cáo nó như một phiên dịch viên có ổn không?",
+          "Ai nên được tham gia khi xây dựng công nghệ cho cộng đồng người Điếc? Vì sao?",
+          "Dữ liệu video ký hiệu cho thấy rõ khuôn mặt người làm. Cần bảo vệ quyền riêng tư của họ thế nào?"],
+  badge="Bậc Thầy Chuyển Động", badge_p="Em đã mở khóa 4 thẻ kiến thức: Chuỗi thời gian · Cắt đoạn & chuẩn hóa · DTW · AI và ngôn ngữ ký hiệu.",
+  dev_h2="Từ cử chỉ chuyển động đến dự án của riêng em",
+  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Điều khiển trình chiếu bằng cử chỉ", "Gán vuốt lên, vòng tròn, chữ V thành các phím chuyển trang, phóng to, tắt màn hình cho bài thuyết trình của em.", "Xong khi", "trình bày được 5 phút chỉ bằng cử chỉ, sai không quá 1 lần."),
+       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "Cử chỉ bằng cả hai tay và hình dạng bàn tay", "Mỗi khung dùng thêm 5 độ duỗi ngón tay (Dự án 23) và vị trí tay thứ hai, rồi so khớp DTW trên chuỗi nhiều chiều.", "Xong khi", "phân biệt được hai cử chỉ có cùng đường đi nhưng khác hình bàn tay."),
+       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Trợ lý học ký hiệu cho người mới", "Cùng thầy cô và cộng đồng người Điếc ở địa phương chọn 10–20 ký hiệu thông dụng, thu dữ liệu có đồng ý, xây công cụ chấm điểm động tác cho người học.", "Đo kết quả", "độ chính xác, và đánh giá của chính người Điếc về độ hữu ích và độ tôn trọng ngôn ngữ.")],
+  cur="35 · Cử chỉ động", next=[("36 · Đoán chữ tiếp theo", "chuỗi chữ thay cho chuỗi chuyển động"), ("5 · Vũ công AI", "so khớp động tác"), ("38 · Robot thoát mê cung", "AI tự quyết định")],
+  khkt=[("Vấn đề", "Người mới học ngôn ngữ ký hiệu khó biết mình làm đúng hay chưa khi không có giáo viên."), ("Câu hỏi nghiên cứu", "So khớp DTW với mẫu của người Điếc có chấm điểm động tác sát với đánh giá của họ không?"), ("Giả thuyết", "Điểm DTW tương quan chặt với điểm do người Điếc chấm."), ("Lưu ý đạo đức", "Hợp tác và ghi công cộng đồng người Điếc; có đồng ý khi quay video; không công bố khuôn mặt.")],
+  prev=("34-la-cay", "34"), nextp=("36-doan-chu", "36"),
 )

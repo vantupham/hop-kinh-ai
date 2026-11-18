@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Một tiết học 45 phút giúp học sinh lớp 8 tự xây chatbot bằng luật nếu… thì…, kiểm thử bằng câu hỏi thật và thấy rõ giới hạn của nó.">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="canonical" href="https://vantupham.github.io/hop-kinh-ai/du-an/15-chatbot/giao-vien.html">
+<meta property="og:url" content="https://vantupham.github.io/hop-kinh-ai/du-an/15-chatbot/giao-vien.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hướng dẫn giáo viên Dự án 15: Chatbot theo luật (lớp 8) | Hộp Kính AI">
+<meta property="og:description" content="Một tiết học 45 phút giúp học sinh lớp 8 tự xây chatbot bằng luật nếu… thì…, kiểm thử bằng câu hỏi thật và thấy rõ giới hạn của nó.">
+<meta property="og:image" content="https://vantupham.github.io/hop-kinh-ai/assets/og/15.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<!--seo:end-->
+<title>Hướng dẫn giáo viên Dự án 15: Chatbot theo luật (lớp 8) | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/thcs.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="logo" href="../../index.html">Hộp Kính AI</a><span class="crumbs"><a href="index.html">DỰ ÁN 15</a> / GIÁO VIÊN</span><span class="spacer"></span><button class="theme-tg" data-theme-toggle></button></div></header>
+<main class="doc-page">
+  <div class="print-bar"><button class="btn accent" onclick="window.print()"><i data-i="upload"></i>In hướng dẫn</button><a class="btn ghost" href="index.html"><i data-i="arrowL"></i>Về Dự án 15</a><a class="btn ghost" href="phieu.html"><i data-i="layers"></i>Phiếu học tập</a></div>
+  <p class="kicker" style="margin:0">HỘP KÍNH AI · NHÁNH THCS · LỚP 8 · HƯỚNG DẪN GIÁO VIÊN</p>
+  <h1>Dự án 15: Tự làm chatbot theo luật</h1>
+  <p class="lead">Một tiết học 45 phút giúp học sinh lớp 8 tự xây chatbot bằng luật nếu… thì…, kiểm thử bằng câu hỏi thật và thấy rõ giới hạn của nó.</p>
+
+  <table>
+    <tr><th style="width:28%">Đối tượng</th><td>Học sinh lớp 8</td></tr>
+    <tr><th>Thời lượng</th><td>1 tiết (45 phút); mở rộng thêm 1 tiết nếu cho học sinh lập trình bằng Python</td></tr>
+    <tr><th>Gắn với nội dung</th><td><b>Tin học 8:</b> cấu trúc rẽ nhánh (nếu… thì…), kiểu dữ liệu xâu kí tự, giải quyết vấn đề với sự trợ giúp của máy tính; đạo đức và văn hóa khi dùng AI.<br><b>Ngữ văn 8:</b> đặt câu hỏi rõ ràng, các cách diễn đạt khác nhau cho cùng một ý.</td></tr>
+    <tr><th>Thiết bị</th><td>Tối thiểu: 1 máy tính và máy chiếu. Tốt hơn: mỗi nhóm 2–3 học sinh một máy. Không cần camera, micro hay mạng sau khi tải trang.</td></tr>
+  </table>
+
+  <h2>1. Mục tiêu</h2>
+  <ul>
+    <li><b>Kiến thức:</b> mô tả chatbot theo luật gồm các bước chuẩn hóa, dò từ khóa, chọn luật, trả lời; phân biệt chatbot theo luật và chatbot học từ dữ liệu.</li>
+    <li><b>Năng lực:</b> viết luật nếu… thì…; kiểm thử chatbot bằng bộ câu hỏi; tìm và sửa lỗi (câu lạ, câu không dấu, luật chồng chéo).</li>
+    <li><b>Phẩm chất:</b> có trách nhiệm khi làm công cụ trả lời người khác; biết kiểm tra lại thông tin chatbot đưa ra.</li>
+  </ul>
+
+  <h2>2. Tiến trình gợi ý (45 phút)</h2>
+  <table>
+    <tr><th style="width:18%">Hoạt động</th><th style="width:10%">Thời gian</th><th>Giáo viên và học sinh</th></tr>
+    <tr><td><b>Khởi động</b></td><td>5 phút</td><td>Một học sinh đóng vai "chatbot" chỉ được trả lời bằng 5 câu viết sẵn trên bảng; cả lớp hỏi và xem "chatbot" lúng túng ra sao.</td></tr>
+    <tr><td><b>Khám phá</b></td><td>10 phút</td><td>Hỏi chatbot trên trang bằng các câu thử; quan sát luật được chọn và từ khóa khớp. Mở <b>Soi bên trong</b> bước 1 đến 4. Làm <b>Phần 1</b>.</td></tr>
+    <tr><td><b>Luyện tập</b></td><td>13 phút</td><td>Làm <b>Phần 2</b> bằng tay rồi kiểm tra trên trang (bật/tắt "Chọn luật khớp nhiều nhất"). Nâng điểm câu thử lên 11/12 bằng cách bật bỏ dấu và thêm luật.</td></tr>
+    <tr><td><b>Vận dụng</b></td><td>14 phút</td><td>Bật 3 sự cố ở <b>Phá máy</b> và sửa. Nhóm làm <b>Phần 3, 4</b>: viết chatbot cho chủ đề riêng, đổi phiếu kiểm thử.</td></tr>
+    <tr><td><b>Tổng kết</b></td><td>3 phút</td><td>Xem <b>Soi</b> bước 6, làm <b>Phần 5</b>. Nhấn mạnh: dù chatbot nào, thông tin quan trọng vẫn cần kiểm tra lại.</td></tr>
+  </table>
+
+  <h2>3. Câu hỏi thảo luận và gợi ý trả lời</h2>
+  <table>
+    <tr><th style="width:45%">Câu hỏi</th><th>Gợi ý</th></tr>
+    <tr><td>Chatbot có "hiểu" câu hỏi không?</td><td>Không. Nó chỉ so chữ: câu có chứa từ khóa nào. Vì vậy câu có chữ "mượn" nhưng hỏi về máy tính vẫn bị trả lời về sách.</td></tr>
+    <tr><td>Thêm thật nhiều từ khóa có làm chatbot tốt hơn không?</td><td>Không hẳn. Từ khóa quá chung (như "giờ", "trả") khớp với cả những câu không liên quan và gây chồng chéo. Cần thử lại bộ câu hỏi sau mỗi lần sửa.</td></tr>
+    <tr><td>Vì sao chatbot cần câu mặc định "chưa hiểu"?</td><td>Trả lời "chưa hiểu, hãy hỏi cô thủ thư" an toàn hơn trả lời bừa. Chatbot tốt biết giới hạn của mình.</td></tr>
+  </table>
+
+  <h2>4. Đáp án phiếu học tập</h2>
+  <p><b>Phần 1:</b> "thư viện mở cửa lúc mấy giờ" → "thu vien mo cua luc may gio"; "cảm ơn kính" → "cam on kinh"; "đóng cửa lúc nào vậy" → "dong cua luc nao vay".</p>
+  <p><b>Phần 2:</b></p>
+  <table><tr><th>Câu</th><th>Luật khớp (số từ)</th><th>Khớp nhiều nhất</th><th>Đầu tiên khớp</th><th>Đúng ý?</th></tr>
+    <tr><td>a</td><td>2 (3 từ: mấy giờ, đóng cửa, giờ)</td><td>2 Giờ mở cửa</td><td>2 Giờ mở cửa</td><td>Đúng</td></tr>
+    <tr><td>b</td><td>3 (2 từ: mượn, mượn sách); 4 (1 từ: bao lâu)</td><td>3 Mượn sách</td><td>3 Mượn sách</td><td>Sai (hỏi thời hạn)</td></tr>
+    <tr><td>c</td><td>4 (1 từ: trả); 5 (3 từ: mất, làm mất, mất sách)</td><td>5 Mất, hỏng sách</td><td>4 Hạn trả sách</td><td>Đúng với "nhiều nhất", sai với "đầu tiên"</td></tr>
+    <tr><td>d</td><td>6 (2 từ: tìm, ở đâu)</td><td>6 Tìm sách</td><td>6 Tìm sách</td><td>Đúng</td></tr></table>
+  <p><b>Phần 3:</b> a) Câu b. Cách sửa ví dụ: thêm từ khóa "trong bao lâu", "được mượn" vào luật 4, khi đó luật 4 khớp 3 từ, nhiều hơn luật 3 (2 từ). Lưu ý: nếu hai luật khớp bằng nhau, chatbot chọn luật đứng trước. b) Ví dụ: từ khóa "máy tính, mượn máy tính" → "Thư viện có 10 máy tính, dùng tại chỗ theo giờ, không cho mang về."</p>
+  <p><b>Phần 5:</b> điểm mạnh: biết rõ vì sao trả lời, dễ sửa, không bịa thông tin ngoài luật. Điểm yếu: chỉ biết những gì đã viết, câu hỏi lạ hoặc diễn đạt khác thì trả lời sai hoặc không trả lời được.</p>
+
+  <h2>5. Lưu ý</h2>
+  <ul>
+    <li>Trang dùng cách khớp cả cụm từ (cả từ "giờ" chứ không phải chữ "giờ" bên trong từ khác) để học sinh dễ dự đoán; chatbot thật thường phức tạp hơn.</li>
+    <li>Luật học sinh thêm chỉ lưu trên trang đang mở, tải lại trang sẽ mất. Khuyến khích ghi luật vào phiếu.</li>
+    <li>Chatbot AI hiện đại (như các trợ lý trò chuyện) không dùng luật viết tay mà học từ dữ liệu rất lớn. Nhắc học sinh không nhập thông tin cá nhân vào chatbot trên mạng.</li>
+  </ul>
+
+  <h2>6. Phân hóa và phương án không có máy tính</h2>
+  <ul>
+    <li><b>Học sinh cần hỗ trợ:</b> làm Phần 2 chỉ với cách "khớp nhiều nhất".</li>
+    <li><b>Học sinh khá, giỏi:</b> viết chatbot theo luật bằng Python (dùng <code>lower()</code>, <code>in</code> và <code>if</code>), thêm bộ câu thử để tự đếm số câu đúng.</li>
+    <li><b>Không có máy tính:</b> làm chatbot bằng thẻ giấy: mỗi luật một thẻ ghi từ khóa và câu trả lời; một học sinh đóng vai máy, đọc câu hỏi và chọn thẻ theo đúng quy tắc.</li>
+  </ul>
+  <p class="muted small">Học lên: Dự án 40 (Hỏi đáp) cho thấy máy tìm câu trả lời bằng cách đo độ giống nhau giữa câu hỏi và các đoạn văn, thay vì luật viết tay.</p>
+
+</main>
+<footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Hướng dẫn giáo viên Dự án 15 · Được sử dụng tự do cho mục đích giáo dục.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+
+<script src="../../assets/ui.js"></script>
+</body>
+</html>

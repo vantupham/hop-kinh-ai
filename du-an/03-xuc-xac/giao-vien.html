@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--seo:start-->
+<meta name="description" content="Một tiết học 45 phút giúp học sinh lớp 6 thu thập dữ liệu, tính xác suất thực nghiệm và hiểu vì sao máy cần đủ dữ liệu, dữ liệu đúng và mới để kết luận.">
+<meta name="author" content="Phạm Văn Tú">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<link rel="canonical" href="https://vantupham.github.io/hop-kinh-ai/du-an/03-xuc-xac/giao-vien.html">
+<meta property="og:url" content="https://vantupham.github.io/hop-kinh-ai/du-an/03-xuc-xac/giao-vien.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hướng dẫn giáo viên Dự án 3: Xác suất thực nghiệm và dữ liệu (lớp 6) | Hộp Kính AI">
+<meta property="og:description" content="Một tiết học 45 phút giúp học sinh lớp 6 thu thập dữ liệu, tính xác suất thực nghiệm và hiểu vì sao máy cần đủ dữ liệu, dữ liệu đúng và mới để kết luận.">
+<meta property="og:image" content="https://vantupham.github.io/hop-kinh-ai/assets/og/03.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<!--seo:end-->
+<title>Hướng dẫn giáo viên Dự án 3: Xác suất thực nghiệm và dữ liệu (lớp 6) | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../assets/thcs.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="logo" href="../../index.html">Hộp Kính AI</a><span class="crumbs"><a href="index.html">DỰ ÁN 3</a> / GIÁO VIÊN</span><span class="spacer"></span><button class="theme-tg" data-theme-toggle></button></div></header>
+<main class="doc-page">
+  <div class="print-bar"><button class="btn accent" onclick="window.print()"><i data-i="upload"></i>In hướng dẫn</button><a class="btn ghost" href="index.html"><i data-i="arrowL"></i>Về Dự án 3</a><a class="btn ghost" href="phieu.html"><i data-i="layers"></i>Phiếu học tập</a></div>
+  <p class="kicker" style="margin:0">HỘP KÍNH AI · NHÁNH THCS · LỚP 6 · HƯỚNG DẪN GIÁO VIÊN</p>
+  <h1>Dự án 3: Thám tử tìm xúc xắc gian lận</h1>
+  <p class="lead">Một tiết học 45 phút giúp học sinh lớp 6 thu thập dữ liệu, tính xác suất thực nghiệm và hiểu vì sao máy cần đủ dữ liệu, dữ liệu đúng và mới để kết luận.</p>
+
+  <table>
+    <tr><th style="width:28%">Đối tượng</th><td>Học sinh lớp 6 (ôn tập ở lớp 7 khi học xác suất của biến cố)</td></tr>
+    <tr><th>Thời lượng</th><td>1 tiết (45 phút), có phần thử thách làm ở nhà</td></tr>
+    <tr><th>Gắn với nội dung</th><td><b>Toán 6:</b> Một số yếu tố thống kê và xác suất: thu thập, phân loại dữ liệu; bảng thống kê, biểu đồ cột; xác suất thực nghiệm.<br><b>Tin học 6:</b> thông tin và dữ liệu, xử lý thông tin.</td></tr>
+    <tr><th>Thiết bị</th><td>Tối thiểu: 1 máy tính và máy chiếu. Nên có: mỗi nhóm 1 viên xúc xắc thật để làm Phần 1 của phiếu. Không cần camera, không cần cài đặt.</td></tr>
+  </table>
+
+  <h2>1. Mục tiêu</h2>
+  <ul>
+    <li><b>Kiến thức:</b> thu thập, kiểm đếm dữ liệu; lập bảng tần số và biểu đồ cột; tính xác suất thực nghiệm; nhận biết số lần thử càng lớn thì xác suất thực nghiệm càng ổn định.</li>
+    <li><b>Năng lực:</b> dùng dữ liệu để đưa ra và kiểm tra một giả thuyết; nhận ra kết luận sai do dữ liệu ít, ghi sai hoặc đã cũ; liên hệ với cách AI học quy luật từ dữ liệu.</li>
+    <li><b>Phẩm chất:</b> trung thực khi ghi chép; thận trọng, không vội kết luận khi chưa đủ bằng chứng.</li>
+  </ul>
+
+  <h2>2. Tiến trình gợi ý (45 phút)</h2>
+  <table>
+    <tr><th style="width:18%">Hoạt động</th><th style="width:10%">Thời gian</th><th>Giáo viên và học sinh</th></tr>
+    <tr><td><b>Khởi động</b></td><td>5 phút</td><td>Chiếu mục <b>Chơi</b>, bấm <b>Tung 1 lần</b> vài lần. Hỏi: <i>"Ba viên trông y hệt nhau. Nhìn thế này đã biết viên nào gian lận chưa? Cần làm gì?"</i></td></tr>
+    <tr><td><b>Khám phá</b></td><td>13 phút</td><td>Các nhóm tung xúc xắc thật 60 lần, làm <b>Phần 1, 2</b> của phiếu. Giáo viên cho cả lớp so sánh biểu đồ của các nhóm: không nhóm nào giống hệt nhau, nhưng đều gần mức "mong đợi".</td></tr>
+    <tr><td><b>Luyện tập</b></td><td>12 phút</td><td>Trên máy chiếu, bấm <b>Tung 10 lần</b> rồi cho cả lớp đoán viên gian lận; sau đó <b>Tung 100 lần</b> và quan sát biểu đồ đường tách ra. Đi qua <b>Soi bên trong</b> 6 bước. Học sinh làm <b>Phần 3</b>.</td></tr>
+    <tr><td><b>Vận dụng</b></td><td>12 phút</td><td>Bật 3 sự cố ở <b>Phá máy</b>; với mỗi sự cố, cho học sinh đoán vì sao thám tử sai trước khi mở lời giải. Học sinh làm <b>Phần 4, 5</b>.</td></tr>
+    <tr><td><b>Tổng kết</b></td><td>3 phút</td><td>Nhắc lại 3 thẻ kiến thức và câu "rác vào, rác ra". Giao thử thách một sao: tung đồng xu 50 lần.</td></tr>
+  </table>
+
+  <h2>3. Câu hỏi thảo luận và gợi ý trả lời</h2>
+  <table>
+    <tr><th style="width:45%">Câu hỏi</th><th>Gợi ý</th></tr>
+    <tr><td>Tung 60 lần, mặt 6 ra 14 lần (nhiều hơn 10). Có phải xúc xắc gian lận không?</td><td>Chưa chắc. Chênh lệch nhỏ như vậy thường do may rủi. Cần tung thêm và xem chênh lệch có lớn dần lên không, hay quay về gần mức mong đợi.</td></tr>
+    <tr><td>Thám tử máy có "biết" viên nào gian lận không?</td><td>Không. Nó chỉ đếm và so sánh với mức mong đợi. Nó có thể sai khi dữ liệu ít, sai hoặc cũ; giống như con người.</td></tr>
+    <tr><td>Vì sao máy đoán trước mặt sắp ra chỉ đúng khoảng 1/6 với viên công bằng?</td><td>Vì mọi mặt đều có khả năng như nhau, không có quy luật nào để học. AI chỉ dự đoán tốt khi dữ liệu thật sự có quy luật.</td></tr>
+  </table>
+
+  <h2>4. Đáp án phiếu học tập</h2>
+  <p><b>Phần 1, 2:</b> tùy kết quả của nhóm. Mức mong đợi: 60 ÷ 6 = <b>10</b> lần mỗi mặt. Xác suất thực nghiệm mỗi mặt = tần số ÷ 60, tổng các xác suất bằng 1.</p>
+  <p><b>Phần 3:</b> A: 22/120 ≈ 18%; B: 45/120 = 37,5%; C: 18/120 = 15%. Mong đợi: 120 ÷ 6 = 20 lần. Nghi viên <b>B</b> vì ra mặt 6 gấp hơn 2 lần mức mong đợi; A và C chỉ lệch ít, có thể do may rủi.</p>
+  <p><b>Phần 4:</b> không nên kết luận chắc chắn: 6 lần quá ít, viên công bằng vẫn có thể ra mặt 6 nhiều lần do may rủi. Cần tung thêm nhiều lần (ví dụ 100 lần trở lên) rồi so với mức mong đợi.</p>
+  <p><b>Phần 5:</b> ví dụ: điểm danh ghi nhầm làm thống kê sĩ số sai; dự báo lượng khách dựa trên số liệu năm cũ khi trường đã đổi giờ học; bản đồ chưa cập nhật đường mới.</p>
+
+  <h2>5. Lưu ý về kiến thức</h2>
+  <ul>
+    <li>"Độ lệch" trên trang là tổng của (tần số − mong đợi)² ÷ mong đợi qua 6 mặt (đại lượng khi bình phương dùng trong thống kê). Với học sinh lớp 6, chỉ cần hiểu: chênh lệch càng lớn so với mức mong đợi thì con số càng lớn; không cần dạy công thức.</li>
+    <li>Ngưỡng mặc định 15 được chọn để một viên công bằng rất hiếm khi bị nghi oan khi đã tung đủ nhiều lần. Kéo ngưỡng thấp xuống sẽ thấy thám tử hay nghi oan hơn: có thể thảo luận về sự cân bằng giữa "bắt nhầm" và "bỏ sót".</li>
+    <li>Tránh nói "tung đủ nhiều thì mặt nào cũng ra đúng 1/6". Đúng hơn là: tỉ lệ sẽ <b>gần</b> 1/6 hơn, và dao động ngày càng nhỏ.</li>
+  </ul>
+
+  <h2>6. Phân hóa và phương án không có máy tính</h2>
+  <ul>
+    <li><b>Học sinh cần hỗ trợ:</b> dùng đồng xu (2 mặt) trước khi chuyển sang xúc xắc 6 mặt.</li>
+    <li><b>Học sinh khá, giỏi:</b> gộp dữ liệu của cả lớp (ví dụ 10 nhóm × 60 lần = 600 lần) và so sánh với dữ liệu từng nhóm: dữ liệu gộp có gần 1/6 hơn không?</li>
+    <li><b>Không có máy tính:</b> làm một viên xúc xắc giấy, dán một miếng đất nặn nhỏ ở mặt đối diện mặt 6. Các nhóm tung, gộp dữ liệu và thử phát hiện viên bị làm lệch.</li>
+  </ul>
+  <p class="muted small">Học lên: Dự án 36 (Máy đoán chữ) cho thấy máy cũng đếm tần số, nhưng là đếm chữ nào hay đi sau chữ nào, để viết tiếp câu.</p>
+
+</main>
+<footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Hướng dẫn giáo viên Dự án 3 · Được sử dụng tự do cho mục đích giáo dục.<!--by--><span class="by">Biên soạn: <a href="../../index.html#bien-soan" rel="author">Phạm Văn Tú</a> · © 2026 Hộp Kính AI</span></div></footer>
+
+<script src="../../assets/ui.js"></script>
+</body>
+</html>

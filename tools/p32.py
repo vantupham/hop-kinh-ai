@@ -1,81 +1,97 @@
 D = dict(
-  out="du-an/32-trai-cay/index.html", num="32", grade="8", title="Dự án 32 · Phân loại trái cây trên mặt phẳng tọa độ",
-  scripts=["fruit.js"],
-  h1='Phân loại trái cây bằng khoảng cách <span class="hl-word">Pythagore</span>',
-  lead="Một máy phân loại ở chợ đầu mối cân và đo từng quả: chanh, quýt, cam hay lựu? Mỗi quả thành một điểm trên mặt phẳng tọa độ, và máy dùng định lý Pythagore để đo xem điểm đó gần loại nào nhất. Nhưng xăng-ti-mét và gam là hai đơn vị khác nhau, cộng chung vào một công thức thì chuyện gì xảy ra?",
-  play='''
+  out="du-an/32-phong-nen/index.html", num="32", level="3", title="Dự án 32 · Phông nền ảo",
+  scripts=["seg.js"],
+  h1='Tự làm <span class="hl-word">phông nền ảo</span>',
+  lead="Mỗi lần học trực tuyến, phần mềm thay phòng của em bằng bãi biển hay làm mờ phía sau. Bí mật là AI phải trả lời gần 7.000 câu hỏi \"điểm ảnh này là người hay nền?\" cho mỗi khung hình, khoảng 30 lần mỗi giây. Hãy xem nó làm thế nào và khi nào nó bị lừa.",
+  moi='''
   <div class="playground">
     <div class="stage-col">
-      <div class="toolbar" style="margin:0 0 10px"><div class="seg" id="modeBtns"><button class="btn small" data-m="nn"><i data-i="target"></i>Hàng xóm gần nhất</button><button class="btn small ghost" data-m="cen"><i data-i="crosshair"></i>Điểm đại diện mỗi loại</button></div></div>
-      <div class="stage vf"><canvas id="stage" class="touch" width="880" height="440" aria-label="Mặt phẳng tọa độ: đường kính và khối lượng của trái cây, vùng màu là bản đồ phân loại"></canvas><div class="stage-tag"><span class="live-dot"></span><span id="stageTag">BẢN ĐỒ PHÂN LOẠI</span></div></div>
-      <div class="play-panel"><p class="ask" id="askText" aria-live="polite"></p>
-        <div class="btn-row"><button class="btn small accent" id="btnRand"><i data-i="sparkle"></i>Quả ngẫu nhiên</button><label class="small" style="display:inline-flex;align-items:center;gap:6px">Đây thật ra là <select id="teachSel"></select></label><button class="btn small ghost" id="btnTeach"><i data-i="book"></i>Thêm vào dữ liệu</button><button class="btn small ghost" id="btnResetData"><i data-i="reset"></i>Dữ liệu ban đầu</button></div></div>
-      {{GUIDE}}
-      <div class="two-col" style="margin-top:6px">
-        <div class="card">
-          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm"><i data-i="sliders"></i></span>Cân và đo quả bí ẩn</h2>
-          <label class="ctl"><span>Đường kính</span><b id="dV"></b><input type="range" id="d" min="2" max="14" step="0.1"></label>
-          <label class="ctl"><span>Khối lượng</span><b id="mV"></b><input type="range" id="m" min="20" max="450" step="1"></label>
-        </div>
-        <div class="card">
-          <h2 class="h-ic" style="font-size:1.1rem"><span class="ico-box sm amber"><i data-i="wrench"></i></span>Cách máy đo khoảng cách</h2>
-          <div class="toggles"><label class="tog"><input type="checkbox" id="optNorm" checked><span>Đưa hai trục về cùng thang (chia cho giá trị lớn nhất)</span></label></div>
-          <label class="ctl"><span>Nói "không biết" khi xa hơn</span><b id="maxdV"></b><input type="range" id="maxd" min="0.05" max="0.6" step="0.05"></label>
-        </div>
+      <div class="stage vf"><canvas id="stage" width="640" height="480" aria-label="Cuộc gọi video với phông nền ảo"></canvas><video id="video" playsinline muted hidden></video><div class="stage-tag"><span class="live-dot"></span><span id="srcTag">MÔ PHỎNG</span></div><div class="stage-msg" id="stageMsg" hidden></div></div>
+      <div class="toolbar">
+        <div class="seg"><button class="btn small" id="srcSim"><i data-i="film"></i>Mô phỏng</button><button class="btn small ghost" id="srcCam"><i data-i="camera"></i>Camera thật</button></div>
+        <button class="btn small ghost" id="btnNew"><i data-i="reset"></i>Cảnh khác</button>
       </div>
+      <div class="game"><span class="small muted">Phông nền</span><div class="btn-row" id="bgBtns"><button class="btn small ghost" data-b="bien">Bãi biển</button><button class="btn small ghost" data-b="vu-tru">Vũ trụ</button><button class="btn small ghost" data-b="lop-hoc">Lớp học</button><button class="btn small ghost" data-b="lam-mo">Làm mờ</button></div></div>
+      <div class="game"><span class="small muted">Xem</span><div class="btn-row" id="viewBtns"><button class="btn small ghost" data-v="out">Kết quả</button><button class="btn small ghost" data-v="goc">Ảnh gốc</button><button class="btn small ghost" data-v="xs">Bản đồ xác suất</button><button class="btn small ghost" data-v="loi">Chỗ sai</button></div></div>
+      <p class="small muted" style="margin:8px 0 0"><i data-i="bulb"></i> Ở chế độ <b>Chỗ sai</b>: đỏ là nền bị tưởng là người, xanh lam là người bị tưởng là nền.</p>
     </div>
     <aside class="lab brain" aria-live="polite">
-      <div class="lab-h"><span class="live-dot"></span>Bộ não của máy</div>
-      <div class="metric-row"><div class="metric"><span>MÁY PHÂN LOẠI</span><b id="bGuess">—</b></div><div class="metric"><span>ĐÚNG / 40 QUẢ KIỂM TRA</span><b id="bAcc">—</b></div></div>
-      <div class="lbl" style="margin-top:12px">TÍNH KHOẢNG CÁCH (PYTHAGORE)</div><div id="bCalc" class="calc"></div>
-      <div class="lbl" style="margin-top:12px">KHOẢNG CÁCH TỚI MỖI LOẠI</div><div class="conf" id="bDist"></div>
-      <p class="small" style="color:#c3c7f0;margin-top:12px">Bấm hoặc kéo trên mặt phẳng để đặt quả bí ẩn (ngôi sao trắng). Vùng màu cho biết máy sẽ xếp một quả ở đó vào loại nào.</p>
+      <div class="lab-h"><span class="live-dot"></span>Bộ não AI · trực tiếp</div>
+      <div class="result" id="bIouBox"><small>ĐỘ KHỚP VỚI ĐÁP ÁN (IoU)</small><span id="bIou">—</span></div>
+      <div class="metric-row"><div class="metric"><span>NỀN TƯỞNG LÀ NGƯỜI</span><b id="bFp">—</b></div><div class="metric"><span>NGƯỜI BỊ BỎ SÓT</span><b id="bFn">—</b></div></div>
+      <div class="metric-row"><div class="metric"><span>ĐIỂM ẢNH PHÂN VÂN</span><b id="bUnsure">—</b></div><div class="metric"><span>ĐIỂM ẢNH MỖI KHUNG</span><b>6.912</b></div></div>
+      <div class="lbl" style="margin-top:12px">DỮ LIỆU ĐÃ HỌC</div><div id="trainInfo" style="color:#fff"></div>
     </aside>
-  </div>
-  <div class="card chart-card" style="margin-top:18px"><div class="chart-head"><b><i data-i="chart"></i> Mỗi loại trái cây bị máy xếp đúng bao nhiêu quả (trong 10 quả kiểm tra mỗi loại)?</b></div><canvas id="chart" width="1100" height="220"></canvas></div>''',
-  play_guide="Bấm vào một chỗ bất kỳ trên mặt phẳng để đặt <b>quả bí ẩn</b>. Máy vẽ một tam giác vuông tới quả gần nhất và tính khoảng cách bằng <b>định lý Pythagore</b>.",
-  lessons=["Toán 8 · Mặt phẳng tọa độ", "Toán 8 · Định lý Pythagore", "Toán 8 · Thu thập và biểu diễn dữ liệu"],
-  mission_h2="Dùng tọa độ và định lý Pythagore để máy phân loại",
-  mission_q="Quả nặng 95 g, đường kính 6,5 cm là quả gì? Máy trả lời bằng phép tính nào?",
-  mission_p="Em sẽ biến mỗi quả thành <b>một điểm</b>, tính <b>khoảng cách</b> giữa hai điểm bằng định lý Pythagore, so hai cách phân loại (hàng xóm gần nhất và điểm đại diện), và xem bản đồ phân loại thay đổi thế nào khi <b>hai trục khác đơn vị</b>.",
-  minutes="45 phút · 1 tiết học",
-  checklist=[("place", "Đặt quả bí ẩn và đọc phép tính khoảng cách"), ("mode", "Thử cả hai cách phân loại"), ("teach", "Thêm một quả vào dữ liệu"), ("soi", "Soi tới bước Hai đơn vị khác nhau"), ("broke", "Làm máy phân loại sai ít nhất 1 lần"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
-  soi_h2="Máy phân loại trái cây như thế nào? 6 bước",
-  soi_p="Bấm từng bước trên sơ đồ, hoặc bấm Bước tiếp. Hình minh họa dùng quả bí ẩn hiện tại.",
-  soi_guide="Toàn bộ \"trí thông minh\" ở đây là <b>tọa độ</b> và <b>định lý Pythagore</b> em học ở lớp 8. Cùng xem nhé!",
-  cards=[
-    dict(no="T1", tag="Toán học", title="Mỗi quả là một điểm",
-      svg='<path d="M24 100V14M24 100h220" class="s-ink" stroke-width="2"/>' + ''.join(f'<circle cx="{x}" cy="{y}" r="6" class="{c}"/>' for x, y, c in [(50, 88, "f-mint"), (60, 82, "f-mint"), (90, 72, "f-amber"), (100, 66, "f-amber"), (130, 52, "f-coral"), (142, 46, "f-coral"), (210, 20, "f-violet")]) + '<text x="150" y="96" font-size="10" class="t-mono f-ink">đường kính →</text><text x="28" y="22" font-size="10" class="t-mono f-ink">khối lượng</text>',
-      p="Đo hai số của mỗi quả (đường kính, khối lượng) rồi dùng chúng làm <b>tọa độ</b>. Mỗi quả thành một điểm; các quả cùng loại tụ lại thành <b>đám điểm</b> gần nhau trên mặt phẳng.",
-      ex="Trên bản đồ, mỗi ngôi nhà có tọa độ (kinh độ, vĩ độ); nhà cùng một xóm nằm gần nhau."),
-    dict(no="T2", tag="Toán học", cls="amber", title="Khoảng cách Pythagore",
-      svg='<circle cx="40" cy="90" r="6" class="f-violet"/><circle cx="200" cy="30" r="6" class="f-mint"/><path d="M40 90H200V30" fill="none" class="s-amber" stroke-width="2.5" stroke-dasharray="5 4"/><path d="M40 90L200 30" class="s-coral" stroke-width="3"/><text x="110" y="106" font-size="11" class="t-mono f-amber">Δx</text><text x="206" y="66" font-size="11" class="t-mono f-amber">Δy</text><text x="70" y="52" font-size="12" class="t-mono f-coral">d = √(Δx² + Δy²)</text>',
-      p="Khoảng cách giữa hai điểm là cạnh huyền của tam giác vuông có hai cạnh góc vuông là Δx và Δy: <b>d = √(Δx² + Δy²)</b>. Máy tính khoảng cách tới các quả đã biết và chọn loại <b>gần nhất</b>.",
-      ex="Đo đường chim bay từ nhà tới trường khi biết đi sang ngang 3 km và đi lên 4 km: √(9 + 16) = 5 km."),
-    dict(no="T3", tag="Dữ liệu", cls="coral", title="Cùng thang đo trước khi so",
-      svg='<rect x="16" y="30" width="200" height="16" rx="4" class="f-coral" opacity=".85"/><text x="20" y="26" font-size="10" class="t-mono f-coral">khối lượng: 0 → 450 g</text><rect x="16" y="76" width="3" height="16" class="f-mint"/><text x="20" y="72" font-size="10" class="t-mono f-mint">đường kính: 0 → 14 cm</text><path d="M226 60h20" class="s-violet" stroke-width="2"/>',
-      p="1 cm và 1 g không \"to\" như nhau. Nếu cộng thẳng, khối lượng (hàng trăm gam) lấn át đường kính (vài xăng-ti-mét) và máy gần như <b>bỏ qua</b> đường kính. Cần đưa hai trục về <b>cùng thang</b>, ví dụ chia mỗi số cho giá trị lớn nhất của nó.",
-      ex="So điểm Toán (thang 10) với điểm thi đấu (thang 100) thì phải đổi về cùng thang trước khi cộng."),
+  </div>''',
+  mission_h2="Dạy máy tô màu từng điểm ảnh: người hay nền?",
+  mission_q="Máy không biết \"người\" là gì. Vậy làm sao nó cắt đúng viền tóc của em?",
+  mission_p="Em sẽ thấy ảnh biến thành <b>bản đồ xác suất</b>, chọn <b>ngưỡng</b> để có mặt nạ, đo độ khớp bằng <b>IoU</b>, rồi tìm ra những lúc AI bị lừa: áo trùng màu tường, ngồi lệch, ngược sáng.",
+  minutes="45–60 phút",
+  checklist=[("views", "Xem đủ 3 chế độ: kết quả, bản đồ xác suất, chỗ sai"), ("see", "Soi tới bước Bản đồ xác suất"), ("tune", "Kéo thanh ngưỡng và xem mặt nạ thay đổi"), ("broke", "Làm AI tách sai ít nhất 1 lần"), ("retrain", "Học lại với dữ liệu đa dạng hơn"), ("quiz", "Trả lời đúng hết bài kiểm tra")],
+  soi_h2="Từ khung hình tới phông nền ảo: 6 bước",
+  soi_p="Hình bên dưới dùng đúng khung hình đang chạy ở phần Mồi.",
+  theory=[
+    dict(no="45", tag="Thị giác máy", title="Phân vùng ảnh",
+      svg='<rect x="20" y="20" width="96" height="80" rx="6" class="f-soft"/><circle cx="68" cy="50" r="14" class="f-violet"/><path d="M44 100c4-24 44-24 48 0z" class="f-violet"/><path d="M126 60h20" class="s-line" stroke-width="2" marker-end="url(#arV)"/><rect x="156" y="20" width="96" height="80" rx="6" fill="#111"/><circle cx="204" cy="50" r="14" fill="#fff"/><path d="M180 100c4-24 44-24 48 0z" fill="#fff"/>',
+      p="<b>Phân vùng</b> (segmentation) là gán nhãn cho <b>từng điểm ảnh</b>. Khác với Dự án 29 chỉ vẽ khung bao quanh xe, ở đây máy phải biết chính xác đường viền tới từng sợi tóc.",
+      deep="Có nhiều kiểu phân vùng: tách người/nền (2 lớp), tách mọi loại vật (đường, xe, cây, trời…), hay tách riêng từng người một. Xe tự lái và máy chụp X-quang dùng phân vùng rất nhiều."),
+    dict(no="46", tag="Xác suất", cls="amber", title="Bản đồ xác suất & ngưỡng",
+      svg='<defs><linearGradient id="g12" x1="0" x2="1"><stop offset="0" stop-color="#1e145a"/><stop offset="1" stop-color="#ffd84d"/></linearGradient></defs><rect x="20" y="40" width="220" height="30" rx="6" fill="url(#g12)"/><path d="M130 30v50" class="s-coral" stroke-width="3"/><text x="104" y="24" font-size="11" class="t-mono f-coral">ngưỡng 0,5</text><text x="20" y="96" font-size="11" class="t-mono f-muted">0 = nền</text><text x="178" y="96" font-size="11" class="t-mono f-muted">1 = người</text>',
+      p="Máy không nói chắc \"người\" hay \"nền\" mà cho một <b>xác suất</b> từ 0 tới 1. Ta chọn một <b>ngưỡng</b>: trên ngưỡng là người. Ngưỡng thấp thì ít bỏ sót người nhưng dễ lẫn nền; ngưỡng cao thì ngược lại.",
+      deep="Đây chính là sự đánh đổi giữa bỏ sót và báo nhầm mà em gặp ở Dự án 29 và 30. Để đo độ khớp, người ta dùng <b>IoU</b> = phần chung ÷ phần gộp của mặt nạ máy và mặt nạ đúng."),
+    dict(no="47", tag="Học máy", cls="coral", title="Ngữ cảnh & đường tắt",
+      svg='<rect x="20" y="20" width="100" height="80" rx="6" class="f-soft"/><rect x="50" y="20" width="40" height="80" class="f-mint" opacity=".5"/><text x="32" y="114" font-size="10" class="t-mono f-muted">học: người ở giữa</text><rect x="150" y="20" width="100" height="80" rx="6" class="f-soft"/><circle cx="226" cy="50" r="12" class="f-coral"/><path d="M208 100c3-20 33-20 36 0z" class="f-coral"/><text x="160" y="114" font-size="10" class="t-mono f-coral">lệch → sai</text>',
+      p="Chỉ nhìn màu một điểm ảnh thì không đủ: áo trắng và tường trắng giống hệt nhau. Máy cần <b>ngữ cảnh</b>: các điểm ảnh xung quanh, hình dáng. Nhưng nếu dữ liệu học thiếu đa dạng, máy lại học <b>đường tắt</b> như \"người luôn ở giữa\".",
+      deep="Các mô hình thật dùng mạng tích chập (Dự án 34) nhìn những vùng rất rộng xung quanh mỗi điểm ảnh, và học từ hàng chục nghìn ảnh với đủ tư thế, ánh sáng, màu áo."),
+    dict(no="48", tag="Đạo đức", cls="mint", title="Làm mờ nền & quyền riêng tư",
+      svg='<rect x="20" y="20" width="220" height="86" rx="8" class="f-soft"/><g opacity=".45"><rect x="34" y="34" width="40" height="60" rx="4" class="f-amber"/><rect x="190" y="34" width="36" height="40" rx="4" class="f-mint"/></g><circle cx="130" cy="52" r="16" class="f-violet"/><path d="M100 106c6-32 54-32 60 0z" class="f-violet"/>',
+      p="Làm mờ hoặc thay phông nền giúp che nhà cửa, đồ đạc và người thân phía sau, những thứ em không cần chia sẻ. Nhưng AI <b>không hoàn hảo</b>: ở viền hay khi nó sai, nền vẫn có thể lộ ra.",
+      deep="Cũng công nghệ này có thể dùng để ghép người vào cảnh giả. Hãy nhớ: một bức ảnh hay video có phông nền đẹp chưa chắc là thật."),
   ],
-  real=[("cpu", "", "Máy phân loại nông sản", "Băng chuyền có camera và cân tự xếp xoài, thanh long theo cỡ và màu để đóng hộp xuất khẩu."),
-        ("map", "mint", "Tìm cửa hàng gần nhất", "Ứng dụng bản đồ tính khoảng cách từ vị trí của em tới từng cửa hàng rồi xếp từ gần đến xa."),
-        ("heart", "amber", "Theo dõi sức khỏe", "Chiều cao và cân nặng của em được đặt lên biểu đồ để so với các bạn cùng tuổi.")],
-  breaks_h2="Thử thách: hãy làm máy phân loại sai!",
-  breaks_guide="Phép tính Pythagore luôn đúng, nhưng <b>con số đưa vào</b> thì chưa chắc. Thử xem!",
+  tulam_h2="Bàn thí nghiệm: chỉnh ngưỡng, làm mượt và dạy lại AI",
+  tulam_p="Kéo các thanh và xem ngay trên sân khấu phần Mồi. Biểu đồ cho thấy độ khớp IoU trong 20 giây qua.",
+  tulam='''
+  <div class="card chart-card"><div class="chart-head"><b><i data-i="chart"></i> Độ khớp IoU theo thời gian</b><span class="legend"><i class="lg" style="background:var(--mint)"></i>IoU</span></div><canvas id="chart" width="1100" height="220"></canvas></div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm"><i data-i="sliders"></i></span>Từ xác suất tới mặt nạ</h3>
+      <label class="ctl"><span>Ngưỡng</span><b id="thV"></b><input type="range" id="th" min="0.05" max="0.95" step="0.01"></label>
+      <label class="ctl"><span>Làm mờ bản đồ xác suất</span><b id="blurV"></b><input type="range" id="blur" min="0" max="4" step="1"></label>
+      <label class="ctl"><span>Làm mềm viền</span><b id="featherV"></b><input type="range" id="feather" min="0" max="4" step="1"></label>
+      <h3 class="h-ic" style="margin-top:18px"><span class="ico-box sm coral"><i data-i="layers"></i></span>Dữ liệu dạy AI</h3>
+      <p class="small muted">Mặc định, AI chỉ học từ ảnh người ngồi giữa, phòng đủ sáng, áo khác màu tường. Hãy thêm dữ liệu đa dạng:</p>
+      <label class="tog" style="display:block;margin:6px 0"><input type="checkbox" id="dPos"><span>Người ở nhiều vị trí</span></label>
+      <label class="tog" style="display:block;margin:6px 0"><input type="checkbox" id="dLight"><span>Có cảnh ngược sáng</span></label>
+      <label class="tog" style="display:block;margin:6px 0 12px"><input type="checkbox" id="dColor"><span>Có áo trùng màu tường</span></label>
+      <button class="btn small accent" id="btnRetrain"><i data-i="play"></i>Học lại</button>
+    </div>
+    <div class="card">
+      <h3 class="h-ic"><span class="ico-box sm mint"><i data-i="code"></i></span>Code thật của phông nền ảo</h3><pre class="code" id="genCode"></pre>
+      <p class="small muted">Mỗi điểm ảnh được hỏi riêng. Đó là lý do phân vùng cần máy tính nhanh: 6.912 điểm ảnh × 30 khung hình = hơn 200.000 lần đoán mỗi giây, mà đây còn là ảnh rất nhỏ.</p>
+    </div>
+  </div>''',
+  breaks_h2="Thử thách: hãy làm phông nền ảo \"nuốt\" mất người!",
   breaks=[
-    dict(icon="sliders", key="units", title="Hai trục khác đơn vị", p="Máy cộng thẳng <b>xăng-ti-mét</b> và <b>gam</b> vào công thức Pythagore, không đưa về cùng thang.",
-      why="Δ khối lượng thường là hàng chục, hàng trăm gam, còn Δ đường kính chỉ vài xăng-ti-mét, nên khoảng cách gần như chỉ phụ thuộc khối lượng. Bản đồ thành những <b>dải nằm ngang</b>: quả quýt nặng gần bằng quả chanh to bị xếp nhầm. Bật lại <b>Đưa hai trục về cùng thang</b>."),
-    dict(icon="alert", key="typo", title="Một quả bị dán nhầm nhãn", p="Hai quả <b>cam</b> trong dữ liệu bị dán nhầm nhãn thành <b>chanh</b>.",
-      why="Với cách <b>hàng xóm gần nhất</b>, quanh hai điểm sai mọc ra một \"hòn đảo\" màu chanh giữa vùng cam: những quả cam ở đó bị xếp nhầm. Cách <b>điểm đại diện</b> lấy trung bình nhiều quả nên ít bị ảnh hưởng hơn. Thử đổi cách phân loại, hoặc bấm <b>Dữ liệu ban đầu</b>."),
-    dict(icon="help", key="weird", title="Quả lạ: quả dưa lê", p="Một quả <b>dưa lê</b> nhỏ (đường kính 12 cm, nặng 420 g) lăn vào máy, loại máy chưa từng học.",
-      why="Máy chỉ biết 4 loại nên chọn loại gần nhất là <b>lựu</b>, dù khoảng cách khá xa. Kéo thanh <b>Nói \"không biết\"</b> xuống khoảng 0,15: khi quả ở quá xa mọi loại đã biết, máy thừa nhận không biết."),
+    dict(icon="image", key="wall", title="Áo trùng màu tường", p="Bạn trong video mặc áo <b>đúng màu bức tường</b> phía sau.",
+      why="AI nhìn chủ yếu vào màu, nên thân áo bị coi là tường và biến mất (vùng xanh lam ở chế độ Chỗ sai). Bật <b>Có áo trùng màu tường</b> rồi Học lại: kết quả khá hơn nhưng vẫn còn lỗi, vì ở cấp từng điểm ảnh áo và tường giống hệt nhau; máy chỉ đoán được nhờ vị trí và vùng xung quanh. Có lúc thêm dữ liệu chưa đủ mà phải nâng cấp <b>mô hình</b>: cần mô hình nhìn được hình dáng cả vùng lớn, như mạng tích chập ở Dự án 34."),
+    dict(icon="crosshair", key="side", title="Ngồi lệch sang bên", p="Bạn ấy dịch ghế sang <b>sát mép khung hình</b>.",
+      why="Dữ liệu học chỉ có người ngồi giữa, nên AI học đường tắt \"giữa khung = người, mép = nền\". Bật <b>Người ở nhiều vị trí</b> rồi Học lại: AI buộc phải dựa vào màu và ngữ cảnh thay vì vị trí."),
+    dict(icon="sun", key="backlit", title="Ngồi ngược sáng", p="Phía sau là <b>cửa sổ chói nắng</b>, người trong video tối sẫm.",
+      why="Màu da và áo bị tối đi, khác hẳn lúc học. Bật <b>Có cảnh ngược sáng</b> rồi Học lại. Ngoài đời, cách đơn giản nhất là quay mặt về phía cửa sổ: dữ liệu đầu vào tốt luôn giúp AI."),
   ],
-  badge="Kiểm Định Viên Trái Cây", badge_p="Em đã mở khóa 3 thẻ kiến thức: Mỗi quả là một điểm · Khoảng cách Pythagore · Cùng thang đo trước khi so.",
-  dev=[(1, "MỞ RỘNG · Ở NHÀ", "Phân loại bằng thước và cân", "Đo đường kính và cân 10 quả trong bếp nhà em (chanh, quất, cà chua…). Chấm lên giấy kẻ ô và kiểm tra các loại có tách thành đám riêng không."),
-       (2, "DỰ ÁN NHÓM · 1 TUẦN", "Thêm đặc trưng thứ ba", "Đo thêm độ dày vỏ của cam và quýt. Hai loại này có tách nhau rõ hơn không? Viết công thức khoảng cách với ba số."),
-       (3, "Ý TƯỞNG KHKT", "Máy chọn cỡ trứng gà", "Thiết kế máy cân và đo chiều dài quả trứng để xếp loại cỡ S, M, L cho trang trại địa phương.")],
-  res=[("layers", "", "Phiếu học tập", "Tính khoảng cách Pythagore, chuẩn hóa thang đo, phân loại trên giấy.", "phieu.html"),
-       ("book", "mint", "Hướng dẫn giáo viên", "Tiến trình 45 phút, câu hỏi thảo luận, đáp án.", "giao-vien.html"),
-       ("rocket", "amber", "Học lên: Dự án 13", "Máy tự chia dữ liệu thành các nhóm mà không cần nhãn.", "../13-phan-cum/index.html")],
-  prev=("31-cay-dau", "31"), nextp=("33-no-ron", "33"),
+  real_h2="Phân vùng ảnh đang được dùng ở đâu?",
+  real=[("camera", "", "Học và họp trực tuyến", "Phông nền ảo, làm mờ nền trong các ứng dụng gọi video chạy ngay trên máy tính hoặc điện thoại."),
+        ("image", "mint", "Chụp ảnh xóa phông", "Chế độ chân dung trên điện thoại tách người ra rồi làm mờ phía sau, giống máy ảnh chuyên nghiệp."),
+        ("heart", "amber", "Y tế", "Phân vùng khối u hay cơ quan trên ảnh chụp cắt lớp, giúp bác sĩ đo kích thước chính xác hơn.")],
+  ethics=["Phông nền ảo giúp em giữ riêng tư. Nhưng nếu nó sai và làm lộ phòng của em, ai chịu trách nhiệm?",
+          "Nếu dữ liệu học có ít người tóc xoăn, da sẫm hay đội khăn, phông nền ảo có tách những người đó kém hơn không? Làm sao kiểm tra?",
+          "Ghép người vào cảnh giả rất dễ. Em sẽ kiểm tra thế nào trước khi tin một video?"],
+  badge="Thợ Tách Nền", badge_p="Em đã mở khóa 4 thẻ kiến thức: Phân vùng ảnh · Bản đồ xác suất & ngưỡng · Ngữ cảnh & đường tắt · Làm mờ nền & quyền riêng tư.",
+  dev_h2="Từ phông nền ảo đến dự án của riêng em",
+  dev=[(1, "MỞ RỘNG NHỎ · 1 BUỔI", "Phông nền tự chọn", "Thêm nút tải ảnh của em làm phông nền, và hiệu ứng \"bóng\" người đổ lên phông cho tự nhiên hơn.", "Xong khi", "chạy với camera thật ít nhất 20 khung hình mỗi giây."),
+       (2, "DỰ ÁN MỚI · 1–2 TUẦN", "Đo độ công bằng của phông nền ảo", "Chụp 30–50 ảnh (có đồng ý) với màu áo, kiểu tóc, ánh sáng khác nhau, tự tô mặt nạ đúng và đo IoU cho từng nhóm.", "Xong khi", "có bảng IoU theo nhóm và chỉ ra nhóm AI tách kém nhất."),
+       (3, "ĐỀ TÀI NGHIÊN CỨU · KHKT", "Phân vùng lá lúa bị bệnh trên đồng ruộng", "Dùng phân vùng để tách phần lá bị đốm khỏi lá khỏe trên ảnh chụp ruộng, rồi tính tỉ lệ diện tích bệnh.", "Đo kết quả", "IoU so với mặt nạ do người tô, và độ lệch tỉ lệ diện tích bệnh so với chuyên gia.")],
+  cur="32 · Phông nền ảo", next=[("33 · Bảng màu thông minh", "học không cần nhãn"), ("34 · Bác sĩ lá cây", "mạng tích chập"), ("37 · Cảm xúc câu nói", "vector cho từ ngữ")],
+  khkt=[("Vấn đề", "Ước lượng tỉ lệ lá lúa bị bệnh bằng mắt thường chậm và thiếu đồng đều."), ("Câu hỏi nghiên cứu", "Phân vùng ảnh có đo tỉ lệ diện tích bệnh sát với chuyên gia không?"), ("Giả thuyết", "Sai lệch dưới 10% với ảnh chụp trong điều kiện ánh sáng ổn định."), ("Lưu ý đạo đức", "Hỏi ý kiến chủ ruộng; không dùng kết quả thay cho chẩn đoán của cán bộ nông nghiệp.")],
+  prev=("31-chu-so", "31"), nextp=("33-phan-cum", "33"),
 )

@@ -1,5 +1,5 @@
 # Sinh phiếu học tập (phieu.html) và hướng dẫn giáo viên (giao-vien.html) cho dự án THCS
-# Dùng: python3 tools/gen_doc.py tools/d22.py   rồi chạy python3 tools/seo.py
+# Dùng: python3 tools/gen_doc.py tools/d02.py   rồi chạy python3 tools/seo.py
 import sys, runpy
 X = runpy.run_path(sys.argv[1])["DOC"]
 num, folder, grade = X["num"], X["folder"], X.get("grade", "6")

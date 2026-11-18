@@ -1,5 +1,5 @@
 # Sinh trang dự án nhánh THCS (6 bước: Chơi, Nhiệm vụ, Soi, Thẻ kiến thức, Phá máy, Thử thách)
-# Dùng: python3 tools/gen_thcs.py tools/p21.py   (chạy từ thư mục gốc repo), sau đó chạy python3 tools/seo.py
+# Dùng: python3 tools/gen_thcs.py tools/p01.py   (chạy từ thư mục gốc repo), sau đó chạy python3 tools/seo.py
 import sys, runpy
 D = runpy.run_path(sys.argv[1])["D"]
 R = "../../"
