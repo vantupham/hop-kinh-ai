@@ -8,7 +8,7 @@ def page(kind, d):
     is_p = kind == "phieu"
     crumb = "PHIẾU HỌC TẬP" if is_p else "GIÁO VIÊN"
     other = ('<a class="btn ghost" href="giao-vien.html"><i data-i="book"></i>Hướng dẫn giáo viên</a>' if is_p
-             else '<a class="btn ghost" href="phieu.html"><i data-i="layers"></i>Phiếu học tập</a>')
+             else '<a class="btn ghost" href="phieu.html"><i data-i="layers"></i>Phiếu học tập</a><a class="btn ghost" href="../../giao-vien/so-theo-doi.html"><i data-i="chart"></i>Sổ theo dõi tự học</a>')
     kick = f"HỘP KÍNH AI · NHÁNH THCS · LỚP {grade}" + ("" if is_p else " · HƯỚNG DẪN GIÁO VIÊN")
     foot = (f"Phiếu học tập Dự án {num} · Được in và sao chép tự do cho mục đích học tập." if is_p
             else f"Hướng dẫn giáo viên Dự án {num} · Được sử dụng tự do cho mục đích giáo dục.")

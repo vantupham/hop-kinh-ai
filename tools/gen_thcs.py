@@ -101,6 +101,7 @@ head = f'''<!DOCTYPE html>
 <link rel="stylesheet" href="{R}assets/style.css">
 <link rel="stylesheet" href="{R}assets/project.css">
 <link rel="stylesheet" href="{R}assets/thcs.css">
+<link rel="stylesheet" href="{R}assets/tu-hoc.css">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -124,6 +125,9 @@ foot = f'''
 <script src="{R}assets/ui.js"></script>
 <script src="{R}assets/project.js"></script>
 {chr(10).join(f'<script src="{s}"></script>' for s in D["scripts"])}
+<script src="{R}assets/cau-hinh.js"></script>
+<script src="{R}assets/tu-hoc-data.js"></script>
+<script src="{R}assets/tu-hoc.js" data-du-an="{int(D["num"])}"></script>
 </body>
 </html>
 '''

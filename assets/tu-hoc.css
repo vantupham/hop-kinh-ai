@@ -1,0 +1,32 @@
+/* Hộp Kính AI · Phiếu tự học */
+.th-form{display:flex;flex-direction:column;gap:14px}
+.th-part h3{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:1.08rem}
+.th-no{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;background:var(--violet);color:#fff;font:800 .85rem var(--mono);flex:none}
+.th-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+@media (max-width:640px){.th-row{grid-template-columns:1fr}}
+.th-form label{display:flex;flex-direction:column;gap:6px;font-size:.92rem;font-weight:600;color:var(--text)}
+.th-q{margin-top:10px}
+.th-form input,.th-form textarea,.th-form select,.th-out textarea{font:500 .95rem var(--font);color:var(--text);background:var(--surface-solid);border:1.5px solid var(--line-strong);border-radius:10px;padding:9px 11px;min-width:0;width:100%;box-sizing:border-box}
+.th-form textarea,.th-out textarea{resize:vertical;line-height:1.5}
+.th-form input:focus,.th-form textarea:focus,.th-form select:focus{outline:2px solid var(--violet);outline-offset:1px}
+.th-evl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:640px){.th-evl{grid-template-columns:1fr}}
+.th-evl li{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:var(--surface-2);font-size:.9rem;color:var(--text-2)}
+.th-evl li svg{width:18px;height:18px;flex:none;color:var(--amber)}.th-evl li.ok svg{color:var(--mint)}
+.th-rub{display:flex;flex-direction:column;gap:10px}
+.th-rr{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.th-rr>div:first-child{display:flex;flex-direction:column;gap:2px}
+@media (max-width:640px){.th-rr{grid-template-columns:1fr}}
+.th-rate{display:flex;gap:6px;flex-wrap:wrap}
+.th-lv{flex-direction:row!important;gap:0!important}
+.th-lv input{position:absolute;opacity:0;width:1px;height:1px}
+.th-lv span{display:inline-block;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line-strong);font-size:.85rem;cursor:pointer;color:var(--text-2)}
+.th-lv input:checked+span{background:var(--violet);border-color:var(--violet);color:#fff}
+.th-lv input:focus-visible+span{outline:2px solid var(--violet);outline-offset:2px}
+.th-msg{margin:0;display:flex;gap:8px;align-items:flex-start}.th-msg svg{width:18px;height:18px;flex:none}
+.th-msg.bad{color:var(--coral)}
+.th-out{margin-top:16px;border:2px solid var(--mint)}
+.th-out h3{display:flex;align-items:center;gap:8px;margin:0 0 6px}
+.th-out textarea{font:600 .78rem var(--mono);word-break:break-all}
+#thPrintRoot{display:none}
+@media print{body.th-printing>*:not(#thPrintRoot){display:none!important}body.th-printing #thPrintRoot{display:block}#thPrintRoot pre{white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font:12px/1.5 "Be Vietnam Pro",sans-serif;color:#000;margin:0}html,body.th-printing{background:#fff!important;background-image:none!important;transition:none!important}body.th-printing::before,body.th-printing::after{display:none!important}}

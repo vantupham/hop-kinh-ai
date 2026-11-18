@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Sổ theo dõi tự học Hộp Kính AI: giáo viên nhận Phiếu tự học của học sinh từ mọi kênh, kiểm tra minh chứng, đánh giá theo 4 mức và xuất kết quả.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<title>Sổ theo dõi tự học | Hộp Kính AI</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("hka-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/tu-hoc.css">
+<link rel="stylesheet" href="so-theo-doi.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="logo" href="../index.html">Hộp Kính AI</a><span class="crumbs">GIÁO VIÊN / SỔ THEO DÕI TỰ HỌC</span><span class="spacer"></span><button class="theme-tg" data-theme-toggle></button></div></header>
+<main class="wrap st-main">
+  <div class="sec-head" style="margin-top:28px"><div class="kicker"><span class="kn">GV</span>Sổ theo dõi tự học<span class="kl"></span></div>
+    <h1 style="font-size:clamp(1.8rem,4vw,2.6rem)">Nhận, kiểm tra và đánh giá Phiếu tự học</h1>
+    <p class="lead">Học sinh nộp phiếu qua bất kỳ kênh nào: Zalo, Google Classroom, email, LMS của trường, Google Biểu mẫu hay tệp in. Thầy cô dán hoặc tải vào đây, trang tự nhận ra mọi <b>mã phiếu</b>, kiểm tra minh chứng, gợi ý mức đánh giá và xuất bảng tổng hợp. Mọi dữ liệu chỉ lưu trên trình duyệt của máy này.</p></div>
+
+  <section class="card st-box" aria-labelledby="h-nhan">
+    <h2 id="h-nhan" class="h-ic"><span class="ico-box sm"><i data-i="upload"></i></span>1. Nhận phiếu</h2>
+    <div class="st-in">
+      <label class="st-lab">Dán tin nhắn, mã phiếu hoặc nội dung tệp (dán nhiều phiếu cùng lúc được)<textarea id="paste" rows="5" placeholder="Ví dụ: sao chép cả đoạn tin nhắn trong nhóm Zalo lớp, hoặc cột Mã phiếu trong Google Trang tính rồi dán vào đây."></textarea></label>
+      <div class="btn-row"><button class="btn accent" id="btnAdd" type="button"><i data-i="checkCircle"></i>Thêm các phiếu đã dán</button>
+        <label class="btn" for="files"><i data-i="layers"></i>Chọn tệp (.txt, .csv, sao lưu .json)</label><input id="files" type="file" multiple accept=".txt,.csv,.json,.tsv,text/plain" class="sr-only"></div>
+      <p id="addMsg" class="th-msg" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="card st-box" aria-labelledby="h-bang">
+    <h2 id="h-bang" class="h-ic"><span class="ico-box sm mint"><i data-i="chart"></i></span>2. Bảng theo dõi</h2>
+    <div class="st-filter">
+      <label>Lớp<select id="fLop"></select></label>
+      <label>Nhánh<select id="fNhanh"><option value="">Cả hai nhánh</option><option value="THCS">THCS (Dự án 1–20)</option><option value="Nâng cao">Nâng cao (Dự án 21–40)</option></select></label>
+      <label>Hiện<select id="fState"><option value="">Mọi phiếu</option><option value="new">Chưa đánh giá</option><option value="warn">Có cảnh báo</option><option value="done">Đã đánh giá</option></select></label>
+      <label>Tìm học sinh<input id="fName" placeholder="Gõ tên"></label>
+    </div>
+    <div class="st-stats" id="stats"></div>
+    <div class="st-grid-wrap"><table class="st-grid" id="grid"></table></div>
+    <p class="small muted" style="margin:8px 0 0">Mỗi ô là một phiếu. Chữ trong ô là mức chung (T: Tốt, K: Khá, Đ: Đạt, C: Chưa đạt). Ô có chấm tròn là chưa đánh giá, viền cam là có cảnh báo. Bấm vào ô để xem và đánh giá.</p>
+  </section>
+
+  <section class="card st-box" id="detail" hidden aria-live="polite"></section>
+
+  <section class="card st-box" aria-labelledby="h-xuat">
+    <h2 id="h-xuat" class="h-ic"><span class="ico-box sm amber"><i data-i="award"></i></span>3. Xuất kết quả và sao lưu</h2>
+    <div class="btn-row"><button class="btn accent" id="btnCsv" type="button"><i data-i="chart"></i>Xuất bảng kết quả (Excel/CSV)</button><button class="btn" id="btnBak" type="button"><i data-i="shield"></i>Sao lưu sổ (.json)</button><button class="btn ghost" id="btnClear" type="button"><i data-i="alert"></i>Xóa toàn bộ sổ trên máy này</button></div>
+    <p class="small muted" style="margin:10px 0 0">Sổ lưu trong trình duyệt của máy này. Hãy <b>sao lưu</b> sau mỗi buổi chấm; muốn chấm tiếp trên máy khác, chọn tệp sao lưu ở mục 1. Bảng kết quả mở được bằng Excel hoặc Google Trang tính.</p>
+    <p id="clearMsg" class="th-msg" aria-live="polite"></p>
+  </section>
+
+  <section class="card st-box st-help" aria-labelledby="h-hd">
+    <h2 id="h-hd" class="h-ic"><span class="ico-box sm"><i data-i="book"></i></span>Hướng dẫn</h2>
+    <details open><summary>Học sinh nộp phiếu thế nào?</summary>
+      <ol><li>Học xong dự án, học sinh kéo xuống mục <b>Phiếu tự học</b> ở cuối trang dự án, trả lời và bấm <b>Hoàn tất và tạo mã phiếu</b>.</li>
+        <li>Học sinh chọn một cách nộp tùy kênh lớp đang dùng: <b>Sao chép mã</b> rồi dán vào Zalo, Messenger, bình luận Google Classroom, email, diễn đàn LMS; <b>Chia sẻ</b> (trên điện thoại mở thẳng ứng dụng nhắn tin); <b>Tải tệp phiếu</b> (.txt) để đính kèm; <b>In hoặc lưu PDF</b> để nộp giấy; hoặc <b>Nộp qua Google Biểu mẫu</b> nếu thầy cô đã cài đặt.</li>
+        <li>Thầy cô sao chép cả đoạn tin nhắn (hoặc tải tệp) rồi dán vào mục 1. Trang tự lọc ra các mã phiếu, bỏ phần chữ thừa. Phiếu in giấy: học sinh ghi kèm mã, hoặc thầy cô chấm trực tiếp theo cùng thang đánh giá.</li></ol></details>
+    <details><summary>Cài đặt nút "Nộp qua Google Biểu mẫu" (không bắt buộc, khoảng 10 phút)</summary>
+      <ol><li>Tạo Google Biểu mẫu với 4 câu hỏi: <b>Họ và tên</b> (trả lời ngắn), <b>Lớp</b> (trả lời ngắn), <b>Dự án</b> (trả lời ngắn), <b>Mã phiếu</b> (đoạn văn).</li>
+        <li>Bấm dấu ba chấm, chọn <b>Nhận đường liên kết điền sẵn</b>, gõ thử chữ bất kỳ vào cả 4 ô, bấm <b>Nhận đường liên kết</b> và sao chép.</li>
+        <li>Trong liên kết có 4 đoạn dạng <code>entry.123456789=...</code>. Mở tệp <code>assets/cau-hinh.js</code> trong repo, điền địa chỉ biểu mẫu (phần trước dấu <code>?</code>) và 4 mã <code>entry.…</code> theo đúng thứ tự, rồi đưa lên GitHub.</li>
+        <li>Câu trả lời về Google Trang tính của thầy cô. Muốn chấm: tải trang tính về dạng .csv (hoặc sao chép cột Mã phiếu) rồi đưa vào mục 1.</li></ol></details>
+    <details><summary>Thang đánh giá và cảnh báo</summary><div id="rubricHelp"></div>
+      <p>Trang <b>gợi ý</b> mức Hoàn thành nhiệm vụ từ minh chứng và gợi ý mức chung từ 4 tiêu chí; thầy cô luôn có thể sửa. Cảnh báo chỉ để thầy cô chú ý, không tự trừ điểm: <b>mã không khớp</b> (phiếu có thể đã bị sửa tay), <b>thời gian học quá ngắn</b>, <b>làm ít nhiệm vụ</b>, <b>câu giải thích giống hệt phiếu bạn khác</b>. Mã kiểm tra ngăn được sửa vội, không ngăn được người cố tình; nên hỏi lại ngẫu nhiên vài em trên lớp.</p></details>
+    <details><summary>Quyền riêng tư</summary><p>Phiếu chỉ có họ tên, lớp và câu trả lời. Website không có máy chủ lưu dữ liệu: phiếu đi thẳng từ học sinh đến kênh lớp, và sổ này chỉ nằm trong trình duyệt của thầy cô. Khi dùng máy tính chung, hãy sao lưu rồi bấm <b>Xóa toàn bộ sổ trên máy này</b>.</p></details>
+  </section>
+</main>
+<footer class="site"><div class="wrap"><i data-i="shield"></i>Hộp Kính AI · Sổ theo dõi tự học · Dữ liệu chỉ lưu trên máy này.</div></footer>
+<script src="../assets/ui.js"></script>
+<script src="../assets/tu-hoc.js"></script>
+<script src="goi-y.js"></script>
+<script src="so-theo-doi.js"></script>
+</body>
+</html>
